@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domains/state/theme_switcher.dart';
+import 'package:shop_products/ui/home/view_model_home_page.dart';
 
 class UserTab extends StatelessWidget {
-  const UserTab({Key? key}) : super(key: key);
+  UserTab({Key? key}) : super(key: key);
+  final model = ViewModelHomePage();
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +12,16 @@ class UserTab extends StatelessWidget {
       tooltip: 'Пользователь',
       icon: const Icon(Icons.person),
       itemBuilder: (BuildContext context) {
-        return const [
-          PopupMenuItem(child: ListTile(title: Text('Профиль'))),
-          PopupMenuItem(child: ListTile(title: Text('Избранные'))),
-          PopupMenuItem(child: _ThemeSwitcherWidget()),
+        return [
           PopupMenuItem(
+            child: ListTile(
+              onTap: () => model.enterProfilePage(context),
+              title: const Text('Профиль'),
+            ),
+          ),
+          const PopupMenuItem(child: ListTile(title: Text('Избранные'))),
+          const PopupMenuItem(child: _ThemeSwitcherWidget()),
+          const PopupMenuItem(
             child: ListTile(title: Text('Выход')),
           ),
         ];

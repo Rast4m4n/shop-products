@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_products/ui/home/catalogView/catalog_view.dart';
 import 'package:shop_products/ui/home/mainShopView/main_shop_view.dart';
 import 'package:shop_products/ui/home/shoppingCart/shopping_cart_view.dart';
-import 'package:shop_products/ui/home/userTab/user_tab.dart';
+import 'package:shop_products/ui/userTab/user_tab.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return PageWrapper(
       appBar: AppBar(
         title: const Text('Магия вкуса'),
-        actions: const [UserTab()],
+        actions: [UserTab()],
       ),
       body: IndexedStack(
         index: _selectedIndex,
