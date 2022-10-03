@@ -85,6 +85,8 @@ flutter:
         - asset: fonts/DaysOne-Regular.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Black.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

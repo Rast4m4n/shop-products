@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/home/home_page.dart';
-import 'package:shop_products/ui/userTab/pages/profile_page.dart';
+import 'package:shop_products/ui/home/userTab/pages/profile_page.dart';
 
 abstract class AppRoute {
   static const main = '/';

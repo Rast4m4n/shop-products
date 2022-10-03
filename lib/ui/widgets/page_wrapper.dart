@@ -3,12 +3,17 @@ import 'package:shop_products/theme/app_theme.dart';
 import 'package:shop_products/ui/home/view_model_home_page.dart';
 
 class PageWrapper extends StatelessWidget {
-  const PageWrapper(
-      {Key? key, required this.body, this.bottomNavigationBar, this.appBar})
-      : super(key: key);
+  const PageWrapper({
+    Key? key,
+    required this.body,
+    this.bottomNavigationBar,
+    this.appBar,
+  }) : super(key: key);
+
   final Widget body;
   final PreferredSizeWidget? appBar;
   final BottomNavigationBar? bottomNavigationBar;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -19,7 +24,6 @@ class PageWrapper extends StatelessWidget {
             appBar: appBar,
             body: body,
             bottomNavigationBar: bottomNavigationBar,
-            drawer: const Drawer(),
           );
         } else {
           return Scaffold(
@@ -58,39 +62,42 @@ class PageHeaderWidget extends StatelessWidget {
         children: [
           const SizedBox(width: 20),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Expanded(
-                  child: Text(
-                    'магия',
-                    style: TextStyle(
-                      color: AppColors.appBarTitle,
-                      fontFamily: 'DaysOne',
-                      fontSize: 32,
-                      height: 1.6,
+            child: InkWell(
+              onTap: () => model.returnTomainPage(context),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Expanded(
+                    child: Text(
+                      'магия',
+                      style: TextStyle(
+                        color: AppColors.appBarTitle,
+                        fontFamily: 'DaysOne',
+                        fontSize: 32,
+                        height: 1.6,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(
-                    'вкуса',
-                    style: TextStyle(
-                      color: AppColors.appBarTitle,
-                      fontFamily: 'DaysOne',
-                      fontSize: 32,
-                      height: 0.8,
+                  Expanded(
+                    child: Text(
+                      'вкуса',
+                      style: TextStyle(
+                        color: AppColors.appBarTitle,
+                        fontFamily: 'DaysOne',
+                        fontSize: 32,
+                        height: 0.8,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(width: 20),
           PopupMenuButton(
               tooltip: '',
-              child: const DecoratedBox(
-                decoration: BoxDecoration(
+              child: DecoratedBox(
+                decoration: const BoxDecoration(
                   color: AppColors.appBarTitle,
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
@@ -98,10 +105,10 @@ class PageHeaderWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 4),
                   child: Text(
                     'каталог',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -114,14 +121,20 @@ class PageHeaderWidget extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Санкт-Петербург',
-                style: TextStyle(color: Colors.white),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.white),
               ),
               Text(
                 'ул. Адмирала Ноунейма, 13',
-                style: TextStyle(color: Colors.white, fontSize: 12),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.white),
               ),
             ],
           ),
@@ -131,13 +144,16 @@ class PageHeaderWidget extends StatelessWidget {
               onPressed: () {},
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.shopping_bag, color: AppColors.appBarTitle),
-                  SizedBox(width: 8),
+                children: [
+                  const Icon(Icons.shopping_bag, color: AppColors.appBarTitle),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'Корзина',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                   ),
                 ],
@@ -150,13 +166,17 @@ class PageHeaderWidget extends StatelessWidget {
               onPressed: () {},
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.favorite_outline, color: AppColors.appBarTitle),
-                  SizedBox(width: 8),
+                children: [
+                  const Icon(Icons.favorite_outline,
+                      color: AppColors.appBarTitle),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'Избранные',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                   ),
                 ],
@@ -169,13 +189,17 @@ class PageHeaderWidget extends StatelessWidget {
               onPressed: () => model.enterProfilePage(context),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.person_outline, color: AppColors.appBarTitle),
-                  SizedBox(width: 8),
+                children: [
+                  const Icon(Icons.person_outline,
+                      color: AppColors.appBarTitle),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'Профиль',
-                      style: TextStyle(color: Colors.white),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white),
                     ),
                   ),
                 ],

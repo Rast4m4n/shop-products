@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop_products/ui/home/catalogView/catalog_view.dart';
 import 'package:shop_products/ui/home/mainShopView/main_shop_view.dart';
 import 'package:shop_products/ui/home/shoppingCart/shopping_cart_view.dart';
-import 'package:shop_products/ui/userTab/user_tab.dart';
+import 'package:shop_products/ui/home/userTab/user_tab.dart';
+import 'package:shop_products/ui/home/view_model_home_page.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final model = ViewModelHomePage();
   int _selectedIndex = 0;
   void _selectedItemBar(int index) {
     if (_selectedIndex == index) return;
@@ -24,7 +26,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return PageWrapper(
       appBar: AppBar(
-        title: const Text('Магия вкуса'),
+        title: InkWell(
+          onTap: () => model.returnTomainPage(context),
+          child: const Text('Магия вкуса'),
+        ),
         actions: [UserTab()],
       ),
       body: IndexedStack(
