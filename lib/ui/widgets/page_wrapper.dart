@@ -30,7 +30,7 @@ class PageWrapper extends StatelessWidget {
             body: Column(
               children: [
                 PageHeaderWidget(),
-                Expanded(child: body),
+                body,
               ],
             ),
           );
@@ -44,14 +44,6 @@ class PageWrapper extends StatelessWidget {
 class PageHeaderWidget extends StatelessWidget {
   PageHeaderWidget({Key? key}) : super(key: key);
 
-  final List<PopupMenuEntry<dynamic>> categoryProducts = const [
-    PopupMenuItem(child: Text('Молочные изделия')),
-    PopupMenuItem(child: Text('Овощи и фрукты')),
-    PopupMenuItem(child: Text('Мясо и рыба')),
-    PopupMenuItem(child: Text('Чай и кофе')),
-    PopupMenuItem(child: Text('Напитки')),
-    PopupMenuItem(child: Text('Орехи и снеки')),
-  ];
   final model = ViewModelHomePage();
   @override
   Widget build(BuildContext context) {
@@ -62,61 +54,15 @@ class PageHeaderWidget extends StatelessWidget {
         children: [
           const SizedBox(width: 20),
           Expanded(
-            child: InkWell(
-              onTap: () => model.returnTomainPage(context),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Expanded(
-                    child: Text(
-                      'магия',
-                      style: TextStyle(
-                        color: AppColors.appBarTitle,
-                        fontFamily: 'DaysOne',
-                        fontSize: 32,
-                        height: 1.6,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      'вкуса',
-                      style: TextStyle(
-                        color: AppColors.appBarTitle,
-                        fontFamily: 'DaysOne',
-                        fontSize: 32,
-                        height: 0.8,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: _LogotypeShopWidget(model: model),
           ),
           const SizedBox(width: 20),
-          PopupMenuButton(
-              tooltip: '',
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  color: AppColors.appBarTitle,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 4),
-                  child: Text(
-                    'каталог',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              itemBuilder: (BuildContext context) {
-                return categoryProducts;
-              }),
+          const _DropDownListWidget(),
           const SizedBox(width: 43),
-          const Expanded(flex: 2, child: SearchField()),
+          const Expanded(
+            flex: 2,
+            child: _SearchField(),
+          ),
           const SizedBox(width: 64),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -124,85 +70,74 @@ class PageHeaderWidget extends StatelessWidget {
             children: [
               Text(
                 'Санкт-Петербург',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
               ),
               Text(
                 'ул. Адмирала Ноунейма, 13',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.white),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white,
+                    ),
               ),
             ],
           ),
           const SizedBox(width: 64),
+          const _IconTextButtonWidget(
+            textButton: "корзина",
+            iconButton: Icons.shopping_bag,
+          ),
+          const SizedBox(width: 34),
+          const _IconTextButtonWidget(
+            textButton: "избранные",
+            iconButton: Icons.favorite_outline,
+          ),
+          const SizedBox(width: 34),
+          const _IconTextButtonWidget(
+            textButton: "профиль",
+            iconButton: Icons.person_outline,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LogotypeShopWidget extends StatelessWidget {
+  const _LogotypeShopWidget({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
+
+  final ViewModelHomePage model;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => model.returnTomainPage(context),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
           Expanded(
-            child: TextButton(
-              onPressed: () {},
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.shopping_bag, color: AppColors.appBarTitle),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Корзина',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ],
+            child: Text(
+              'магия',
+              style: TextStyle(
+                color: AppColors.appBarTitle,
+                fontFamily: 'DaysOne',
+                fontSize: 32,
+                height: 1.6,
               ),
             ),
           ),
-          const SizedBox(width: 34),
           Expanded(
-            child: TextButton(
-              onPressed: () {},
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.favorite_outline,
-                      color: AppColors.appBarTitle),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Избранные',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 34),
-          Expanded(
-            child: TextButton(
-              onPressed: () => model.enterProfilePage(context),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.person_outline,
-                      color: AppColors.appBarTitle),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Профиль',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ],
+            child: Text(
+              'вкуса',
+              style: TextStyle(
+                color: AppColors.appBarTitle,
+                fontFamily: 'DaysOne',
+                fontSize: 32,
+                height: 0.8,
               ),
             ),
           ),
@@ -212,29 +147,100 @@ class PageHeaderWidget extends StatelessWidget {
   }
 }
 
-class SearchField extends StatelessWidget {
-  const SearchField({
-    Key? key,
-  }) : super(key: key);
+class _DropDownListWidget extends StatelessWidget {
+  const _DropDownListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    return PopupMenuButton(
+      tooltip: '',
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: AppColors.appBarTitle,
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+          child: Text(
+            'каталог',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontFamily: AppFonts.primaryFontBold,
+                ),
+          ),
+        ),
+      ),
+      itemBuilder: (BuildContext context) {
+        return const [
+          PopupMenuItem(child: Text('Молочные изделия')),
+          PopupMenuItem(child: Text('Овощи и фрукты')),
+          PopupMenuItem(child: Text('Мясо и рыба')),
+          PopupMenuItem(child: Text('Чай и кофе')),
+          PopupMenuItem(child: Text('Напитки')),
+          PopupMenuItem(child: Text('Орехи и снеки')),
+        ];
+      },
+    );
+  }
+}
+
+class _SearchField extends StatelessWidget {
+  const _SearchField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color(0xffDDE7FF),
+        fillColor: const Color.fromARGB(203, 221, 231, 255),
         isCollapsed: true,
-        contentPadding: EdgeInsets.all(14),
-        prefixIcon: Icon(Icons.search, size: 18, color: Colors.black),
-        enabledBorder: OutlineInputBorder(
+        contentPadding: const EdgeInsets.all(14),
+        prefixIcon: const Icon(Icons.search, size: 18, color: Colors.black),
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryColor),
-          borderRadius: BorderRadius.all(Radius.circular(6)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryColor),
         ),
         hintText: "Поиск",
-        hintStyle: TextStyle(color: Colors.black),
+        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: const Color.fromARGB(169, 0, 0, 0),
+              fontFamily: AppFonts.primaryFontBold,
+            ),
+      ),
+    );
+  }
+}
+
+class _IconTextButtonWidget extends StatelessWidget {
+  const _IconTextButtonWidget({
+    Key? key,
+    required this.textButton,
+    required this.iconButton,
+  }) : super(key: key);
+  final String textButton;
+  final IconData iconButton;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: TextButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(iconButton, color: AppColors.appBarTitle),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                textButton,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

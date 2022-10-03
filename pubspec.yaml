@@ -75,18 +75,23 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: RoundsBlack
-      fonts:
-        - asset: fonts/Rounds-black.otf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
     - family: DaysOne
       fonts:
-        - asset: fonts/DaysOne-Regular.ttf
+        - asset: assets/fonts/DaysOne-Regular.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  # Шрифт Roboto
     - family: Roboto
       fonts:
-        - asset: fonts/Roboto-Black.ttf
+        - asset: assets/fonts/roboto/Roboto-Black.ttf
+    - family: RobotoRegular
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+    - family: RobotoMedium
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+    - family: RobotoBold
+      fonts:
+        - asset: assets/fonts/roboto/Roboto-Bold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

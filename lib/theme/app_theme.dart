@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+abstract class AppFonts {
+  static const String _titleFont = "DaysOne";
+  static const String primaryFont = "RobotoRegular";
+  static const String primaryFontMedium = "RobotoMedium";
+  static const String primaryFontBold = "RobotoBold";
+}
+
 abstract class AppColors {
   static const Color primaryColor = Color(0xffBA68C8);
   static const Color appBarTitle = Color(0xffFFD600);
@@ -9,16 +16,18 @@ abstract class AppColors {
 class AppTheme {
   static final lightTheme = ThemeData.light().copyWith(
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontFamily: "Roboto"),
-      bodyMedium: TextStyle(fontFamily: "Roboto"),
-      bodySmall: TextStyle(fontFamily: "Roboto"),
-      headlineSmall: TextStyle(fontFamily: "Roboto"),
-      headlineMedium: TextStyle(fontFamily: "Roboto"),
-      headlineLarge: TextStyle(fontFamily: "Roboto"),
+      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodySmall: TextStyle(fontFamily: AppFonts.primaryFont),
+      headlineSmall: TextStyle(fontFamily: AppFonts.primaryFontBold),
+      headlineMedium: TextStyle(fontFamily: AppFonts.primaryFontBold),
+      headlineLarge: TextStyle(fontFamily: AppFonts.primaryFontBold),
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-          color: AppColors.appBarTitle, fontFamily: 'DaysOne', fontSize: 24),
+          color: AppColors.appBarTitle,
+          fontFamily: AppFonts._titleFont,
+          fontSize: 24),
       color: AppColors.primaryColor,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -28,16 +37,18 @@ class AppTheme {
   );
   static final darkTheme = ThemeData.dark().copyWith(
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontFamily: "Roboto"),
-      bodyMedium: TextStyle(fontFamily: "Roboto"),
-      bodySmall: TextStyle(fontFamily: "Roboto"),
-      headlineSmall: TextStyle(fontFamily: "Roboto"),
-      headlineMedium: TextStyle(fontFamily: "Roboto"),
-      headlineLarge: TextStyle(fontFamily: "Roboto"),
+      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodySmall: TextStyle(fontFamily: AppFonts.primaryFont),
+      headlineSmall: TextStyle(fontFamily: AppFonts.primaryFont),
+      headlineMedium: TextStyle(fontFamily: AppFonts.primaryFont),
+      headlineLarge: TextStyle(fontFamily: AppFonts.primaryFont),
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-          color: AppColors.appBarTitle, fontFamily: 'DaysOne', fontSize: 24),
+          color: AppColors.appBarTitle,
+          fontFamily: AppFonts._titleFont,
+          fontSize: 24),
       color: AppColors.primaryColor,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
