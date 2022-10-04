@@ -12,41 +12,31 @@ class UserTab extends StatefulWidget {
 class _UserTabState extends State<UserTab> {
   final model = ViewModelHomePage();
 
-  void update() => setState(() {});
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      key: UniqueKey(),
       tooltip: 'Пользователь',
       icon: const Icon(Icons.person),
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem(
-            child: ListTile(
+            child: _PopupItemWidget(
+              name: 'Профиль',
               onTap: () => model.enterProfilePage(context),
-              title: Text(
-                'Профиль',
-                style: Theme.of(context).popupMenuTheme.textStyle,
-              ),
             ),
           ),
-          PopupMenuItem(
-            child: ListTile(
-              title: Text(
-                'Избранные',
-                style: Theme.of(context).popupMenuTheme.textStyle,
-              ),
+          const PopupMenuItem(
+            child: _PopupItemWidget(
+              name: 'Избранные',
             ),
           ),
-          PopupMenuItem(
-            child: _ThemeSwitcherWidget(callBack: update),
+          const PopupMenuItem(
+            child: _ThemeSwitcherWidget(),
           ),
-          PopupMenuItem(
-            child: ListTile(
-              title: Text(
-                'Выход',
-                style: Theme.of(context).popupMenuTheme.textStyle,
-              ),
+          const PopupMenuItem(
+            child: _PopupItemWidget(
+              name: 'Выход',
             ),
           ),
         ];
@@ -55,24 +45,49 @@ class _UserTabState extends State<UserTab> {
   }
 }
 
-class _ThemeSwitcherWidget extends StatelessWidget {
-  const _ThemeSwitcherWidget({Key? key, required this.callBack})
-      : super(key: key);
-  final VoidCallback callBack;
+class _PopupItemWidget extends StatelessWidget {
+  const _PopupItemWidget({
+    Key? key,
+    required this.name,
+    this.onTap,
+    this.trailing,
+  }) : super(key: key);
+
+  final String name;
+  final VoidCallback? onTap;
+  final Widget? trailing;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        'Тёмная тема',
-        style: Theme.of(context).popupMenuTheme.textStyle,
-      ),
+      onTap: onTap,
+      title: Text(name, style: Theme.of(context).popupMenuTheme.textStyle),
+      trailing: trailing,
+    );
+  }
+}
+
+class _ThemeSwitcherWidget extends StatefulWidget {
+  const _ThemeSwitcherWidget({Key? key}) : super(key: key);
+
+  @override
+  State<_ThemeSwitcherWidget> createState() => _ThemeSwitcherWidgetState();
+}
+
+class _ThemeSwitcherWidgetState extends State<_ThemeSwitcherWidget> {
+  void _onSwitched(bool value) {
+    ThemeSwitcher.instance.switchTheme();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _PopupItemWidget(
+      name: 'Тёмная тема',
       trailing: Switch(
         activeColor: Colors.deepPurple,
         value: ThemeSwitcher.isDark,
-        onChanged: (value) {
-          ThemeSwitcher.instance.switchTheme();
-          callBack;
-        },
+        onChanged: _onSwitched,
       ),
     );
   }
