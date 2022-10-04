@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/ui/home/catalogView/catalog_view.dart';
-import 'package:shop_products/ui/home/mainShopView/main_shop_view.dart';
-import 'package:shop_products/ui/home/shoppingCart/shopping_cart_view.dart';
-import 'package:shop_products/ui/home/userTab/user_tab.dart';
-import 'package:shop_products/ui/home/view_model_home_page.dart';
+import 'package:shop_products/ui/pages/home/catalogView/catalog_view.dart';
+import 'package:shop_products/ui/pages/home/mainShopView/main_shop_view.dart';
+import 'package:shop_products/ui/pages/home/shoppingCartView/shopping_cart_view.dart';
+import 'package:shop_products/ui/widgets/user_tab.dart';
+import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           onTap: () => model.returnTomainPage(context),
           child: const Text('Магия вкуса'),
         ),
-        actions: const [UserTab()],
+        actions: [UserTab()],
       ),
       body: IndexedStack(
         index: _selectedIndex,

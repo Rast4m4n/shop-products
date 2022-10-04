@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/theme/app_theme.dart';
+import 'package:shop_products/ui/theme/app_paddings.dart';
+import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -33,7 +34,7 @@ class HeaderProfile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: 51),
+          const SizedBox(width: AppPadding.bigP),
           ConstrainedBox(
             constraints: const BoxConstraints(
               maxHeight: 100,
@@ -41,7 +42,7 @@ class HeaderProfile extends StatelessWidget {
             ),
             child: const Placeholder(),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppPadding.mediumP),
           Expanded(
             child: Text(
               "Иван Петров",
@@ -52,9 +53,8 @@ class HeaderProfile extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(width: 400),
           const _BonusCardWidget(),
-          const SizedBox(width: 12),
+          const SizedBox(width: AppPadding.mediumP),
         ],
       ),
     );

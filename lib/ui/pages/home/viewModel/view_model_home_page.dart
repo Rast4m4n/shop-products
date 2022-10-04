@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/navigation/app_navigation.dart';
+import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ViewModelHomePage {
   void enterProfilePage(BuildContext context) {

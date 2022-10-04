@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/domains/state/theme_switcher.dart';
-import 'package:shop_products/ui/home/view_model_home_page.dart';
+import 'package:shop_products/domain/state/theme_switcher.dart';
+import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
 
-class UserTab extends StatefulWidget {
-  const UserTab({Key? key}) : super(key: key);
-
-  @override
-  State<UserTab> createState() => _UserTabState();
-}
-
-class _UserTabState extends State<UserTab> {
+class UserTab extends StatelessWidget {
+  UserTab({Key? key}) : super(key: key);
   final model = ViewModelHomePage();
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      key: UniqueKey(),
       tooltip: 'Пользователь',
       icon: const Icon(Icons.person),
       itemBuilder: (BuildContext context) {
@@ -25,6 +18,9 @@ class _UserTabState extends State<UserTab> {
               name: 'Профиль',
               onTap: () => model.enterProfilePage(context),
             ),
+          ),
+          const PopupMenuItem(
+            child: _PopupItemWidget(name: 'Корзина'),
           ),
           const PopupMenuItem(
             child: _PopupItemWidget(

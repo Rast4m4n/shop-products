@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/domains/state/theme_switcher.dart';
-import 'package:shop_products/navigation/app_navigation.dart';
+import 'package:shop_products/domain/state/theme_switcher.dart';
+import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key, required this.navigation}) : super(key: key);

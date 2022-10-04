@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/app.dart';
 import 'package:shop_products/data/repository/shared_pref_repository.dart';
-import 'package:shop_products/domains/state/theme_switcher.dart';
-import 'package:shop_products/navigation/app_navigation.dart';
+import 'package:shop_products/domain/state/theme_switcher.dart';
+import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
