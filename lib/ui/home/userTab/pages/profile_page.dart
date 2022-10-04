@@ -13,9 +13,9 @@ class ProfilePage extends StatelessWidget {
         children: const [
           HeaderProfile(),
           SizedBox(height: 20),
-          BodyBarProfile(),
+          _BodyBarProfile(),
           SizedBox(height: 26),
-          BodyProfileView(),
+          _BodyProfileView(),
         ],
       ),
     );
@@ -23,9 +23,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class HeaderProfile extends StatelessWidget {
-  const HeaderProfile({
-    Key? key,
-  }) : super(key: key);
+  const HeaderProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +53,7 @@ class HeaderProfile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 400),
-          const BonusCardWidget(),
+          const _BonusCardWidget(),
           const SizedBox(width: 12),
         ],
       ),
@@ -63,8 +61,8 @@ class HeaderProfile extends StatelessWidget {
   }
 }
 
-class BonusCardWidget extends StatelessWidget {
-  const BonusCardWidget({
+class _BonusCardWidget extends StatelessWidget {
+  const _BonusCardWidget({
     Key? key,
   }) : super(key: key);
 
@@ -127,78 +125,98 @@ class BonusCardWidget extends StatelessWidget {
   }
 }
 
-class BodyBarProfile extends StatelessWidget {
-  const BodyBarProfile({Key? key}) : super(key: key);
+class _BodyBarProfile extends StatelessWidget {
+  const _BodyBarProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        const SizedBox(width: 40),
-        Expanded(
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "Мои настройки",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                  ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "Список покупок",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                    color: const Color(0x75000000),
-                  ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "История покупок",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                    color: const Color(0x75000000),
-                  ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "Мои отзывы",
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                    color: const Color(0x75000000),
-                  ),
-            ),
-          ),
-        ),
-        const Spacer(flex: 2),
+      children: const [
+        SizedBox(width: 40),
+        _BodyBarProfileWidget(textBar: 'Мои настройки'),
+        _BodyBarProfileWidget(textBar: 'Список покупок'),
+        _BodyBarProfileWidget(textBar: 'История покупок'),
+        _BodyBarProfileWidget(textBar: 'Мои избранные'),
+        Spacer(flex: 2),
       ],
     );
   }
 }
 
-class BodyProfileView extends StatelessWidget {
-  const BodyProfileView({Key? key}) : super(key: key);
+class _BodyBarProfileWidget extends StatelessWidget {
+  const _BodyBarProfileWidget({Key? key, required this.textBar})
+      : super(key: key);
+
+  final String textBar;
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 200),
-      child: IndexedStack(
-        index: 0,
-        children: const [],
+    return Expanded(
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          textBar,
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontFamily: AppFonts.primaryFontMedium,
+                color: const Color(0xFF000000), //Color(0x75000000) no active
+              ),
+        ),
       ),
     );
+  }
+}
+
+class _BodyProfileView extends StatelessWidget {
+  const _BodyProfileView({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 500),
+      child: IndexedStack(
+        index: 0,
+        children: const [
+          _MySettingsProfileView(),
+          _ListBuyProfileView(),
+          _HistoryBuyProfileView(),
+          _MyFavoriteProfileView(),
+        ],
+      ),
+    );
+  }
+}
+
+class _MySettingsProfileView extends StatelessWidget {
+  const _MySettingsProfileView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class _ListBuyProfileView extends StatelessWidget {
+  const _ListBuyProfileView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class _HistoryBuyProfileView extends StatelessWidget {
+  const _HistoryBuyProfileView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class _MyFavoriteProfileView extends StatelessWidget {
+  const _MyFavoriteProfileView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           onTap: () => model.returnTomainPage(context),
           child: const Text('Магия вкуса'),
         ),
-        actions: [UserTab()],
+        actions: const [UserTab()],
       ),
       body: IndexedStack(
         index: _selectedIndex,

@@ -34,7 +34,11 @@ class AppTheme {
       selectedItemColor: AppColors.primaryColor,
       selectedIconTheme: IconThemeData(size: 18),
     ),
+    popupMenuTheme: const PopupMenuThemeData(
+      textStyle: TextStyle(color: Colors.black),
+    ),
   );
+  //-------------------Тёмная тема----------------------
   static final darkTheme = ThemeData.dark().copyWith(
     textTheme: const TextTheme(
       bodyLarge: TextStyle(fontFamily: AppFonts.primaryFont),
@@ -46,13 +50,17 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-          color: AppColors.appBarTitle,
-          fontFamily: AppFonts._titleFont,
-          fontSize: 24),
+        color: AppColors.appBarTitle,
+        fontFamily: AppFonts._titleFont,
+        fontSize: 24,
+      ),
       color: AppColors.primaryColor,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: AppColors.primaryColor,
+    ),
+    popupMenuTheme: const PopupMenuThemeData(
+      textStyle: TextStyle(color: Colors.white),
     ),
   );
 }

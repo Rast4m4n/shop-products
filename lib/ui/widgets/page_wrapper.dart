@@ -27,7 +27,7 @@ class PageWrapper extends StatelessWidget {
           );
         } else {
           return Scaffold(
-            body: Column(
+            body: ListView(
               children: [
                 PageHeaderWidget(),
                 body,
@@ -84,19 +84,22 @@ class PageHeaderWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(width: 64),
-          const _IconTextButtonWidget(
+          _IconTextButtonWidget(
             textButton: "корзина",
             iconButton: Icons.shopping_bag,
+            callBack: () {},
           ),
           const SizedBox(width: 34),
-          const _IconTextButtonWidget(
+          _IconTextButtonWidget(
             textButton: "избранные",
             iconButton: Icons.favorite_outline,
+            callBack: () {},
           ),
           const SizedBox(width: 34),
-          const _IconTextButtonWidget(
+          _IconTextButtonWidget(
             textButton: "профиль",
             iconButton: Icons.person_outline,
+            callBack: () => model.enterProfilePage(context),
           ),
         ],
       ),
@@ -217,14 +220,16 @@ class _IconTextButtonWidget extends StatelessWidget {
     Key? key,
     required this.textButton,
     required this.iconButton,
+    required this.callBack,
   }) : super(key: key);
+  final VoidCallback callBack;
   final String textButton;
   final IconData iconButton;
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
-        onPressed: () {},
+        onPressed: callBack,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

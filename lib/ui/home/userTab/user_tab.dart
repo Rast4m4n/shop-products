@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shop_products/domains/state/theme_switcher.dart';
 import 'package:shop_products/ui/home/view_model_home_page.dart';
 
-class UserTab extends StatelessWidget {
-  UserTab({Key? key}) : super(key: key);
+class UserTab extends StatefulWidget {
+  const UserTab({Key? key}) : super(key: key);
+
+  @override
+  State<UserTab> createState() => _UserTabState();
+}
+
+class _UserTabState extends State<UserTab> {
   final model = ViewModelHomePage();
+
+  void update() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +24,30 @@ class UserTab extends StatelessWidget {
           PopupMenuItem(
             child: ListTile(
               onTap: () => model.enterProfilePage(context),
-              title: const Text('Профиль'),
+              title: Text(
+                'Профиль',
+                style: Theme.of(context).popupMenuTheme.textStyle,
+              ),
             ),
           ),
-          const PopupMenuItem(child: ListTile(title: Text('Избранные'))),
-          const PopupMenuItem(child: _ThemeSwitcherWidget()),
-          const PopupMenuItem(
-            child: ListTile(title: Text('Выход')),
+          PopupMenuItem(
+            child: ListTile(
+              title: Text(
+                'Избранные',
+                style: Theme.of(context).popupMenuTheme.textStyle,
+              ),
+            ),
+          ),
+          PopupMenuItem(
+            child: _ThemeSwitcherWidget(callBack: update),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              title: Text(
+                'Выход',
+                style: Theme.of(context).popupMenuTheme.textStyle,
+              ),
+            ),
           ),
         ];
       },
@@ -30,24 +55,23 @@ class UserTab extends StatelessWidget {
   }
 }
 
-class _ThemeSwitcherWidget extends StatefulWidget {
-  const _ThemeSwitcherWidget({Key? key}) : super(key: key);
-
-  @override
-  State<_ThemeSwitcherWidget> createState() => __ThemeSwitcherWidgetState();
-}
-
-class __ThemeSwitcherWidgetState extends State<_ThemeSwitcherWidget> {
+class _ThemeSwitcherWidget extends StatelessWidget {
+  const _ThemeSwitcherWidget({Key? key, required this.callBack})
+      : super(key: key);
+  final VoidCallback callBack;
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Тёмная тема'),
+      title: Text(
+        'Тёмная тема',
+        style: Theme.of(context).popupMenuTheme.textStyle,
+      ),
       trailing: Switch(
         activeColor: Colors.deepPurple,
         value: ThemeSwitcher.isDark,
         onChanged: (value) {
           ThemeSwitcher.instance.switchTheme();
-          setState(() {});
+          callBack;
         },
       ),
     );
