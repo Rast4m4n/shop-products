@@ -16,7 +16,7 @@ class PageWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: ((context, constraints) {
-        final isMobile = constraints.maxWidth < 900;
+        final isMobile = constraints.maxWidth < 1040;
         if (isMobile) {
           return Scaffold(
             appBar: appBar,

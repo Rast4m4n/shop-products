@@ -1,6 +1,7 @@
 //Для веб/десктопа
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
+import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
 class PageHeaderWidget extends StatelessWidget {
@@ -14,57 +15,67 @@ class PageHeaderWidget extends StatelessWidget {
       color: AppColors.primaryColor,
       child: Row(
         children: [
-          const SizedBox(width: 20),
-          Expanded(
-            child: _LogotypeShopWidget(model: model),
-          ),
-          const SizedBox(width: 20),
+          const SizedBox(width: AppPadding.bigP),
+          _LogotypeShopWidget(model: model),
+          const SizedBox(width: AppPadding.bigP),
           const _DropDownListWidget(),
-          const SizedBox(width: 43),
+          const SizedBox(width: AppPadding.bigP),
           const Expanded(
-            flex: 2,
+            flex: 4,
             child: _SearchField(),
           ),
-          const SizedBox(width: 64),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Санкт-Петербург',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-              ),
-              Text(
-                'ул. Адмирала Ноунейма, 13',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 64),
+          const SizedBox(width: AppPadding.bigP),
+          const AddressWidget(),
+          const Spacer(),
           _IconTextButtonWidget(
             textButton: "корзина",
             iconButton: Icons.shopping_bag,
             callBack: () {},
           ),
-          const SizedBox(width: 34),
+          const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "избранные",
             iconButton: Icons.favorite_outline,
             callBack: () {},
           ),
-          const SizedBox(width: 34),
+          const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "профиль",
             iconButton: Icons.person_outline,
             callBack: () => model.enterProfilePage(context),
           ),
+          const SizedBox(width: AppPadding.bigP),
         ],
       ),
+    );
+  }
+}
+
+class AddressWidget extends StatelessWidget {
+  const AddressWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Санкт-Петербург',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+        ),
+        Text(
+          'ул. Адмирала Ноунейма, 13',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white,
+              ),
+        ),
+      ],
     );
   }
 }
@@ -79,34 +90,37 @@ class _LogotypeShopWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => model.returnTomainPage(context),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Expanded(
-            child: Text(
-              'магия',
-              style: TextStyle(
-                color: AppColors.appBarTitle,
-                fontFamily: 'DaysOne',
-                fontSize: 32,
-                height: 1.6,
+    return SizedBox(
+      width: 140,
+      child: InkWell(
+        onTap: () => model.returnTomainPage(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Expanded(
+              child: Text(
+                'магия',
+                style: TextStyle(
+                  color: AppColors.appBarTitle,
+                  fontFamily: 'DaysOne',
+                  fontSize: 32,
+                  height: 1.6,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              'вкуса',
-              style: TextStyle(
-                color: AppColors.appBarTitle,
-                fontFamily: 'DaysOne',
-                fontSize: 32,
-                height: 0.8,
+            Expanded(
+              child: Text(
+                'вкуса',
+                style: TextStyle(
+                  color: AppColors.appBarTitle,
+                  fontFamily: 'DaysOne',
+                  fontSize: 32,
+                  height: 0.8,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -130,6 +144,7 @@ class _DropDownListWidget extends StatelessWidget {
             'каталог',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontFamily: AppFonts.primaryFontBold,
+                  color: Colors.black,
                 ),
           ),
         ),
@@ -189,25 +204,21 @@ class _IconTextButtonWidget extends StatelessWidget {
   final IconData iconButton;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
-        onPressed: callBack,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(iconButton, color: AppColors.appBarTitle),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                textButton,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
+    return TextButton(
+      onPressed: callBack,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(iconButton, color: AppColors.appBarTitle),
+          const SizedBox(width: AppPadding.smallP),
+          Text(
+            textButton,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.white),
+          ),
+        ],
       ),
     );
   }
