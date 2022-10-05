@@ -25,7 +25,7 @@ class PageWrapper extends StatelessWidget {
           );
         } else {
           return Scaffold(
-            body: ListView(
+            body: Column(
               children: [
                 PageHeaderWidget(),
                 body,

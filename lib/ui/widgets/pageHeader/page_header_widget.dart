@@ -20,10 +20,7 @@ class PageHeaderWidget extends StatelessWidget {
           const SizedBox(width: AppPadding.bigP),
           const _DropDownListWidget(),
           const SizedBox(width: AppPadding.bigP),
-          const Expanded(
-            flex: 4,
-            child: _SearchField(),
-          ),
+          const Expanded(flex: 4, child: _SearchField()),
           const SizedBox(width: AppPadding.bigP),
           const AddressWidget(),
           const Spacer(),
@@ -44,7 +41,7 @@ class PageHeaderWidget extends StatelessWidget {
             iconButton: Icons.person_outline,
             callBack: () => model.enterProfilePage(context),
           ),
-          const SizedBox(width: AppPadding.bigP),
+          const SizedBox(width: AppPadding.bigP * 2),
         ],
       ),
     );
@@ -181,6 +178,7 @@ class _SearchField extends StatelessWidget {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryColor),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         hintText: "Поиск",
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(

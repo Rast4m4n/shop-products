@@ -12,19 +12,18 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(title: const Text('Профиль')),
       body: Column(
         children: const [
-          HeaderProfile(),
+          _BodyProfile(),
           SizedBox(height: 20),
-          _BodyBarProfile(),
+          _BodyMenuBar(),
           SizedBox(height: 26),
-          _BodyProfileView(),
         ],
       ),
     );
   }
 }
 
-class HeaderProfile extends StatelessWidget {
-  const HeaderProfile({Key? key}) : super(key: key);
+class _BodyProfile extends StatelessWidget {
+  const _BodyProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,191 +31,144 @@ class HeaderProfile extends StatelessWidget {
       height: 150,
       color: AppColors.subStrate,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(width: AppPadding.bigP),
+          const SizedBox(width: AppPadding.bigP * 2),
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 100,
-              maxWidth: 100,
-            ),
+            constraints: const BoxConstraints(maxHeight: 100, maxWidth: 100),
             child: const Placeholder(),
           ),
-          const SizedBox(width: AppPadding.mediumP),
-          Expanded(
-            child: Text(
-              "Иван Петров",
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 40,
-                    fontFamily: AppFonts.primaryFontMedium,
-                    color: Colors.black,
-                  ),
-            ),
+          const SizedBox(width: AppPadding.bigP),
+          Text(
+            "Иван Петров",
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 40,
+                  fontFamily: AppFonts.primaryFontMedium,
+                  color: Colors.black,
+                ),
           ),
-          const _BonusCardWidget(),
-          const SizedBox(width: AppPadding.mediumP),
+          const Spacer(),
+          const BonusCardWidget(),
+          const SizedBox(width: AppPadding.bigP),
         ],
       ),
     );
   }
 }
 
-class _BonusCardWidget extends StatelessWidget {
-  const _BonusCardWidget({
-    Key? key,
-  }) : super(key: key);
+class BonusCardWidget extends StatelessWidget {
+  const BonusCardWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 120,
-        width: 400,
-        decoration: const BoxDecoration(
-          color: AppColors.primaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 28, left: 45),
-              child: Text(
-                "бонусная карта",
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.white,
+    return Container(
+      width: 400,
+      height: 120,
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 35, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'бонусная карта',
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            color: Colors.white,
+                          ),
                     ),
+                    Text(
+                      '№22814881337',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                          ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "25678",
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontSize: 28,
-                          color: AppColors.appBarTitle,
-                        ),
+              Padding(
+                padding: const EdgeInsets.only(right: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      '25678',
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            color: AppColors.appBarTitle,
+                          ),
+                    ),
+                    Text(
+                      'баллов',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 30,
+            left: 10,
+            child: Text(
+              '10%',
+              style: Theme.of(context).textTheme.headline1?.copyWith(
+                    color: Colors.white.withOpacity(0.25),
                   ),
-                ],
-              ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "баллов",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _BodyBarProfile extends StatelessWidget {
-  const _BodyBarProfile({Key? key}) : super(key: key);
+class _BodyMenuBar extends StatelessWidget {
+  const _BodyMenuBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const [
-        SizedBox(width: 40),
-        _BodyBarProfileWidget(textBar: 'Мои настройки'),
-        _BodyBarProfileWidget(textBar: 'Список покупок'),
-        _BodyBarProfileWidget(textBar: 'История покупок'),
-        _BodyBarProfileWidget(textBar: 'Мои избранные'),
-        Spacer(flex: 2),
+      children: [
+        const SizedBox(width: AppPadding.bigP),
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              "Мои настрйоки",
+              style: Theme.of(context).textTheme.headline5,
+            )),
+        const SizedBox(width: AppPadding.bigP),
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              "Список покупок",
+              style: Theme.of(context).textTheme.headline5,
+            )),
+        const SizedBox(width: AppPadding.bigP),
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              "История покупок",
+              style: Theme.of(context).textTheme.headline5,
+            )),
+        const SizedBox(width: AppPadding.bigP),
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              "Мои отзывы",
+              style: Theme.of(context).textTheme.headline5,
+            )),
       ],
     );
-  }
-}
-
-class _BodyBarProfileWidget extends StatelessWidget {
-  const _BodyBarProfileWidget({Key? key, required this.textBar})
-      : super(key: key);
-
-  final String textBar;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          textBar,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontFamily: AppFonts.primaryFontMedium,
-                color: const Color(0xFF000000), //Color(0x75000000) no active
-              ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BodyProfileView extends StatelessWidget {
-  const _BodyProfileView({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 500),
-      child: IndexedStack(
-        index: 0,
-        children: const [
-          _MySettingsProfileView(),
-          _ListBuyProfileView(),
-          _HistoryBuyProfileView(),
-          _MyFavoriteProfileView(),
-        ],
-      ),
-    );
-  }
-}
-
-class _MySettingsProfileView extends StatelessWidget {
-  const _MySettingsProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class _ListBuyProfileView extends StatelessWidget {
-  const _ListBuyProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class _HistoryBuyProfileView extends StatelessWidget {
-  const _HistoryBuyProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class _MyFavoriteProfileView extends StatelessWidget {
-  const _MyFavoriteProfileView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
