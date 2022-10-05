@@ -11,10 +11,23 @@ class ProfilePage extends StatelessWidget {
     return PageWrapper(
       appBar: AppBar(title: const Text('Профиль')),
       body: Column(
-        children: const [
-          _BodyProfile(),
-          SizedBox(height: 20),
-          _BodyMenuBar(),
+        children: [
+          Stack(
+            children: [
+              Column(
+                children: [
+                  _BodyProfile(),
+                  SizedBox(height: 20),
+                  _BodyMenuBar(),
+                ],
+              ),
+              const Positioned(
+                right: AppPadding.mediumP,
+                bottom: AppPadding.mediumP,
+                child: BonusCardWidget(),
+              ),
+            ],
+          ),
           SizedBox(height: 26),
         ],
       ),
@@ -46,9 +59,6 @@ class _BodyProfile extends StatelessWidget {
                   color: Colors.black,
                 ),
           ),
-          const Spacer(),
-          const BonusCardWidget(),
-          const SizedBox(width: AppPadding.bigP),
         ],
       ),
     );
