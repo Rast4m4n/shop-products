@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppFonts {
   static const String _titleFont = "DaysOne";
-  static const String primaryFont = "RobotoMedium"; //regular
+  static const String primaryFontMedium = "RobotoMedium"; //regular
   static const String primaryFontRegular = "RobotoRegular"; //medium
   static const String primaryFontBold = "RobotoBold";
 }
@@ -16,9 +16,9 @@ abstract class AppColors {
 class AppTheme {
   static final lightTheme = ThemeData.light().copyWith(
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFont),
-      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFont),
-      bodySmall: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      bodySmall: TextStyle(fontFamily: AppFonts.primaryFontMedium),
       headlineSmall: TextStyle(fontFamily: AppFonts.primaryFontBold),
       headlineMedium: TextStyle(fontFamily: AppFonts.primaryFontBold),
       headlineLarge: TextStyle(fontFamily: AppFonts.primaryFontBold),
@@ -41,12 +41,12 @@ class AppTheme {
   //-------------------Тёмная тема----------------------
   static final darkTheme = ThemeData.dark().copyWith(
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFont),
-      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFont),
-      bodySmall: TextStyle(fontFamily: AppFonts.primaryFont),
-      headlineSmall: TextStyle(fontFamily: AppFonts.primaryFont),
-      headlineMedium: TextStyle(fontFamily: AppFonts.primaryFont),
-      headlineLarge: TextStyle(fontFamily: AppFonts.primaryFont),
+      bodyLarge: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      bodyMedium: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      bodySmall: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      headlineSmall: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      headlineMedium: TextStyle(fontFamily: AppFonts.primaryFontMedium),
+      headlineLarge: TextStyle(fontFamily: AppFonts.primaryFontMedium),
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(

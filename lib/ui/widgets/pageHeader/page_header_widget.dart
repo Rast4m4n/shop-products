@@ -213,7 +213,7 @@ class _IconTextButtonWidget extends StatelessWidget {
             textButton,
             style: Theme.of(context)
                 .textTheme
-                .bodyMedium
+                .bodyLarge
                 ?.copyWith(color: Colors.white),
           ),
         ],

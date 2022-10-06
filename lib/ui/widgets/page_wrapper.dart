@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:shop_products/ui/widgets/pageHeader/page_header_widget.dart';
 
 class PageWrapper extends StatelessWidget {
@@ -28,7 +29,7 @@ class PageWrapper extends StatelessWidget {
             body: Column(
               children: [
                 PageHeaderWidget(),
-                Expanded(child: ListView(children: [body])),
+                Expanded(child: SingleChildScrollView(child: body)),
               ],
             ),
           );

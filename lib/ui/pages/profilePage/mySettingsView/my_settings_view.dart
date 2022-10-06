@@ -23,69 +23,7 @@ class MySettingsView extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppPadding.bigP),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Text(
-                  'Уведомление ',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const SizedBox(height: AppPadding.smallP),
-                Row(
-                  children: const [
-                    _CustomCheckBox(text: 'sms'),
-                    _CustomCheckBox(text: 'эл.почта'),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(width: AppPadding.bigP * 3),
-            _CustomCheckBox(
-              text: 'О покупках',
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(fontFamily: AppFonts.primaryFont),
-            ),
-            const SizedBox(width: AppPadding.bigP * 2),
-            _CustomCheckBox(
-              text: 'Об акциях',
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(fontFamily: AppFonts.primaryFont),
-            ),
-            const SizedBox(width: AppPadding.bigP * 2),
-            _CustomCheckBox(
-              text: 'Сервисные',
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(fontFamily: AppFonts.primaryFont),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _CustomCheckBox extends StatelessWidget {
-  const _CustomCheckBox({
-    Key? key,
-    required this.text,
-    this.textStyle = const TextStyle(),
-  }) : super(key: key);
-  final String text;
-  final TextStyle? textStyle;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Checkbox(value: false, onChanged: null),
-        Text(text, style: textStyle),
+        const _PushNotifier(),
       ],
     );
   }
@@ -101,13 +39,7 @@ class _MainUserInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Основные',
-          style: Theme.of(context)
-              .textTheme
-              .headline5
-              ?.copyWith(fontWeight: FontWeight.w900),
-        ),
+        Text('Основные', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: AppPadding.smallP),
         const _UserInfoTextFieldWidget(labelText: 'Имя'),
         const SizedBox(height: AppPadding.mediumP),
@@ -136,6 +68,10 @@ class _UserInfoTextFieldWidget extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 300),
       child: TextField(
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.subStrate,
@@ -163,6 +99,86 @@ class _UserInfoTextFieldWidget extends StatelessWidget {
   }
 }
 
+class _PushNotifier extends StatelessWidget {
+  const _PushNotifier({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Text(
+              'Уведомление ',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            const SizedBox(height: AppPadding.smallP),
+            Padding(
+              padding: const EdgeInsets.only(right: AppPadding.mediumP * 2),
+              child: Row(
+                children: const [
+                  _CustomCheckBox(text: 'sms'),
+                  _CustomCheckBox(text: 'эл.почта'),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(width: AppPadding.bigP * 3),
+        const _CustomCheckBox(
+          text: 'О покупках',
+          isBig: true,
+        ),
+        const SizedBox(width: AppPadding.bigP * 2),
+        const _CustomCheckBox(
+          text: 'Об акциях',
+          isBig: true,
+        ),
+        const SizedBox(width: AppPadding.bigP * 2),
+        const _CustomCheckBox(
+          text: 'Сервисные',
+          isBig: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _CustomCheckBox extends StatelessWidget {
+  const _CustomCheckBox({
+    Key? key,
+    required this.text,
+    this.isBig = false,
+  }) : super(key: key);
+  final String text;
+  final bool isBig;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Checkbox(value: false, onChanged: null),
+        Text(
+          text,
+          style: isBig
+              ? Theme.of(context).textTheme.headline6?.copyWith(
+                    fontFamily: AppFonts.primaryFontMedium,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black.withOpacity(0.7),
+                  )
+              : Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontFamily: AppFonts.primaryFontMedium,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black.withOpacity(0.7),
+                  ),
+        ),
+      ],
+    );
+  }
+}
+
 class _PaymentMethodInfo extends StatelessWidget {
   const _PaymentMethodInfo({Key? key}) : super(key: key);
 
@@ -173,9 +189,7 @@ class _PaymentMethodInfo extends StatelessWidget {
       children: [
         Text(
           'Способы оплаты',
-          style: Theme.of(context).textTheme.headline5?.copyWith(
-                fontWeight: FontWeight.w900,
-              ),
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: AppPadding.bigP),
         Text(
