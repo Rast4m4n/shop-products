@@ -1,6 +1,7 @@
 //Для веб/десктопа
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
+import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
@@ -26,19 +27,19 @@ class PageHeaderWidget extends StatelessWidget {
           const Spacer(),
           _IconTextButtonWidget(
             textButton: "Корзина",
-            iconButton: Icons.shopping_bag,
+            iconButton: AppIcons.shoppingbag,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Избранные",
-            iconButton: Icons.favorite_outline,
+            iconButton: AppIcons.favorite,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Профиль",
-            iconButton: Icons.person_outline,
+            iconButton: AppIcons.profile,
             callBack: () => model.enterProfilePage(context),
           ),
           const SizedBox(width: AppPadding.bigP * 2),

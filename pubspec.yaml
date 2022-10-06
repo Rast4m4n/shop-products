@@ -93,10 +93,8 @@ flutter:
       fonts:
         - asset: assets/fonts/roboto/Roboto-Bold.ttf
   # Иконки
-    - family: FlutterIcons
+    - family: MagicOfTasteIcons
       fonts:
         - asset: assets/icons/Icons.ttf
 
 
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
@@ -199,9 +200,11 @@ class _PaymentMethodInfo extends StatelessWidget {
               ),
         ),
         const SizedBox(height: AppPadding.mediumP - 2),
-        const _BankTypeTextWidget(numberCard: '7777 7777 7777 7777'),
+        const _BankTypeTextWidget(
+            icon: AppIcons.sber, numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
-        const _BankTypeTextWidget(numberCard: '7777 7777 7777 7777'),
+        const _BankTypeTextWidget(
+            icon: AppIcons.tinkoff, numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
         InkWell(
           onTap: () {},
@@ -232,16 +235,23 @@ class _PaymentMethodInfo extends StatelessWidget {
 }
 
 class _BankTypeTextWidget extends StatelessWidget {
-  const _BankTypeTextWidget({Key? key, required this.numberCard})
-      : super(key: key);
+  const _BankTypeTextWidget({
+    Key? key,
+    required this.numberCard,
+    required this.icon,
+  }) : super(key: key);
 
   final String numberCard;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(Icons.card_giftcard),
+        Icon(
+          icon,
+          color: Colors.green,
+        ),
         const SizedBox(width: AppPadding.smallP - 4),
         Text(
           'Карта $numberCard',

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/pages/profilePage/historyBuyView/history_buy_view.dart';
+import 'package:shop_products/ui/pages/profilePage/listBuyView/list_buy_view.dart';
+import 'package:shop_products/ui/pages/profilePage/myReviewView/my_review_view.dart';
 import 'package:shop_products/ui/pages/profilePage/mySettingsView/my_settings_view.dart';
+import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
@@ -219,11 +223,21 @@ class _BodyInfoSection extends StatelessWidget {
           index: 0,
           children: const [
             MySettingsView(),
+            ListBuyView(),
+            HistoryBuyView(),
+            MyReviewView(),
           ],
         ),
       ),
     );
   }
+}
+
+enum _BodyView {
+  mySettingsView,
+  listBuyView,
+  historyBuyView,
+  myReviewView,
 }
 
 class _FooterInfo extends StatelessWidget {
@@ -285,31 +299,46 @@ class _FooterOtherInfoWidget extends StatelessWidget {
             InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(18),
-              child: const Icon(Icons.apple),
+              child: const Icon(
+                AppIcons.dzen,
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
             InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(18),
-              child: const Icon(Icons.apple),
+              child: const Icon(
+                AppIcons.vk,
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
             InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(18),
-              child: const Icon(Icons.apple),
+              child: const Icon(
+                AppIcons.youtube,
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
             InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(18),
-              child: const Icon(Icons.apple),
+              child: const Icon(
+                AppIcons.viber,
+                color: AppColors.primaryColor,
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
             InkWell(
               onTap: () {},
               borderRadius: BorderRadius.circular(18),
-              child: const Icon(Icons.apple),
+              child: const Icon(
+                AppIcons.whatsapp,
+                color: AppColors.primaryColor,
+              ),
             ),
           ],
         ),
