@@ -25,19 +25,19 @@ class PageHeaderWidget extends StatelessWidget {
           const AddressWidget(),
           const Spacer(),
           _IconTextButtonWidget(
-            textButton: "корзина",
+            textButton: "Корзина",
             iconButton: Icons.shopping_bag,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
-            textButton: "избранные",
+            textButton: "Избранные",
             iconButton: Icons.favorite_outline,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
-            textButton: "профиль",
+            textButton: "Профиль",
             iconButton: Icons.person_outline,
             callBack: () => model.enterProfilePage(context),
           ),
@@ -138,7 +138,7 @@ class _DropDownListWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
           child: Text(
-            'каталог',
+            'Каталог',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontFamily: AppFonts.primaryFontBold,
                   color: Colors.black,
@@ -173,11 +173,11 @@ class _SearchField extends StatelessWidget {
         contentPadding: const EdgeInsets.all(14),
         prefixIcon: const Icon(Icons.search, size: 18, color: Colors.black),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primaryColor),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primaryColor),
+          borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         hintText: "Поиск",

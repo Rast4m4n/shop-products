@@ -28,7 +28,7 @@ class PageWrapper extends StatelessWidget {
             body: Column(
               children: [
                 PageHeaderWidget(),
-                body,
+                Expanded(child: ListView(children: [body])),
               ],
             ),
           );

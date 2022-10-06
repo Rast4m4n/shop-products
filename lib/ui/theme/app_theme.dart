@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 abstract class AppFonts {
   static const String _titleFont = "DaysOne";
-  static const String primaryFont = "RobotoRegular";
-  static const String primaryFontMedium = "RobotoMedium";
+  static const String primaryFont = "RobotoMedium"; //regular
+  static const String primaryFontRegular = "RobotoRegular"; //medium
   static const String primaryFontBold = "RobotoBold";
 }
 

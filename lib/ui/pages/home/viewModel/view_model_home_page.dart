@@ -3,11 +3,11 @@ import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ViewModelHomePage {
   void enterProfilePage(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoute.profile);
+    Navigator.of(context).pushNamed(AppRouteNames.profile);
   }
 
   void returnTomainPage(BuildContext context) {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoute.main, (route) => false);
+        .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false);
   }
 }
