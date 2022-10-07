@@ -27,19 +27,20 @@ class PageHeaderWidget extends StatelessWidget {
           const Spacer(),
           _IconTextButtonWidget(
             textButton: "Корзина",
-            iconButton: AppIcons.shoppingbag,
+            iconButton: AppIcons.basket,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Избранные",
-            iconButton: AppIcons.favorite,
+            iconButton: Icons.favorite_outline,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Профиль",
-            iconButton: AppIcons.profile,
+            iconButton: Icons.account_circle_outlined,
+            // AppIcons.profile,
             callBack: () => model.enterProfilePage(context),
           ),
           const SizedBox(width: AppPadding.bigP * 2),

@@ -82,9 +82,15 @@ class _UserInfoTextFieldWidget extends StatelessWidget {
           ),
           floatingLabelStyle: TextStyle(
             color: Colors.black.withOpacity(0.5),
-            height: 3,
+            height: 2,
+            fontSize: 16,
           ),
-          contentPadding: const EdgeInsets.all(AppPadding.mediumP),
+          contentPadding: const EdgeInsets.only(
+            top: AppPadding.bigP,
+            bottom: AppPadding.mediumP,
+            left: AppPadding.smallP,
+            right: AppPadding.mediumP,
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(10),
@@ -270,17 +276,18 @@ class InfoColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
+        SizedBox(height: AppPadding.bigP * 2),
         _InfoCardWidget(
-          title: 'Любимая категория',
+          title: 'любимая категория',
           description:
-              'Получай дополнительную скидку на любимые товары и продукты',
+              'получай дополнительную скидку на любимые товары и продукты',
           image: 'assets/images/cardMySettingsOne.png',
         ),
         SizedBox(height: AppPadding.bigP),
         _InfoCardWidget(
-          title: 'Забота о природе',
+          title: 'забота о природе',
           description:
-              'Откажитесь от чеков и целлофановых пакетов, сохраняйте природу',
+              'откажитесь от чеков и целлофановых пакетов, сохраняйте природу',
           image: 'assets/images/cardMySettingsTwo.png',
         ),
       ],
@@ -311,12 +318,12 @@ class _InfoCardWidget extends StatelessWidget {
             BlendMode.colorBurn,
           ),
         ),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(18),
         // color: AppColors.appBarTitle,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.bigP, vertical: AppPadding.bigP * 2),
+            horizontal: AppPadding.bigP, vertical: AppPadding.bigP),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/pages/profilePage/changeViewInherited/change_view_inherited.dart';
-import 'package:shop_products/ui/pages/profilePage/historyBuyView/history_buy_view.dart';
-import 'package:shop_products/ui/pages/profilePage/listBuyView/list_buy_view.dart';
-import 'package:shop_products/ui/pages/profilePage/myReviewView/my_review_view.dart';
-import 'package:shop_products/ui/pages/profilePage/mySettingsView/my_settings_view.dart';
+import 'package:shop_products/ui/pages/profilePage/views/historyBuyView/history_buy_view.dart';
+import 'package:shop_products/ui/pages/profilePage/views/listBuyView/list_buy_view.dart';
+import 'package:shop_products/ui/pages/profilePage/views/myReviewView/my_review_view.dart';
+import 'package:shop_products/ui/pages/profilePage/views/mySettingsView/my_settings_view.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
@@ -57,12 +57,18 @@ class _HeaderProfile extends StatelessWidget {
       color: AppColors.subStrate,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.bigP * 2, vertical: AppPadding.bigP * 2 - 4),
+            horizontal: AppPadding.bigP * 2, vertical: AppPadding.mediumP),
         child: Row(
           children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 100, maxWidth: 100),
-              child: const Placeholder(),
+            Container(
+              width: 120,
+              height: 120,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/avatar.png"),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.circle),
             ),
             const SizedBox(width: AppPadding.bigP),
             Text(
@@ -106,7 +112,7 @@ class _BonusCardWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Бонусная карта',
+                      'бонусная карта',
                       style: Theme.of(context).textTheme.headline4?.copyWith(
                             color: Colors.white,
                           ),
@@ -162,7 +168,9 @@ class _BonusCardWidget extends StatelessWidget {
 
 class _BodyInfoSelectionBar extends StatelessWidget {
   const _BodyInfoSelectionBar({Key? key}) : super(key: key);
+  final TextDecoration textDecoration = TextDecoration.none;
 
+  void selectedTabColor() {}
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -170,60 +178,60 @@ class _BodyInfoSelectionBar extends StatelessWidget {
       child: Row(
         children: [
           TextButton(
-              onPressed: () {
-                ChangeViewInherited.read(context)
-                    ?.model
-                    ?.changeView(_BodyView.mySettingsView.index);
-              },
-              child: Text(
-                "Мои настрйоки",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
-              )),
+            onPressed: () {
+              ChangeViewInherited.read(context)
+                  ?.model
+                  ?.changeView(_BodyView.mySettingsView.index);
+            },
+            child: Text(
+              "Мои настройки",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontFamily: AppFonts.primaryFontRegular,
+                  ),
+            ),
+          ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {
-                ChangeViewInherited.read(context)
-                    ?.model
-                    ?.changeView(_BodyView.listBuyView.index);
-              },
-              child: Text(
-                "Список покупок",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
-              )),
+            onPressed: () {
+              ChangeViewInherited.read(context)
+                  ?.model
+                  ?.changeView(_BodyView.listBuyView.index);
+            },
+            child: Text(
+              "Список покупок",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontFamily: AppFonts.primaryFontRegular,
+                  ),
+            ),
+          ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {
-                ChangeViewInherited.read(context)
-                    ?.model
-                    ?.changeView(_BodyView.historyBuyView.index);
-              },
-              child: Text(
-                "История покупок",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
-              )),
+            onPressed: () {
+              ChangeViewInherited.read(context)
+                  ?.model
+                  ?.changeView(_BodyView.historyBuyView.index);
+            },
+            child: Text(
+              "История покупок",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontFamily: AppFonts.primaryFontRegular,
+                  ),
+            ),
+          ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {
-                ChangeViewInherited.read(context)
-                    ?.model
-                    ?.changeView(_BodyView.myReviewView.index);
-              },
-              child: Text(
-                "Мои отзывы",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
-              )),
+            onPressed: () {
+              ChangeViewInherited.read(context)
+                  ?.model
+                  ?.changeView(_BodyView.myReviewView.index);
+            },
+            child: Text(
+              "Мои отзывы",
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontFamily: AppFonts.primaryFontRegular,
+                  ),
+            ),
+          ),
         ],
       ),
     );
@@ -240,7 +248,7 @@ class _BodyInfoSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.bigP * 2),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 420),
+        constraints: const BoxConstraints(maxHeight: 450),
         child: IndexedStack(
           index: currentIndex,
           children: const [
@@ -287,7 +295,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
       color: AppColors.subStrate,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.bigP * 2, vertical: AppPadding.bigP),
+            horizontal: AppPadding.bigP * 2, vertical: AppPadding.bigP - 6),
         child: Row(
           children: [
             InkWell(
