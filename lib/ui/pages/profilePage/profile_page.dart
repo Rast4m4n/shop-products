@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/pages/profilePage/changeViewInherited/change_view_inherited.dart';
 import 'package:shop_products/ui/pages/profilePage/historyBuyView/history_buy_view.dart';
 import 'package:shop_products/ui/pages/profilePage/listBuyView/list_buy_view.dart';
 import 'package:shop_products/ui/pages/profilePage/myReviewView/my_review_view.dart';
@@ -9,36 +10,39 @@ import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
+  ProfilePage({Key? key}) : super(key: key);
+  final model = ChangeView();
   @override
   Widget build(BuildContext context) {
-    return PageWrapper(
-      appBar: AppBar(title: const Text('Профиль')),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  _HeaderProfile(),
-                  SizedBox(height: AppPadding.bigP),
-                  _BodyInfoSelectionBar(),
-                ],
-              ),
-              const Positioned(
-                right: AppPadding.mediumP * 3,
-                bottom: AppPadding.mediumP,
-                child: _BonusCardWidget(),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppPadding.mediumP * 2),
-          const _BodyInfoSection(),
-          const SizedBox(height: AppPadding.bigP),
-          const _FooterInfo(),
-        ],
+    return ChangeViewInherited(
+      model: model,
+      child: PageWrapper(
+        appBar: AppBar(title: const Text('Профиль')),
+        body: Column(
+          children: [
+            Stack(
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    _HeaderProfile(),
+                    SizedBox(height: AppPadding.bigP),
+                    _BodyInfoSelectionBar(),
+                  ],
+                ),
+                const Positioned(
+                  right: AppPadding.mediumP * 3,
+                  bottom: AppPadding.mediumP,
+                  child: _BonusCardWidget(),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppPadding.mediumP * 2),
+            const _BodyInfoSection(),
+            const SizedBox(height: AppPadding.bigP),
+            const _FooterInfo(),
+          ],
+        ),
       ),
     );
   }
@@ -166,7 +170,11 @@ class _BodyInfoSelectionBar extends StatelessWidget {
       child: Row(
         children: [
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ChangeViewInherited.read(context)
+                    ?.model
+                    ?.changeView(_BodyView.mySettingsView.index);
+              },
               child: Text(
                 "Мои настрйоки",
                 style: Theme.of(context)
@@ -176,7 +184,11 @@ class _BodyInfoSelectionBar extends StatelessWidget {
               )),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ChangeViewInherited.read(context)
+                    ?.model
+                    ?.changeView(_BodyView.listBuyView.index);
+              },
               child: Text(
                 "Список покупок",
                 style: Theme.of(context)
@@ -186,7 +198,11 @@ class _BodyInfoSelectionBar extends StatelessWidget {
               )),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ChangeViewInherited.read(context)
+                    ?.model
+                    ?.changeView(_BodyView.historyBuyView.index);
+              },
               child: Text(
                 "История покупок",
                 style: Theme.of(context)
@@ -196,7 +212,11 @@ class _BodyInfoSelectionBar extends StatelessWidget {
               )),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ChangeViewInherited.read(context)
+                    ?.model
+                    ?.changeView(_BodyView.myReviewView.index);
+              },
               child: Text(
                 "Мои отзывы",
                 style: Theme.of(context)
@@ -215,12 +235,14 @@ class _BodyInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentIndex =
+        ChangeViewInherited.watch(context)?.model?.currentIndex;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.bigP * 2),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 450),
+        constraints: const BoxConstraints(maxHeight: 420),
         child: IndexedStack(
-          index: 0,
+          index: currentIndex,
           children: const [
             MySettingsView(),
             ListBuyView(),
@@ -268,32 +290,44 @@ class _FooterOtherInfoWidget extends StatelessWidget {
             horizontal: AppPadding.bigP * 2, vertical: AppPadding.bigP),
         child: Row(
           children: [
-            Text(
-              'О нас',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.black.withOpacity(0.7),
-                  fontFamily: AppFonts.primaryFontBold),
+            InkWell(
+              onTap: () {},
+              child: Text(
+                'О нас',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black.withOpacity(0.7),
+                    fontFamily: AppFonts.primaryFontBold),
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
-            Text(
-              'Партнёры',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.black.withOpacity(0.7),
-                  fontFamily: AppFonts.primaryFontBold),
+            InkWell(
+              onTap: () {},
+              child: Text(
+                'Партнёры',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black.withOpacity(0.7),
+                    fontFamily: AppFonts.primaryFontBold),
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
-            Text(
-              'Карьера',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.black.withOpacity(0.7),
-                  fontFamily: AppFonts.primaryFontBold),
+            InkWell(
+              onTap: () {},
+              child: Text(
+                'Карьера',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black.withOpacity(0.7),
+                    fontFamily: AppFonts.primaryFontBold),
+              ),
             ),
             const SizedBox(width: AppPadding.bigP),
-            Text(
-              'Помощь',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.black.withOpacity(0.7),
-                  fontFamily: AppFonts.primaryFontBold),
+            InkWell(
+              onTap: () {},
+              child: Text(
+                'Помощь',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Colors.black.withOpacity(0.7),
+                    fontFamily: AppFonts.primaryFontBold),
+              ),
             ),
             const Spacer(),
             InkWell(
@@ -357,7 +391,8 @@ class _FotterAppOfDevelopersWidget extends StatelessWidget {
     return ColoredBox(
       color: AppColors.subStrate.withOpacity(0.15),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.bigP * 2),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.bigP * 2, vertical: AppPadding.smallP - 4),
         child: IntrinsicHeight(
           child: Row(
             children: [

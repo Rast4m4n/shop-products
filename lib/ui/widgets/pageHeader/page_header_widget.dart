@@ -12,7 +12,7 @@ class PageHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 80,
       color: AppColors.primaryColor,
       child: Row(
         children: [
@@ -95,28 +95,39 @@ class _LogotypeShopWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Expanded(
-              child: Text(
-                'магия',
-                style: TextStyle(
-                  color: AppColors.appBarTitle,
-                  fontFamily: 'DaysOne',
-                  fontSize: 32,
-                  height: 1.6,
-                ),
+            Padding(
+              padding: EdgeInsets.only(right: AppPadding.bigP * 2),
+              child: Icon(
+                AppIcons.logo,
+                size: 64,
+                color: AppColors.appBarTitle,
               ),
             ),
-            Expanded(
-              child: Text(
-                'вкуса',
-                style: TextStyle(
-                  color: AppColors.appBarTitle,
-                  fontFamily: 'DaysOne',
-                  fontSize: 32,
-                  height: 0.8,
-                ),
-              ),
-            ),
+
+            // Image(image: AssetImage("assets/images/logo.png")),
+
+            // Expanded(
+            //   child: Text(
+            //     'магия',
+            //     style: TextStyle(
+            //       color: AppColors.appBarTitle,
+            //       fontFamily: 'DaysOne',
+            //       fontSize: 32,
+            //       height: 1.6,
+            //     ),
+            //   ),
+            // ),
+            // Expanded(
+            //   child: Text(
+            //     'вкуса',
+            //     style: TextStyle(
+            //       color: AppColors.appBarTitle,
+            //       fontFamily: 'DaysOne',
+            //       fontSize: 32,
+            //       height: 0.8,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -137,7 +148,10 @@ class _DropDownListWidget extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.bigP,
+            vertical: AppPadding.bigP - 4,
+          ),
           child: Text(
             'Каталог',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(

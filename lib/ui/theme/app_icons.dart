@@ -21,8 +21,6 @@ class AppIcons {
   static const _kFontFam = 'MagicOfTasteIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData logotype =
-      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData profile =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData sber =
@@ -59,4 +57,6 @@ class AppIcons {
       IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData googleplay =
       IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData logo =
+      IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

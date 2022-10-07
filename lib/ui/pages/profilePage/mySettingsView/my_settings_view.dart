@@ -69,10 +69,9 @@ class _UserInfoTextFieldWidget extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 300),
       child: TextField(
-        style: Theme.of(context)
-            .textTheme
-            .bodyLarge
-            ?.copyWith(fontFamily: AppFonts.primaryFontRegular),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontFamily: AppFonts.primaryFontRegular,
+            ),
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.subStrate,

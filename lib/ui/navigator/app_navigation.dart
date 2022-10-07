@@ -12,6 +12,6 @@ class AppNavigation {
 
   Map<String, Widget Function(BuildContext context)> get routes => {
         AppRouteNames.main: (context) => const HomePage(),
-        AppRouteNames.profile: (context) => const ProfilePage(),
+        AppRouteNames.profile: (context) => ProfilePage(),
       };
 }
