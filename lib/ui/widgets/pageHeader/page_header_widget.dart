@@ -33,13 +33,13 @@ class PageHeaderWidget extends StatelessWidget {
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Избранные",
-            iconButton: Icons.favorite_outline,
+            iconButton: AppIcons.favourites,
             callBack: () {},
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Профиль",
-            iconButton: Icons.account_circle_outlined,
+            iconButton: AppIcons.profile,
             // AppIcons.profile,
             callBack: () => model.enterProfilePage(context),
           ),
@@ -187,7 +187,7 @@ class _SearchField extends StatelessWidget {
         fillColor: const Color.fromARGB(203, 221, 231, 255),
         isCollapsed: true,
         contentPadding: const EdgeInsets.all(14),
-        prefixIcon: const Icon(Icons.search, size: 18, color: Colors.black),
+        prefixIcon: const Icon(AppIcons.search, size: 18, color: Colors.black),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(10)),

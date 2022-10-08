@@ -133,7 +133,7 @@ class _PushNotifier extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(width: AppPadding.bigP * 3),
+        const SizedBox(width: AppPadding.bigP * 2),
         const _CustomCheckBox(
           text: 'О покупках',
           isBig: true,
@@ -206,32 +206,31 @@ class _PaymentMethodInfo extends StatelessWidget {
         ),
         const SizedBox(height: AppPadding.mediumP - 2),
         const _BankTypeTextWidget(
-            icon: AppIcons.sber, numberCard: '7777 7777 7777 7777'),
+            image: "assets/images/sber.png", numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
         const _BankTypeTextWidget(
-            icon: AppIcons.tinkoff, numberCard: '7777 7777 7777 7777'),
+            image: "assets/images/tinkoff.png",
+            numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
         InkWell(
           onTap: () {},
-          child: Row(
-            children: [
-              const Icon(
-                Icons.add,
-                color: Colors.black,
-                shadows: [
-                  Shadow(color: Colors.black, blurRadius: 0.5),
-                  Shadow(color: Colors.black, blurRadius: 0.5),
-                  Shadow(color: Colors.black, blurRadius: 0.5),
-                  Shadow(color: Colors.black, blurRadius: 0.5),
-                ],
-              ),
-              Text(
-                'Добавить способ оплаты',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w900,
-                    ),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                const Icon(
+                  AppIcons.plus,
+                  size: 12,
+                ),
+                const SizedBox(width: AppPadding.smallP),
+                Text(
+                  'Добавить способ оплаты',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                      ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -243,20 +242,17 @@ class _BankTypeTextWidget extends StatelessWidget {
   const _BankTypeTextWidget({
     Key? key,
     required this.numberCard,
-    required this.icon,
+    required this.image,
   }) : super(key: key);
 
   final String numberCard;
-  final IconData icon;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          color: Colors.green,
-        ),
+        Image(image: AssetImage(image)),
         const SizedBox(width: AppPadding.smallP - 4),
         Text(
           'Карта $numberCard',

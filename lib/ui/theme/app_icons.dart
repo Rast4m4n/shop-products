@@ -21,14 +21,10 @@ class AppIcons {
   static const _kFontFam = 'MagicOfTasteIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData basket =
+  static const IconData plus =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData sber =
-      IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData support =
-      IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData tinkoff =
-      IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData starWithFill =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData viber =
       IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData whatsapp =
@@ -37,12 +33,28 @@ class AppIcons {
       IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData youtube =
       IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData add =
+  static const IconData bookmark =
       IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData checkoff =
+      IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData basket =
+      IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData checkon =
+      IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData favourites =
+      IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData dzen =
       IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData googleplay =
+  static const IconData profile =
+      IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData search =
       IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData logo =
       IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData star =
+      IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData support =
+      IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData trash =
+      IconData(0xe816, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

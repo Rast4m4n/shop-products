@@ -166,11 +166,16 @@ class _BonusCardWidget extends StatelessWidget {
   }
 }
 
-class _BodyInfoSelectionBar extends StatelessWidget {
+class _BodyInfoSelectionBar extends StatefulWidget {
   const _BodyInfoSelectionBar({Key? key}) : super(key: key);
-  final TextDecoration textDecoration = TextDecoration.none;
 
+  @override
+  State<_BodyInfoSelectionBar> createState() => _BodyInfoSelectionBarState();
+}
+
+class _BodyInfoSelectionBarState extends State<_BodyInfoSelectionBar> {
   void selectedTabColor() {}
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -181,12 +186,19 @@ class _BodyInfoSelectionBar extends StatelessWidget {
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
-                  ?.changeView(_BodyView.mySettingsView.index);
+                  ?.changeView(BodyView.mySettingsView.index);
+              setState(() {});
             },
             child: Text(
               "Мои настройки",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontFamily: AppFonts.primaryFontRegular,
+                    color: ChangeViewInherited.read(context)
+                                ?.model
+                                ?.currentIndex ==
+                            BodyView.mySettingsView.index
+                        ? Colors.black
+                        : Colors.black54,
                   ),
             ),
           ),
@@ -195,12 +207,19 @@ class _BodyInfoSelectionBar extends StatelessWidget {
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
-                  ?.changeView(_BodyView.listBuyView.index);
+                  ?.changeView(BodyView.listBuyView.index);
+              setState(() {});
             },
             child: Text(
               "Список покупок",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontFamily: AppFonts.primaryFontRegular,
+                    color: ChangeViewInherited.read(context)
+                                ?.model
+                                ?.currentIndex ==
+                            BodyView.listBuyView.index
+                        ? Colors.black
+                        : Colors.black54,
                   ),
             ),
           ),
@@ -209,12 +228,19 @@ class _BodyInfoSelectionBar extends StatelessWidget {
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
-                  ?.changeView(_BodyView.historyBuyView.index);
+                  ?.changeView(BodyView.historyBuyView.index);
+              setState(() {});
             },
             child: Text(
               "История покупок",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontFamily: AppFonts.primaryFontRegular,
+                    color: ChangeViewInherited.read(context)
+                                ?.model
+                                ?.currentIndex ==
+                            BodyView.historyBuyView.index
+                        ? Colors.black
+                        : Colors.black54,
                   ),
             ),
           ),
@@ -223,12 +249,19 @@ class _BodyInfoSelectionBar extends StatelessWidget {
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
-                  ?.changeView(_BodyView.myReviewView.index);
+                  ?.changeView(BodyView.myReviewView.index);
+              setState(() {});
             },
             child: Text(
               "Мои отзывы",
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontFamily: AppFonts.primaryFontRegular,
+                    color: ChangeViewInherited.read(context)
+                                ?.model
+                                ?.currentIndex ==
+                            BodyView.myReviewView.index
+                        ? Colors.black
+                        : Colors.black54,
                   ),
             ),
           ),
@@ -263,7 +296,7 @@ class _BodyInfoSection extends StatelessWidget {
   }
 }
 
-enum _BodyView {
+enum BodyView {
   mySettingsView,
   listBuyView,
   historyBuyView,
@@ -411,13 +444,16 @@ class _FotterAppOfDevelopersWidget extends StatelessWidget {
                     ),
               ),
               const SizedBox(width: AppPadding.bigP),
-              const _AppServiceWidget(text: 'Google Play', icon: Icons.android),
+              const _AppServiceWidget(
+                  text: 'Google Play', image: "assets/images/googlePlay.png"),
               const SizedBox(width: AppPadding.bigP),
-              const _AppServiceWidget(text: 'App Store', icon: Icons.apple),
+              const _AppServiceWidget(
+                  text: 'App Store', image: "assets/images/appStore.png"),
               const SizedBox(width: AppPadding.bigP),
-              const _AppServiceWidget(text: 'AppGallery', icon: Icons.shop),
+              const _AppServiceWidget(
+                  text: 'AppGallery', image: "assets/images/appGallery.png"),
               const Spacer(),
-              const _DevelopersOfApp(),
+              const _DevelopersOfAppWidget(),
             ],
           ),
         ),
@@ -427,17 +463,17 @@ class _FotterAppOfDevelopersWidget extends StatelessWidget {
 }
 
 class _AppServiceWidget extends StatelessWidget {
-  const _AppServiceWidget({Key? key, required this.text, required this.icon})
+  const _AppServiceWidget({Key? key, required this.text, required this.image})
       : super(key: key);
   final String text;
-  final IconData icon;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {},
       child: Row(
         children: [
-          Icon(icon),
+          Image(image: AssetImage(image)),
           const SizedBox(
             width: AppPadding.smallP,
           ),
@@ -453,8 +489,8 @@ class _AppServiceWidget extends StatelessWidget {
   }
 }
 
-class _DevelopersOfApp extends StatelessWidget {
-  const _DevelopersOfApp({Key? key}) : super(key: key);
+class _DevelopersOfAppWidget extends StatelessWidget {
+  const _DevelopersOfAppWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
