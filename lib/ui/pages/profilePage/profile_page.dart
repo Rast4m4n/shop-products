@@ -473,7 +473,7 @@ class _AppServiceWidget extends StatelessWidget {
       onTap: () {},
       child: Row(
         children: [
-          Image(image: AssetImage(image)),
+          Image(image: AssetImage(image), width: 22, height: 22),
           const SizedBox(
             width: AppPadding.smallP,
           ),
