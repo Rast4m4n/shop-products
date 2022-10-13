@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/pages/home/mainShopPage/main_shop_view.dart';
-import 'package:shop_products/ui/widgets/user_tab.dart';
+import 'package:shop_products/ui/widgets/user_tab_widget.dart';
 import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 

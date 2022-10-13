@@ -28,7 +28,7 @@ class PageWrapper extends StatelessWidget {
           return Scaffold(
             body: Column(
               children: [
-                PageHeaderWidget(),
+                const PageHeaderWidget(),
                 Expanded(child: SingleChildScrollView(child: body)),
               ],
             ),

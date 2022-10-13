@@ -1,14 +1,13 @@
 //Для веб/десктопа
 import 'package:flutter/material.dart';
-import 'package:shop_products/ui/pages/home/viewModel/view_model_home_page.dart';
+import 'package:shop_products/ui/navigator/app_navigation.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
 class PageHeaderWidget extends StatelessWidget {
-  PageHeaderWidget({Key? key}) : super(key: key);
+  const PageHeaderWidget({Key? key}) : super(key: key);
 
-  final model = ViewModelHomePage();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +16,7 @@ class PageHeaderWidget extends StatelessWidget {
       child: Row(
         children: [
           const SizedBox(width: AppPadding.bigP),
-          _LogotypeShopWidget(model: model),
+          const _LogotypeShopWidget(),
           const SizedBox(width: AppPadding.bigP),
           const _DropDownListWidget(),
           const SizedBox(width: AppPadding.bigP),
@@ -40,8 +39,8 @@ class PageHeaderWidget extends StatelessWidget {
           _IconTextButtonWidget(
             textButton: "Профиль",
             iconButton: AppIcons.profile,
-            // AppIcons.profile,
-            callBack: () => model.enterProfilePage(context),
+            callBack: () =>
+                Navigator.of(context).pushNamed(AppRouteNames.profile),
           ),
           const SizedBox(width: AppPadding.bigP * 2),
         ],
@@ -82,17 +81,15 @@ class AddressWidget extends StatelessWidget {
 class _LogotypeShopWidget extends StatelessWidget {
   const _LogotypeShopWidget({
     Key? key,
-    required this.model,
   }) : super(key: key);
-
-  final ViewModelHomePage model;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 140,
       child: InkWell(
-        onTap: () => model.returnTomainPage(context),
+        onTap: () => Navigator.of(context)
+            .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
@@ -104,31 +101,6 @@ class _LogotypeShopWidget extends StatelessWidget {
                 color: AppColors.appBarTitle,
               ),
             ),
-
-            // Image(image: AssetImage("assets/images/logo.png")),
-
-            // Expanded(
-            //   child: Text(
-            //     'магия',
-            //     style: TextStyle(
-            //       color: AppColors.appBarTitle,
-            //       fontFamily: 'DaysOne',
-            //       fontSize: 32,
-            //       height: 1.6,
-            //     ),
-            //   ),
-            // ),
-            // Expanded(
-            //   child: Text(
-            //     'вкуса',
-            //     style: TextStyle(
-            //       color: AppColors.appBarTitle,
-            //       fontFamily: 'DaysOne',
-            //       fontSize: 32,
-            //       height: 0.8,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

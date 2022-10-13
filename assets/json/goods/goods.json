@@ -1,0 +1,65 @@
+[
+    {
+        "nameGoods": "Филе грудки цыплёнка Петеленка",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "1000 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 290,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Чипсы Lay`s сметана и зелень",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "225 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 160,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Бананы фасованые",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "1500 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 65,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Яблоки красные",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "500 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 55,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Батон Коломенское нарезной",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "400 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 50,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Яйца куриные Окское столовое С1 10шт.",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "930 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 85,
+        "numberOfGoods": 1
+    },
+    {
+        "nameGoods": "Молоко Простоквашино отборное пастеризованное 3.4-4.5",
+        "descriptionGoods": "Описание товара",
+        "pathImage": "",
+        "weightGoods": "70 гр",
+        "ratingGoods": "4.7",
+        "priceGoods": 30,
+        "numberOfGoods": 1
+    }
+]

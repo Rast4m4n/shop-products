@@ -20,6 +20,28 @@ class GoodsModel {
   final int numberOfGoods;
   final bool favoriteGoods;
 
+  factory GoodsModel.fromJson(Map<String, dynamic> json) => GoodsModel(
+        nameGoods: json["nameGoods"],
+        descriptionGoods: json["descriptionGoods"],
+        compositionOfGoods: json["compositionOfGoods"],
+        pathImage: json["pathImage"],
+        weightGoods: json["weightGoods"],
+        ratingGoods: json["ratingGoods"],
+        priceGoods: json["priceGoods"],
+        numberOfGoods: json["numberOfGoods"],
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        "nameGoods": nameGoods,
+        "descriptionGoods": descriptionGoods,
+        "compositionOfGoods": compositionOfGoods,
+        "pathImage": pathImage,
+        "weightGoods": weightGoods,
+        "ratingGoods": ratingGoods,
+        "priceGoods": priceGoods,
+        "numberOfGoods": numberOfGoods,
+      };
+
   GoodsModel copyWith(
     String? nameGoods,
     String? descriptionGoods,

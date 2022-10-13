@@ -9,7 +9,6 @@ Future<void> main() async {
 
   ThemeSwitcher.instance;
   SharedPreferencesRepository.instance;
-
   ThemeSwitcher.isDark = await SharedPreferencesRepository.instance.loadTheme();
   final AppNavigation navigation = AppNavigation();
   runApp(MyApp(navigation: navigation));
