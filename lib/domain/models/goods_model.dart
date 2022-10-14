@@ -8,14 +8,14 @@ class GoodsModel {
     required this.ratingGoods,
     required this.priceGoods,
     required this.numberOfGoods,
-    this.favoriteGoods = false,
+    required this.favoriteGoods,
   });
   final String nameGoods;
   final String descriptionGoods;
   final String compositionOfGoods; //состав продукта
-  final String pathImage;
+  final String? pathImage;
   final String weightGoods;
-  final int ratingGoods;
+  final double ratingGoods;
   final int priceGoods;
   final int numberOfGoods;
   final bool favoriteGoods;
@@ -29,6 +29,7 @@ class GoodsModel {
         ratingGoods: json["ratingGoods"],
         priceGoods: json["priceGoods"],
         numberOfGoods: json["numberOfGoods"],
+        favoriteGoods: json["favoriteGoods"],
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -40,6 +41,7 @@ class GoodsModel {
         "ratingGoods": ratingGoods,
         "priceGoods": priceGoods,
         "numberOfGoods": numberOfGoods,
+        "favoriteGoods": favoriteGoods,
       };
 
   GoodsModel copyWith(
@@ -48,7 +50,7 @@ class GoodsModel {
     String? compositionOfGoods,
     String? pathImage,
     String? weightGoods,
-    int? ratingGoods,
+    double? ratingGoods,
     int? priceGoods,
     int? numberOfGoods,
     bool? favoriteGoods,

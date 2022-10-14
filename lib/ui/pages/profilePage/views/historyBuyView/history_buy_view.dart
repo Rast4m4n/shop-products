@@ -17,7 +17,7 @@ class HistoryBuyView extends StatelessWidget {
               Theme.of(context).textTheme.headlineSmall?.copyWith(fontSize: 24),
         ),
         const SizedBox(height: AppPadding.mediumP),
-        const GoodsCardWidget(),
+        // const GoodsCardWidget(),
       ],
     );
   }

@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [UserTab()],
       ),
-      body: const MainShopPage(),
+      body: MainShopPage(),
       // IndexedStack(
       //   index: _selectedIndex,
       //   children: const [
