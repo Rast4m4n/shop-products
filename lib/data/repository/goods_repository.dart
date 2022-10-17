@@ -10,7 +10,7 @@ abstract class IApi {
 class MockApiRepository implements IApi {
   @override
   Future<List<GoodsModel>> fetchData() async {
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
     final String goodsJson =
         await rootBundle.loadString('assets/json/goods/goods.json');
 

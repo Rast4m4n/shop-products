@@ -20,7 +20,7 @@ class ListBuyView extends StatelessWidget {
               children: [
                 const DecoratedBox(
                   decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
+                    color: AppColors.primaryPurple,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

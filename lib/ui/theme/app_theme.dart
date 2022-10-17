@@ -8,9 +8,10 @@ abstract class AppFonts {
 }
 
 abstract class AppColors {
-  static const Color primaryColor = Color(0xffBA68C8);
-  static const Color appBarTitle = Color(0xffFFD600);
+  static const Color primaryPurple = Color(0xffBA68C8);
+  static const Color secondaryYellow = Color(0xffFFD600);
   static const Color subStrate = Color(0x50C4D4FF);
+  static const Color paymentGreen = Color(0xff2DBE64);
 }
 
 class AppTheme {
@@ -25,17 +26,29 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-          color: AppColors.appBarTitle,
+          color: AppColors.secondaryYellow,
           fontFamily: AppFonts._titleFont,
           fontSize: 24),
-      color: AppColors.primaryColor,
+      color: AppColors.primaryPurple,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: AppColors.primaryColor,
+      selectedItemColor: AppColors.primaryPurple,
       selectedIconTheme: IconThemeData(size: 18),
     ),
     popupMenuTheme: const PopupMenuThemeData(
       textStyle: TextStyle(color: Colors.black),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.pressed)) {
+              return AppColors.subStrate.withOpacity(0.2);
+            }
+            return null;
+          },
+        ),
+      ),
     ),
   );
   //-------------------Тёмная тема----------------------
@@ -50,14 +63,14 @@ class AppTheme {
     ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-        color: AppColors.appBarTitle,
+        color: AppColors.secondaryYellow,
         fontFamily: AppFonts._titleFont,
         fontSize: 24,
       ),
-      color: AppColors.primaryColor,
+      color: AppColors.primaryPurple,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: AppColors.primaryColor,
+      selectedItemColor: AppColors.primaryPurple,
     ),
     popupMenuTheme: const PopupMenuThemeData(
       textStyle: TextStyle(color: Colors.white),

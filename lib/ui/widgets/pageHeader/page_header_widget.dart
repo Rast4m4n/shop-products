@@ -12,13 +12,11 @@ class PageHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      color: AppColors.primaryColor,
+      color: AppColors.primaryPurple,
       child: Row(
         children: [
           const SizedBox(width: AppPadding.bigP),
           const _LogotypeShopWidget(),
-          const SizedBox(width: AppPadding.bigP),
-          const _DropDownListWidget(),
           const SizedBox(width: AppPadding.bigP),
           const Expanded(flex: 4, child: _SearchField()),
           const SizedBox(width: AppPadding.bigP),
@@ -98,52 +96,12 @@ class _LogotypeShopWidget extends StatelessWidget {
               child: Icon(
                 AppIcons.logo,
                 size: 64,
-                color: AppColors.appBarTitle,
+                color: AppColors.secondaryYellow,
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _DropDownListWidget extends StatelessWidget {
-  const _DropDownListWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton(
-      tooltip: '',
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: AppColors.appBarTitle,
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.bigP,
-            vertical: AppPadding.bigP - 4,
-          ),
-          child: Text(
-            'Каталог',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontFamily: AppFonts.primaryFontBold,
-                  color: Colors.black,
-                ),
-          ),
-        ),
-      ),
-      itemBuilder: (BuildContext context) {
-        return const [
-          PopupMenuItem(child: Text('Молочные изделия')),
-          PopupMenuItem(child: Text('Овощи и фрукты')),
-          PopupMenuItem(child: Text('Мясо и рыба')),
-          PopupMenuItem(child: Text('Чай и кофе')),
-          PopupMenuItem(child: Text('Напитки')),
-          PopupMenuItem(child: Text('Орехи и снеки')),
-        ];
-      },
     );
   }
 }
@@ -192,19 +150,23 @@ class _IconTextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: callBack,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(iconButton, color: AppColors.appBarTitle),
-          const SizedBox(width: AppPadding.smallP),
-          Text(
-            textButton,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: Colors.white),
-          ),
-        ],
+      style: Theme.of(context).textButtonTheme.style,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(iconButton, color: AppColors.secondaryYellow),
+            const SizedBox(width: AppPadding.smallP),
+            Text(
+              textButton,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

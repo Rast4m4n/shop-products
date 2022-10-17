@@ -60,15 +60,9 @@ class _HeaderProfile extends StatelessWidget {
             horizontal: AppPadding.bigP * 2, vertical: AppPadding.mediumP),
         child: Row(
           children: [
-            Container(
-              width: 120,
-              height: 120,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/avatar.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  shape: BoxShape.circle),
+            const CircleAvatar(
+              backgroundImage: AssetImage("assets/images/avatar.png"),
+              minRadius: 60,
             ),
             const SizedBox(width: AppPadding.bigP),
             Text(
@@ -95,7 +89,7 @@ class _BonusCardWidget extends StatelessWidget {
       width: 400,
       height: 120,
       decoration: BoxDecoration(
-        color: AppColors.primaryColor,
+        color: AppColors.primaryPurple,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Stack(
@@ -136,7 +130,7 @@ class _BonusCardWidget extends StatelessWidget {
                     Text(
                       '25678',
                       style: Theme.of(context).textTheme.headline4?.copyWith(
-                            color: AppColors.appBarTitle,
+                            color: AppColors.secondaryYellow,
                           ),
                     ),
                     Text(
@@ -183,6 +177,7 @@ class _BodyInfoSelectionBarState extends State<_BodyInfoSelectionBar> {
       child: Row(
         children: [
           TextButton(
+            style: Theme.of(context).textButtonTheme.style,
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
@@ -204,6 +199,7 @@ class _BodyInfoSelectionBarState extends State<_BodyInfoSelectionBar> {
           ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
+            style: Theme.of(context).textButtonTheme.style,
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
@@ -225,6 +221,7 @@ class _BodyInfoSelectionBarState extends State<_BodyInfoSelectionBar> {
           ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
+            style: Theme.of(context).textButtonTheme.style,
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
@@ -246,6 +243,7 @@ class _BodyInfoSelectionBarState extends State<_BodyInfoSelectionBar> {
           ),
           const SizedBox(width: AppPadding.bigP),
           TextButton(
+            style: Theme.of(context).textButtonTheme.style,
             onPressed: () {
               ChangeViewInherited.read(context)
                   ?.model
@@ -376,7 +374,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               child: const Icon(
                 AppIcons.dzen,
-                color: AppColors.primaryColor,
+                color: AppColors.primaryPurple,
               ),
             ),
             const SizedBox(width: AppPadding.bigP),
@@ -385,7 +383,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               child: const Icon(
                 AppIcons.vk,
-                color: AppColors.primaryColor,
+                color: AppColors.primaryPurple,
               ),
             ),
             const SizedBox(width: AppPadding.bigP),
@@ -394,7 +392,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               child: const Icon(
                 AppIcons.youtube,
-                color: AppColors.primaryColor,
+                color: AppColors.primaryPurple,
               ),
             ),
             const SizedBox(width: AppPadding.bigP),
@@ -403,7 +401,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               child: const Icon(
                 AppIcons.viber,
-                color: AppColors.primaryColor,
+                color: AppColors.primaryPurple,
               ),
             ),
             const SizedBox(width: AppPadding.bigP),
@@ -412,7 +410,7 @@ class _FooterOtherInfoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               child: const Icon(
                 AppIcons.whatsapp,
-                color: AppColors.primaryColor,
+                color: AppColors.primaryPurple,
               ),
             ),
           ],
