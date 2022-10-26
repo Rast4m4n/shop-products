@@ -25,14 +25,14 @@ class PageHeaderWidget extends StatelessWidget {
           _IconTextButtonWidget(
             textButton: "Корзина",
             iconButton: AppIcons.basket,
-            callBack: () {},
+            callBack: () =>
+                Navigator.of(context).pushNamed(AppRouteNames.shopingCart),
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
-            textButton: "Избранные",
-            iconButton: AppIcons.favourites,
-            callBack: () {},
-          ),
+              textButton: "Избранные",
+              iconButton: AppIcons.favourites,
+              callBack: () {}),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Профиль",

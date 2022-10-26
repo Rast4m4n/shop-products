@@ -4,7 +4,7 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/pages/home/mainShopPage/viewModel/main_shop_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/goodsCard/goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/goods_card.dart';
 
 class MainShopPage extends StatelessWidget {
   const MainShopPage({Key? key}) : super(key: key);
@@ -13,13 +13,12 @@ class MainShopPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: const [
-        Spacer(),
         _CatalogOfGoods(),
-        Spacer(flex: 2),
+        // Spacer(flex: 2),
         _ListOfGoods(),
-        Spacer(flex: 2),
+        // Spacer(flex: 2),
       ],
     );
   }
@@ -122,9 +121,7 @@ class _CatalogCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print(categoryName);
-      },
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
         child: Row(
@@ -154,7 +151,7 @@ class _ListOfGoods extends StatefulWidget {
 }
 
 class _ListOfGoodsState extends State<_ListOfGoods> {
-  final goodsRepository = GoodsRepository(MockApiRepository());
+  final goodsRepository = GoodsRepository(MockApi());
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<GoodsModel>>(

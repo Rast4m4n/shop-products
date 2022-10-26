@@ -4,6 +4,7 @@ import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/card_inherited.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/card_goods_view_model.dart';
 
 class MiniGoodsCardWidget extends StatelessWidget {
   const MiniGoodsCardWidget({
@@ -18,6 +19,8 @@ class MiniGoodsCardWidget extends StatelessWidget {
     return CardInherited(
       model: goods,
       child: Container(
+        width: 400,
+        height: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -41,14 +44,30 @@ class MiniGoodsCardWidget extends StatelessWidget {
           ],
         ),
         child: Column(
-          children: const [
-            Padding(
-              padding: EdgeInsets.only(top: AppPadding.mediumP * 2),
-              child: _TitleAndImageGoodsWidget(),
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: AppPadding.mediumP * 2),
+                  child: _TitleAndImageGoodsWidget(),
+                ),
+                const Spacer(),
+                // Кнопка удаления товара из избранного или истории покупок
+                IconButton(
+                  splashRadius: 1,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.clear,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
+                const SizedBox(width: AppPadding.smallP),
+              ],
             ),
-            Spacer(),
-            _FooterInfoWidget(),
-            SizedBox(height: AppPadding.mediumP),
+            const Spacer(),
+            const _FooterInfoWidget(),
+            const SizedBox(height: AppPadding.mediumP),
           ],
         ),
       ),
@@ -103,10 +122,17 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
   }
 }
 
-class _FooterInfoWidget extends StatelessWidget {
+class _FooterInfoWidget extends StatefulWidget {
   const _FooterInfoWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_FooterInfoWidget> createState() => _FooterInfoWidgetState();
+}
+
+class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
+  final _viewModel = CardGoodsViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +143,14 @@ class _FooterInfoWidget extends StatelessWidget {
           const _RatingOfGoodsWidget(),
           const Spacer(),
           InkWell(
-            onTap: () {},
-            child: const Icon(AppIcons.bookmarkOff,
+            onTap: () {
+              // _viewModel.toFavoriteGoods(CardInherited.of(context)!.model!);
+              setState(() {});
+            },
+            child: Icon(
+                CardInherited.of(context)!.model!.favoriteGoods
+                    ? AppIcons.bookmark
+                    : AppIcons.bookmarkOff,
                 color: AppColors.primaryPurple),
           ),
           const SizedBox(width: AppPadding.smallP),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
-import 'package:shop_products/ui/theme/app_theme.dart';
+import 'package:shop_products/ui/widgets/customCheckBox/custom_checkbox.dart';
+import 'package:shop_products/ui/widgets/paymentMethodInfo/payment_method_info.dart';
+import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.dart';
 
 class MySettingsView extends StatelessWidget {
   const MySettingsView({Key? key}) : super(key: key);
@@ -42,65 +44,20 @@ class _MainUserInfo extends StatelessWidget {
       children: [
         Text('Основные', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: AppPadding.smallP),
-        const _UserInfoTextFieldWidget(labelText: 'Имя'),
+        const UserInfoTextFieldWidget(labelText: 'Имя'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Фамилия'),
+        const UserInfoTextFieldWidget(labelText: 'Фамилия'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Дата рождения'),
+        const UserInfoTextFieldWidget(labelText: 'Дата рождения'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Телефон'),
+        const UserInfoTextFieldWidget(labelText: 'Телефон'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Почта'),
+        const UserInfoTextFieldWidget(labelText: 'Почта'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Город'),
+        const UserInfoTextFieldWidget(labelText: 'Город'),
         const SizedBox(height: AppPadding.mediumP),
-        const _UserInfoTextFieldWidget(labelText: 'Адрес'),
+        const UserInfoTextFieldWidget(labelText: 'Адрес'),
       ],
-    );
-  }
-}
-
-class _UserInfoTextFieldWidget extends StatelessWidget {
-  const _UserInfoTextFieldWidget({Key? key, required this.labelText})
-      : super(key: key);
-  final String labelText;
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 300),
-      child: TextField(
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontFamily: AppFonts.primaryFontRegular,
-            ),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: AppColors.subStrate,
-          isCollapsed: true,
-          label: Text(
-            labelText,
-            style: const TextStyle(fontFamily: AppFonts.primaryFontRegular),
-          ),
-          floatingLabelStyle: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            height: 2,
-            fontSize: 16,
-          ),
-          contentPadding: const EdgeInsets.only(
-            top: AppPadding.bigP,
-            bottom: AppPadding.mediumP,
-            left: AppPadding.smallP,
-            right: AppPadding.mediumP,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
     );
   }
 }
@@ -126,59 +83,27 @@ class _PushNotifier extends StatelessWidget {
               padding: const EdgeInsets.only(right: AppPadding.mediumP * 2),
               child: Row(
                 children: const [
-                  _CustomCheckBox(text: 'sms'),
-                  _CustomCheckBox(text: 'эл.почта'),
+                  CustomCheckBox(text: 'sms'),
+                  CustomCheckBox(text: 'эл.почта'),
                 ],
               ),
             ),
           ],
         ),
         const SizedBox(width: AppPadding.bigP * 2),
-        const _CustomCheckBox(
+        const CustomCheckBox(
           text: 'О покупках',
           isBig: true,
         ),
         const SizedBox(width: AppPadding.bigP * 2),
-        const _CustomCheckBox(
+        const CustomCheckBox(
           text: 'Об акциях',
           isBig: true,
         ),
         const SizedBox(width: AppPadding.bigP * 2),
-        const _CustomCheckBox(
+        const CustomCheckBox(
           text: 'Сервисные',
           isBig: true,
-        ),
-      ],
-    );
-  }
-}
-
-class _CustomCheckBox extends StatelessWidget {
-  const _CustomCheckBox({
-    Key? key,
-    required this.text,
-    this.isBig = false,
-  }) : super(key: key);
-  final String text;
-  final bool isBig;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Checkbox(value: false, onChanged: null),
-        Text(
-          text,
-          style: isBig
-              ? Theme.of(context).textTheme.headline6?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black.withOpacity(0.7),
-                  )
-              : Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontFamily: AppFonts.primaryFontMedium,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black.withOpacity(0.7),
-                  ),
         ),
       ],
     );
@@ -205,10 +130,10 @@ class _PaymentMethodInfo extends StatelessWidget {
               ),
         ),
         const SizedBox(height: AppPadding.mediumP - 2),
-        const _BankTypeTextWidget(
+        const BankTypeTextWidget(
             image: "assets/images/sber.png", numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
-        const _BankTypeTextWidget(
+        const BankTypeTextWidget(
             image: "assets/images/tinkoff.png",
             numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
@@ -232,33 +157,6 @@ class _PaymentMethodInfo extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _BankTypeTextWidget extends StatelessWidget {
-  const _BankTypeTextWidget({
-    Key? key,
-    required this.numberCard,
-    required this.image,
-  }) : super(key: key);
-
-  final String numberCard;
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image(image: AssetImage(image)),
-        const SizedBox(width: AppPadding.smallP - 4),
-        Text(
-          'Карта $numberCard',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w900,
-              ),
         ),
       ],
     );

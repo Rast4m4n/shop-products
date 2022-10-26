@@ -1,7 +1,7 @@
 class GoodsModel {
   GoodsModel({
+    required this.id,
     required this.nameGoods,
-    required this.descriptionGoods,
     required this.compositionOfGoods,
     required this.pathImage,
     required this.weightGoods,
@@ -10,8 +10,8 @@ class GoodsModel {
     required this.numberOfGoods,
     required this.favoriteGoods,
   });
+  final int id;
   final String nameGoods;
-  final String descriptionGoods;
   final String compositionOfGoods; //состав продукта
   final String? pathImage;
   final String weightGoods;
@@ -21,8 +21,8 @@ class GoodsModel {
   final bool favoriteGoods;
 
   factory GoodsModel.fromJson(Map<String, dynamic> json) => GoodsModel(
+        id: json["id"],
         nameGoods: json["nameGoods"],
-        descriptionGoods: json["descriptionGoods"],
         compositionOfGoods: json["compositionOfGoods"],
         pathImage: json["pathImage"],
         weightGoods: json["weightGoods"],
@@ -33,8 +33,8 @@ class GoodsModel {
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
+        "id": id,
         "nameGoods": nameGoods,
-        "descriptionGoods": descriptionGoods,
         "compositionOfGoods": compositionOfGoods,
         "pathImage": pathImage,
         "weightGoods": weightGoods,
@@ -44,9 +44,9 @@ class GoodsModel {
         "favoriteGoods": favoriteGoods,
       };
 
-  GoodsModel copyWith(
+  GoodsModel copyWith({
+    int? id,
     String? nameGoods,
-    String? descriptionGoods,
     String? compositionOfGoods,
     String? pathImage,
     String? weightGoods,
@@ -54,10 +54,10 @@ class GoodsModel {
     int? priceGoods,
     int? numberOfGoods,
     bool? favoriteGoods,
-  ) {
+  }) {
     return GoodsModel(
+      id: id ?? this.id,
       nameGoods: nameGoods ?? this.nameGoods,
-      descriptionGoods: descriptionGoods ?? this.descriptionGoods,
       compositionOfGoods: compositionOfGoods ?? this.compositionOfGoods,
       pathImage: pathImage ?? this.pathImage,
       weightGoods: weightGoods ?? this.weightGoods,
@@ -66,5 +66,10 @@ class GoodsModel {
       numberOfGoods: numberOfGoods ?? this.numberOfGoods,
       favoriteGoods: favoriteGoods ?? this.favoriteGoods,
     );
+  }
+
+  @override
+  String toString() {
+    return '$nameGoods $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods';
   }
 }
