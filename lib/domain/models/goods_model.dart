@@ -70,6 +70,6 @@ class GoodsModel {
 
   @override
   String toString() {
-    return '$nameGoods $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods';
+    return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods';
   }
 }

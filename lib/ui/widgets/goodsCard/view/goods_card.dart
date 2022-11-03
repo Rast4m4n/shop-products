@@ -3,8 +3,8 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/card_inherited.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/card_goods_view_model.dart';
+import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/goods_inherited.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
 class GoodsCardWidget extends StatefulWidget {
   const GoodsCardWidget({Key? key, required this.goods}) : super(key: key);
@@ -26,7 +26,7 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return CardInherited(
+    return GoodsInherited(
       model: widget.goods,
       child: InkWell(
         onTap: () => dialogBuilder(context),
@@ -56,7 +56,6 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: AppPadding.mediumP,
-              // vertical: AppPadding.mediumP,
             ),
             child: Column(
               children: const [
@@ -66,7 +65,6 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
                 Spacer(flex: 2),
                 _FooterInfoWidget(),
                 Spacer(),
-                // SizedBox(height: AppPadding.mediumP),
               ],
             ),
           ),
@@ -84,7 +82,6 @@ class _HeaderOfGoodWidget extends StatefulWidget {
 }
 
 class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
-  final _viewModel = CardGoodsViewModel();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -95,7 +92,7 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
             const Icon(AppIcons.starWithFill, color: AppColors.secondaryYellow),
             const SizedBox(width: AppPadding.smallP),
             Text(
-              "${CardInherited.of(context)!.model!.ratingGoods}",
+              "${GoodsInherited.of(context)!.model!.ratingGoods}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: 16,
                   ),
@@ -104,13 +101,12 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
         ),
         InkWell(
           onTap: () {
-            _viewModel.toFavoriteGoods(CardInherited.of(context)!.model!);
-            print(CardInherited.of(context)!.model!);
-            setState(() {});
-            print(CardInherited.of(context)!.model!.favoriteGoods);
+            CardGoodsInheritViewModel.read(context)
+                ?.model
+                ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
           },
           child: Icon(
-            CardInherited.of(context)!.model!.favoriteGoods
+            GoodsInherited.of(context)!.model!.favoriteGoods
                 ? AppIcons.bookmark
                 : AppIcons.bookmarkOff,
             color: AppColors.primaryPurple,
@@ -129,9 +125,9 @@ class _InfoGoodsWidget extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: AppPadding.mediumP),
-        if (CardInherited.of(context)!.model?.pathImage != null)
+        if (GoodsInherited.of(context)!.model?.pathImage != null)
           Image(
-            image: AssetImage(CardInherited.of(context)!.model!.pathImage!),
+            image: AssetImage(GoodsInherited.of(context)!.model!.pathImage!),
           )
         else
           const SizedBox(height: 160, width: 120, child: Placeholder()),
@@ -142,7 +138,7 @@ class _InfoGoodsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                CardInherited.of(context)!.model!.nameGoods,
+                GoodsInherited.of(context)!.model!.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
@@ -152,7 +148,7 @@ class _InfoGoodsWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                CardInherited.of(context)!.model!.weightGoods,
+                GoodsInherited.of(context)!.model!.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -181,7 +177,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${CardInherited.of(context)!.model!.priceGoods} ₽",
+          "${GoodsInherited.of(context)!.model!.priceGoods} ₽",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 // fontFamily: AppFonts.primaryFontRegular,
                 fontSize: 16,
@@ -274,7 +270,7 @@ class _DialogWindowState extends State<_DialogWindow> {
   final _viewModel = CardGoodsViewModel();
   @override
   Widget build(BuildContext context) {
-    return CardInherited(
+    return GoodsInherited(
       model: widget.model,
       child: Dialog(
         child: Padding(

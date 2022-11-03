@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
+import 'package:shop_products/data/repository/shared_pref_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/pages/home/mainShopPage/viewModel/main_shop_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
 class MainShopPage extends StatelessWidget {
   const MainShopPage({Key? key}) : super(key: key);
@@ -152,8 +154,28 @@ class _ListOfGoods extends StatefulWidget {
 
 class _ListOfGoodsState extends State<_ListOfGoods> {
   final goodsRepository = GoodsRepository(MockApi());
+  final _viewModel = CardGoodsViewModel();
+
   @override
   Widget build(BuildContext context) {
+    return CardGoodsInheritViewModel(
+      model: _viewModel,
+      child: _ViewWidget(goodsRepository: goodsRepository),
+    );
+  }
+}
+
+class _ViewWidget extends StatelessWidget {
+  const _ViewWidget({
+    Key? key,
+    required this.goodsRepository,
+  }) : super(key: key);
+
+  final GoodsRepository goodsRepository;
+
+  @override
+  Widget build(BuildContext context) {
+    CardGoodsInheritViewModel.watch(context);
     return FutureBuilder<List<GoodsModel>>(
       future: goodsRepository.fetchData(),
       builder: (context, snapshot) {

@@ -3,8 +3,8 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/card_inherited.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/card_goods_view_model.dart';
+import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/goods_inherited.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
 class MiniGoodsCardWidget extends StatelessWidget {
   const MiniGoodsCardWidget({
@@ -16,7 +16,7 @@ class MiniGoodsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CardInherited(
+    return GoodsInherited(
       model: goods,
       child: Container(
         width: 400,
@@ -86,9 +86,9 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(width: AppPadding.mediumP),
-        if (CardInherited.of(context)!.model?.pathImage != null)
+        if (GoodsInherited.of(context)!.model?.pathImage != null)
           Image(
-            image: AssetImage(CardInherited.of(context)!.model!.pathImage!),
+            image: AssetImage(GoodsInherited.of(context)!.model!.pathImage!),
           )
         else
           const SizedBox(height: 40, width: 40, child: Placeholder()),
@@ -99,7 +99,7 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                CardInherited.of(context)!.model!.nameGoods,
+                GoodsInherited.of(context)!.model!.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
@@ -109,7 +109,7 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                CardInherited.of(context)!.model!.weightGoods,
+                GoodsInherited.of(context)!.model!.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -148,7 +148,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
               setState(() {});
             },
             child: Icon(
-                CardInherited.of(context)!.model!.favoriteGoods
+                GoodsInherited.of(context)!.model!.favoriteGoods
                     ? AppIcons.bookmark
                     : AppIcons.bookmarkOff,
                 color: AppColors.primaryPurple),
@@ -157,7 +157,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
           const _ToCartButtonWidget(),
           const SizedBox(width: AppPadding.bigP),
           Text(
-            "${CardInherited.of(context)!.model!.priceGoods} ₽",
+            "${GoodsInherited.of(context)!.model!.priceGoods} ₽",
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   // fontFamily: AppFonts.primaryFontRegular,
                   fontSize: 16,
@@ -216,7 +216,7 @@ class _RatingOfGoodsWidget extends StatelessWidget {
       ),
       const SizedBox(width: AppPadding.smallP),
       Text(
-        '${CardInherited.of(context)!.model!.ratingGoods}',
+        '${GoodsInherited.of(context)!.model!.ratingGoods}',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontSize: 16,
             ),

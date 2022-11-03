@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_products/data/repository/goods_repository.dart';
+import 'package:shop_products/domain/models/goods_model.dart';
 
 class SharedPreferencesRepository {
   SharedPreferencesRepository._internal();
