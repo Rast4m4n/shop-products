@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
+import 'package:shop_products/ui/widgets/base/view_model_provider.dart';
 import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/goods_inherited.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/modal/cubit/goods_modal_cubit.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/modal/view_model/goods_modal_view_model.dart';
 import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
+
+part 'modal/goods_modal_widget.dart';
 
 class GoodsCardWidget extends StatefulWidget {
   const GoodsCardWidget({Key? key, required this.goods}) : super(key: key);
@@ -248,7 +254,6 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                 ),
                 onPressed: () {
                   _viewModel.addToCart(GoodsInherited.of(context)!.model!);
-                  print(GoodsViewModel.cartOfGoods);
                   setState(() {});
                 },
                 child: Text(
@@ -259,135 +264,6 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                 ),
               )
       ],
-    );
-  }
-}
-
-class _DialogWindow extends StatefulWidget {
-  const _DialogWindow({Key? key, required this.model}) : super(key: key);
-  final GoodsModel model;
-
-  @override
-  State<_DialogWindow> createState() => _DialogWindowState();
-}
-
-class _DialogWindowState extends State<_DialogWindow> {
-  final _viewModel = GoodsViewModel(
-    goodsRepository: GetIt.I.get<GoodsRepository>(),
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return GoodsInherited(
-      model: widget.model,
-      child: Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.bigP * 2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (widget.model.pathImage != null)
-                    Image(
-                      image: AssetImage(widget.model.pathImage!),
-                    )
-                  else
-                    const SizedBox(height: 300, width: 300, child: Placeholder()),
-                  const SizedBox(width: AppPadding.bigP),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.model.nameGoods,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      const SizedBox(height: AppPadding.bigP),
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 500),
-                        child: Text(
-                          widget.model.compositionOfGoods,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.black.withOpacity(0.7),
-                                fontSize: 16,
-                              ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppPadding.bigP),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
-                    ),
-                    onPressed: () {
-                      _viewModel.amountGoods(false);
-                      setState(() {});
-                    },
-                    child: Text(
-                      '-',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontFamily: AppFonts.primaryFontRegular,
-                            color: Colors.white,
-                          ),
-                    ),
-                  ),
-                  const SizedBox(width: AppPadding.smallP),
-                  Text(
-                    '${_viewModel.counter}',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontFamily: AppFonts.primaryFontRegular,
-                          // color: Colors.black,
-                        ),
-                  ),
-                  const SizedBox(width: AppPadding.smallP),
-                  TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
-                    ),
-                    onPressed: () {
-                      _viewModel.amountGoods(true);
-                      setState(() {});
-                    },
-                    child: Text(
-                      '+',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontFamily: AppFonts.primaryFontRegular,
-                            color: Colors.white,
-                          ),
-                    ),
-                  ),
-                  const SizedBox(width: AppPadding.bigP),
-                  TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Добавить в корзину',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontFamily: AppFonts.primaryFontRegular,
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

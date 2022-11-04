@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/data/json.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
@@ -213,13 +214,11 @@ class _PaymentMethodInfo extends StatelessWidget {
                     fontFamily: AppFonts.primaryFontRegular,
                   ),
             ),
-            const Radio(
-                value: 'value', groupValue: 'groupValue', onChanged: null),
+            const Radio(value: 'value', groupValue: 'groupValue', onChanged: null),
           ],
         ),
         const SizedBox(height: AppPadding.mediumP - 2),
-        const BankTypeTextWidget(
-            image: "assets/images/sber.png", numberCard: '7777 7777 7777 7777'),
+        const BankTypeTextWidget(image: "assets/images/sber.png", numberCard: '7777 7777 7777 7777'),
         const SizedBox(height: AppPadding.bigP),
         const BankTypeTextWidget(
           image: "assets/images/tinkoff.png",
@@ -367,10 +366,9 @@ class _GoodsInfoColumnState extends State<_GoodsInfoColumn> {
                     child: Row(
                       children: [
                         Text('Очистить',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Colors.black.withOpacity(0.7),
-                                    )),
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: Colors.black.withOpacity(0.7),
+                                )),
                         Icon(
                           AppIcons.trash,
                           color: Colors.black.withOpacity(0.7),
@@ -387,10 +385,9 @@ class _GoodsInfoColumnState extends State<_GoodsInfoColumn> {
             constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
             child: ListView.separated(
               shrinkWrap: true,
-              itemCount: GoodsViewModel.cartOfGoods.length,
+              itemCount: Json.cartGoods.length,
               itemBuilder: (BuildContext context, int index) {
-                return MiniGoodsCardWidget(
-                    goods: GoodsViewModel.cartOfGoods[index]);
+                return MiniGoodsCardWidget(goods: Json.cartGoods[index]);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(height: AppPadding.smallP);
@@ -416,8 +413,7 @@ class _InfoForPayment extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('У вас в корзине товаров на сумму 396 ₽',
-            style: Theme.of(context).textTheme.bodyLarge),
+        Text('У вас в корзине товаров на сумму 396 ₽', style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: AppPadding.smallP),
         const Divider(height: 1, color: Colors.black),
         const SizedBox(height: AppPadding.smallP),
@@ -464,10 +460,7 @@ class _InfoForPayment extends StatelessWidget {
                   onPressed: () {},
                   child: Text(
                     'Заказать',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: Colors.white),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
                   ),
                 ),
                 // Text(

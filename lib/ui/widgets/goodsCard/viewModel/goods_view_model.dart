@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/data/json.dart';
 import 'package:shop_products/data/mappers/user_model_mapper.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
@@ -15,7 +16,6 @@ class GoodsViewModel extends ChangeNotifier {
   int counter = 1;
   bool isAddedToCart = false;
   var listOfGoods = <GoodsModel>[];
-  static final cartOfGoods = <GoodsModel>[];
 
   Future<void> toFavoriteGoods(GoodsModel goods) async {
     goods.favoriteGoods
@@ -31,8 +31,8 @@ class GoodsViewModel extends ChangeNotifier {
 
   void addToCart(GoodsModel goods) {
     isAddedToCart = true;
-    cartOfGoods.add(goods);
-    print(cartOfGoods);
+    Json.cartGoods.add(goods);
+    print(Json.cartGoods);
   }
 
   void amountGoods(bool plus) {
