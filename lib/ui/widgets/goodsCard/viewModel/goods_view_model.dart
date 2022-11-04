@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
-class CardGoodsViewModel extends ChangeNotifier {
-  CardGoodsViewModel() {
+class GoodsViewModel extends ChangeNotifier {
+  GoodsViewModel() {
     load();
   }
+
   int counter = 1;
   bool isAddedToCart = false;
   var listOfGoods = <GoodsModel>[];
+  static final cartOfGoods = <GoodsModel>[];
 
   Future<void> toFavoriteGoods(GoodsModel goods) async {
     final goodsRepo = MockApi();
@@ -24,8 +26,10 @@ class CardGoodsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addToCart() {
+  void addToCart(GoodsModel goods) {
     isAddedToCart = true;
+    cartOfGoods.add(goods);
+    print(cartOfGoods);
   }
 
   void amountGoods(bool plus) {
@@ -41,9 +45,9 @@ class CardGoodsViewModel extends ChangeNotifier {
   }
 }
 
-class CardGoodsInheritViewModel extends InheritedNotifier<CardGoodsViewModel> {
-  final CardGoodsViewModel? model;
-  const CardGoodsInheritViewModel({
+class GoodsInheritViewModel extends InheritedNotifier<GoodsViewModel> {
+  final GoodsViewModel? model;
+  const GoodsInheritViewModel({
     Key? key,
     required this.model,
     required super.child,
@@ -51,15 +55,14 @@ class CardGoodsInheritViewModel extends InheritedNotifier<CardGoodsViewModel> {
           key: key,
           notifier: model,
         );
-  static CardGoodsInheritViewModel? watch(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<CardGoodsInheritViewModel>();
+  static GoodsInheritViewModel? watch(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<GoodsInheritViewModel>();
   }
 
-  static CardGoodsInheritViewModel? read(BuildContext context) {
+  static GoodsInheritViewModel? read(BuildContext context) {
     final widget = context
-        .getElementForInheritedWidgetOfExactType<CardGoodsInheritViewModel>()
+        .getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()
         ?.widget;
-    return widget is CardGoodsInheritViewModel ? widget : null;
+    return widget is GoodsInheritViewModel ? widget : null;
   }
 }

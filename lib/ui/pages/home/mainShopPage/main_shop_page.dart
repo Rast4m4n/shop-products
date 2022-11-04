@@ -154,11 +154,11 @@ class _ListOfGoods extends StatefulWidget {
 
 class _ListOfGoodsState extends State<_ListOfGoods> {
   final goodsRepository = GoodsRepository(MockApi());
-  final _viewModel = CardGoodsViewModel();
+  final _viewModel = GoodsViewModel();
 
   @override
   Widget build(BuildContext context) {
-    return CardGoodsInheritViewModel(
+    return GoodsInheritViewModel(
       model: _viewModel,
       child: _ViewWidget(goodsRepository: goodsRepository),
     );
@@ -175,7 +175,7 @@ class _ViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CardGoodsInheritViewModel.watch(context);
+    GoodsInheritViewModel.watch(context);
     return FutureBuilder<List<GoodsModel>>(
       future: goodsRepository.fetchData(),
       builder: (context, snapshot) {

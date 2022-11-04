@@ -20,7 +20,7 @@ class MiniGoodsCardWidget extends StatelessWidget {
       model: goods,
       child: Container(
         width: 400,
-        height: 120,
+        height: 130,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -132,8 +132,6 @@ class _FooterInfoWidget extends StatefulWidget {
 }
 
 class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
-  final _viewModel = CardGoodsViewModel();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -144,8 +142,9 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
           const Spacer(),
           InkWell(
             onTap: () {
-              // _viewModel.toFavoriteGoods(CardInherited.of(context)!.model!);
-              setState(() {});
+              // GoodsInheritViewModel.read(context)
+              //     ?.model
+              //     ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
             },
             child: Icon(
                 GoodsInherited.of(context)!.model!.favoriteGoods
@@ -188,7 +187,9 @@ class _ToCartButtonWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                // _viewModel.addToCart(GoodsInherited.of(context)!.model!);
+              },
               child: Text(
                 'В корзину',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(

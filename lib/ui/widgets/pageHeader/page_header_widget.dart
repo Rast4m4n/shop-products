@@ -92,7 +92,7 @@ class _LogotypeShopWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Padding(
-              padding: EdgeInsets.only(right: AppPadding.bigP * 2),
+              padding: EdgeInsets.only(right: AppPadding.bigP * 2.5),
               child: Icon(
                 AppIcons.logo,
                 size: 64,

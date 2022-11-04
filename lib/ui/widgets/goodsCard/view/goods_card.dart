@@ -101,7 +101,7 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
         ),
         InkWell(
           onTap: () {
-            CardGoodsInheritViewModel.read(context)
+            GoodsInheritViewModel.read(context)
                 ?.model
                 ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
           },
@@ -169,7 +169,7 @@ class _FooterInfoWidget extends StatefulWidget {
 }
 
 class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
-  final _viewModel = CardGoodsViewModel();
+  final _viewModel = GoodsViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -183,76 +183,82 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                 fontSize: 16,
               ),
         ),
-        InkWell(
-          onTap: () {
-            _viewModel.addToCart();
-            setState(() {});
-          },
-          child: Container(
-            width: 100,
-            decoration: BoxDecoration(
-              color: AppColors.paymentGreen,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: _viewModel.isAddedToCart
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            _viewModel.amountGoods(false);
-                            setState(() {});
-                          },
-                          child: Text(
-                            '-',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Colors.white,
-                                    ),
-                          ),
+
+        // Кнопка добавление товара в корзину
+        _viewModel.isAddedToCart
+            ? Container(
+                width: 92,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: AppColors.paymentGreen,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.resolveWith(
+                          (states) => const Size(40, 20),
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: Text(
-                            '${_viewModel.counter}',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _viewModel.amountGoods(true);
-                            setState(() {});
-                          },
-                          child: Text(
-                            '+',
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Colors.white,
-                                    ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'В корзину',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                        ),
-                      ],
+                      ),
+                      onPressed: () {
+                        _viewModel.amountGoods(false);
+                        setState(() {});
+                      },
+                      child: Text(
+                        '-',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
-            ),
-          ),
-        )
+                    Text(
+                      '${_viewModel.counter}',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        minimumSize: MaterialStateProperty.resolveWith(
+                          (states) => const Size(40, 20),
+                        ),
+                      ),
+                      onPressed: () {
+                        _viewModel.amountGoods(true);
+                        setState(() {});
+                      },
+                      child: Text(
+                        '+',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : TextButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.resolveWith(
+                    (states) => const Size(100, 40),
+                  ),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => AppColors.paymentGreen),
+                ),
+                onPressed: () {
+                  _viewModel.addToCart(GoodsInherited.of(context)!.model!);
+                  print(GoodsViewModel.cartOfGoods);
+                  setState(() {});
+                },
+                child: Text(
+                  'В корзину',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+              )
       ],
     );
   }
@@ -267,7 +273,7 @@ class _DialogWindow extends StatefulWidget {
 }
 
 class _DialogWindowState extends State<_DialogWindow> {
-  final _viewModel = CardGoodsViewModel();
+  final _viewModel = GoodsViewModel();
   @override
   Widget build(BuildContext context) {
     return GoodsInherited(

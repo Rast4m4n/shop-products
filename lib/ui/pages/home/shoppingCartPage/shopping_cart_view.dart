@@ -5,7 +5,9 @@ import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
 import 'package:shop_products/ui/widgets/customCheckBox/custom_checkbox.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/goods_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/mini_goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 import 'package:shop_products/ui/widgets/paymentMethodInfo/payment_method_info.dart';
 import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.dart';
@@ -336,15 +338,19 @@ class _PromoCodeTextField extends StatelessWidget {
 }
 
 // Корзина с товарами
-class _GoodsInfoColumn extends StatelessWidget {
+class _GoodsInfoColumn extends StatefulWidget {
   const _GoodsInfoColumn({Key? key}) : super(key: key);
 
+  @override
+  State<_GoodsInfoColumn> createState() => _GoodsInfoColumnState();
+}
+
+class _GoodsInfoColumnState extends State<_GoodsInfoColumn> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 400),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -377,44 +383,22 @@ class _GoodsInfoColumn extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppPadding.smallP),
-          MiniGoodsCardWidget(
-            goods: GoodsModel(
-                id: 1,
-                nameGoods: 'Чипсы',
-                compositionOfGoods: 'compositionOfGoods',
-                pathImage: null,
-                weightGoods: '162 г.',
-                ratingGoods: 4.8,
-                priceGoods: 198,
-                numberOfGoods: 1,
-                favoriteGoods: false),
-          ),
-          const SizedBox(height: AppPadding.bigP),
-          MiniGoodsCardWidget(
-            goods: GoodsModel(
-                id: 2,
-                nameGoods: 'Чипсы',
-                compositionOfGoods: 'compositionOfGoods',
-                pathImage: null,
-                weightGoods: '162 г.',
-                ratingGoods: 4.8,
-                priceGoods: 198,
-                numberOfGoods: 1,
-                favoriteGoods: false),
-          ),
-          const SizedBox(height: AppPadding.bigP),
-          MiniGoodsCardWidget(
-            goods: GoodsModel(
-                id: 3,
-                nameGoods: 'Чипсы',
-                compositionOfGoods: 'compositionOfGoods',
-                pathImage: null,
-                weightGoods: '162 г.',
-                ratingGoods: 4.8,
-                priceGoods: 198,
-                numberOfGoods: 1,
-                favoriteGoods: false),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: GoodsViewModel.cartOfGoods.length,
+              itemBuilder: (BuildContext context, int index) {
+                return MiniGoodsCardWidget(
+                    goods: GoodsViewModel.cartOfGoods[index]);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: AppPadding.smallP);
+              },
+              // children: const [
+
+              // ],
+            ),
           ),
           const SizedBox(height: AppPadding.mediumP),
           const _InfoForPayment(),
