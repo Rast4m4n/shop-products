@@ -20,9 +20,7 @@ class MainShopPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         _CatalogOfGoods(),
-        // Spacer(flex: 2),
         _ListOfGoods(),
-        // Spacer(flex: 2),
       ],
     );
   }
@@ -92,8 +90,7 @@ class _CatalogOfGoods extends StatelessWidget {
 }
 
 class _ListCatalog extends StatelessWidget {
-  _ListCatalog({Key? key}) : super(key: key);
-  final _viewModel = MainShopViewModel();
+  const _ListCatalog({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -123,21 +120,24 @@ class _CatalogCardWidget extends StatelessWidget {
   final String categoryName;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
-        child: Row(
-          children: [
-            const SizedBox(height: 40, width: 40, child: Placeholder()),
-            const SizedBox(width: AppPadding.smallP),
-            Text(
-              categoryName,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 16,
-                  ),
-            ),
-          ],
+    return Material(
+      // color: Colors.grey,
+      child: InkWell(
+        onTap: () {},
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
+          child: Row(
+            children: [
+              const SizedBox(height: 40, width: 40, child: Placeholder()),
+              const SizedBox(width: AppPadding.smallP),
+              Text(
+                categoryName,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: 16,
+                    ),
+              ),
+            ],
+          ),
         ),
       ),
     );
