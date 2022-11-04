@@ -275,6 +275,7 @@ class _DialogWindowState extends State<_DialogWindow> {
   final _viewModel = GoodsViewModel(
     goodsRepository: GetIt.I.get<GoodsRepository>(),
   );
+
   @override
   Widget build(BuildContext context) {
     return GoodsInherited(

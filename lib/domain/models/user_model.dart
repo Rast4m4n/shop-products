@@ -8,6 +8,7 @@ class UserModel {
     required this.phoneNumber,
     required this.address,
   });
+
   final String name;
   final String surname;
   final int age;
@@ -15,24 +16,4 @@ class UserModel {
   final String mail;
   final int phoneNumber;
   final String address;
-
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        name: json["name"],
-        surname: json["surname"],
-        age: json["age"],
-        password: json["password"],
-        mail: json["mail"],
-        phoneNumber: json["phoneNumber"],
-        address: json["address"],
-      );
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        "name": name,
-        "surname": surname,
-        "age": age,
-        "password": password,
-        "mail": mail,
-        "phoneNumber": phoneNumber,
-        "address": address,
-      };
 }

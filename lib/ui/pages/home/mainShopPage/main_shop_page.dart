@@ -6,6 +6,7 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/pages/home/mainShopPage/viewModel/main_shop_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
+import 'package:shop_products/ui/utils/app_ui_utils.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
@@ -96,7 +97,7 @@ class _ListCatalog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: _viewModel.separatedCategoryGoods(
+      children: AppUiUtils.buildSeparated(
         [
           const _CatalogCardWidget(categoryName: "Овощи, зелень"),
           const _CatalogCardWidget(categoryName: "Фрукты, ягоды"),
