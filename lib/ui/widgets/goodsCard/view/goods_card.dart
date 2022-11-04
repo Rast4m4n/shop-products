@@ -36,44 +36,35 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
   Widget build(BuildContext context) {
     return GoodsInherited(
       model: widget.goods,
-      child: InkWell(
-        onTap: () => dialogBuilder(context),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 4,
-                color: Colors.black.withOpacity(0.1),
-              ),
-              BoxShadow(
-                blurRadius: 4,
-                color: Colors.black.withOpacity(0.1),
-              ),
-              BoxShadow(
-                blurRadius: 4,
-                color: Colors.black.withOpacity(0.1),
-              ),
-              BoxShadow(
-                blurRadius: 4,
-                color: Colors.black.withOpacity(0.1),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.mediumP,
-            ),
-            child: Column(
-              children: const [
-                SizedBox(height: AppPadding.mediumP),
-                _HeaderOfGoodWidget(),
-                _InfoGoodsWidget(),
-                Spacer(flex: 2),
-                _FooterInfoWidget(),
-                Spacer(),
+      child: Material(
+        child: InkWell(
+          onTap: () => dialogBuilder(context),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(4, 4),
+                  blurRadius: 4,
+                  color: Colors.black.withOpacity(0.3),
+                ),
               ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.mediumP,
+              ),
+              child: Column(
+                children: const [
+                  SizedBox(height: AppPadding.mediumP),
+                  _HeaderOfGoodWidget(),
+                  _InfoGoodsWidget(),
+                  Spacer(flex: 2),
+                  _FooterInfoWidget(),
+                  Spacer(),
+                ],
+              ),
             ),
           ),
         ),
