@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
@@ -101,14 +103,10 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
         ),
         InkWell(
           onTap: () {
-            GoodsInheritViewModel.read(context)
-                ?.model
-                ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
+            GoodsInheritViewModel.read(context)?.model?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
           },
           child: Icon(
-            GoodsInherited.of(context)!.model!.favoriteGoods
-                ? AppIcons.bookmark
-                : AppIcons.bookmarkOff,
+            GoodsInherited.of(context)!.model!.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
             color: AppColors.primaryPurple,
           ),
         ),
@@ -169,7 +167,9 @@ class _FooterInfoWidget extends StatefulWidget {
 }
 
 class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
-  final _viewModel = GoodsViewModel();
+  final _viewModel = GoodsViewModel(
+    goodsRepository: GetIt.I.get<GoodsRepository>(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -244,8 +244,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                   minimumSize: MaterialStateProperty.resolveWith(
                     (states) => const Size(100, 40),
                   ),
-                  backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) => AppColors.paymentGreen),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.paymentGreen),
                 ),
                 onPressed: () {
                   _viewModel.addToCart(GoodsInherited.of(context)!.model!);
@@ -273,7 +272,9 @@ class _DialogWindow extends StatefulWidget {
 }
 
 class _DialogWindowState extends State<_DialogWindow> {
-  final _viewModel = GoodsViewModel();
+  final _viewModel = GoodsViewModel(
+    goodsRepository: GetIt.I.get<GoodsRepository>(),
+  );
   @override
   Widget build(BuildContext context) {
     return GoodsInherited(
@@ -294,8 +295,7 @@ class _DialogWindowState extends State<_DialogWindow> {
                       image: AssetImage(widget.model.pathImage!),
                     )
                   else
-                    const SizedBox(
-                        height: 300, width: 300, child: Placeholder()),
+                    const SizedBox(height: 300, width: 300, child: Placeholder()),
                   const SizedBox(width: AppPadding.bigP),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,11 +309,10 @@ class _DialogWindowState extends State<_DialogWindow> {
                         constraints: const BoxConstraints(maxWidth: 500),
                         child: Text(
                           widget.model.compositionOfGoods,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.black.withOpacity(0.7),
-                                    fontSize: 16,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: Colors.black.withOpacity(0.7),
+                                fontSize: 16,
+                              ),
                         ),
                       )
                     ],
@@ -326,8 +325,7 @@ class _DialogWindowState extends State<_DialogWindow> {
                 children: [
                   TextButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.paymentGreen),
+                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
                     ),
                     onPressed: () {
                       _viewModel.amountGoods(false);
@@ -335,11 +333,10 @@ class _DialogWindowState extends State<_DialogWindow> {
                     },
                     child: Text(
                       '-',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontFamily: AppFonts.primaryFontRegular,
-                                color: Colors.white,
-                              ),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontFamily: AppFonts.primaryFontRegular,
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                   const SizedBox(width: AppPadding.smallP),
@@ -353,8 +350,7 @@ class _DialogWindowState extends State<_DialogWindow> {
                   const SizedBox(width: AppPadding.smallP),
                   TextButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.paymentGreen),
+                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
                     ),
                     onPressed: () {
                       _viewModel.amountGoods(true);
@@ -362,29 +358,26 @@ class _DialogWindowState extends State<_DialogWindow> {
                     },
                     child: Text(
                       '+',
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontFamily: AppFonts.primaryFontRegular,
-                                color: Colors.white,
-                              ),
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontFamily: AppFonts.primaryFontRegular,
+                            color: Colors.white,
+                          ),
                     ),
                   ),
                   const SizedBox(width: AppPadding.bigP),
                   TextButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.paymentGreen),
+                      backgroundColor: MaterialStateProperty.all(AppColors.paymentGreen),
                     ),
                     onPressed: () {},
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Добавить в корзину',
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontFamily: AppFonts.primaryFontRegular,
-                                  color: Colors.white,
-                                ),
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontFamily: AppFonts.primaryFontRegular,
+                              color: Colors.white,
+                            ),
                       ),
                     ),
                   ),

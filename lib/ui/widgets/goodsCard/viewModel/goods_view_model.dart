@@ -3,9 +3,13 @@ import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class GoodsViewModel extends ChangeNotifier {
-  GoodsViewModel() {
+  GoodsViewModel({
+    required GoodsRepository goodsRepository,
+  }) : _goodsRepository = goodsRepository {
     load();
   }
+
+  final GoodsRepository _goodsRepository;
 
   int counter = 1;
   bool isAddedToCart = false;
@@ -13,16 +17,14 @@ class GoodsViewModel extends ChangeNotifier {
   static final cartOfGoods = <GoodsModel>[];
 
   Future<void> toFavoriteGoods(GoodsModel goods) async {
-    final goodsRepo = MockApi();
     goods.favoriteGoods
-        ? await goodsRepo.removeFavoriteGoods(goods)
-        : await goodsRepo.addToFavoriteOneGoods(goods);
+        ? await _goodsRepository.removeFavoriteGoods(goods)
+        : await _goodsRepository.addToFavoriteOneGoods(goods);
     await load();
   }
 
   Future<void> load() async {
-    final goodsRepo = MockApi();
-    listOfGoods = await goodsRepo.fetchData();
+    listOfGoods = await _goodsRepository.fetchData();
     notifyListeners();
   }
 
@@ -60,9 +62,7 @@ class GoodsInheritViewModel extends InheritedNotifier<GoodsViewModel> {
   }
 
   static GoodsInheritViewModel? read(BuildContext context) {
-    final widget = context
-        .getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()
-        ?.widget;
+    final widget = context.getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()?.widget;
     return widget is GoodsInheritViewModel ? widget : null;
   }
 }
