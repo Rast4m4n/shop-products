@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/data/json.dart';
-import 'package:shop_products/data/mappers/user_model_mapper.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
@@ -63,7 +62,9 @@ class GoodsInheritViewModel extends InheritedNotifier<GoodsViewModel> {
   }
 
   static GoodsInheritViewModel? read(BuildContext context) {
-    final widget = context.getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()?.widget;
+    final widget = context
+        .getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()
+        ?.widget;
     return widget is GoodsInheritViewModel ? widget : null;
   }
 }

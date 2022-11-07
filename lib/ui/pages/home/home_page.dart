@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     return PageWrapper(
       appBar: AppBar(
         title: InkWell(
-          onTap: () => model.returnTomainPage(context),
+          onTap: () => model.returnToMainPage(context),
           child: const Text('Магия вкуса'),
         ),
         actions: [UserTab()],

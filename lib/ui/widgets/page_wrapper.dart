@@ -21,18 +21,16 @@ class PageWrapper extends StatelessWidget {
         if (isMobile) {
           return Scaffold(
             appBar: appBar,
-            body: SelectionArea(child: body),
+            body: body,
             bottomNavigationBar: bottomNavigationBar,
           );
         } else {
           return Scaffold(
-            body: SelectionArea(
-              child: Column(
-                children: [
-                  const PageHeaderWidget(),
-                  Expanded(child: SingleChildScrollView(child: body)),
-                ],
-              ),
+            body: Column(
+              children: [
+                const PageHeaderWidget(),
+                Expanded(child: SingleChildScrollView(child: body)),
+              ],
             ),
           );
         }

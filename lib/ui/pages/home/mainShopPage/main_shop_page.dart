@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
-import 'package:shop_products/data/repository/shared_pref_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
-import 'package:shop_products/ui/pages/home/mainShopPage/viewModel/main_shop_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/utils/app_ui_utils.dart';
@@ -116,7 +114,8 @@ class _ListCatalog extends StatelessWidget {
 }
 
 class _CatalogCardWidget extends StatelessWidget {
-  const _CatalogCardWidget({Key? key, required this.categoryName}) : super(key: key);
+  const _CatalogCardWidget({Key? key, required this.categoryName})
+      : super(key: key);
   final String categoryName;
   @override
   Widget build(BuildContext context) {
@@ -154,7 +153,8 @@ class _ListOfGoods extends StatefulWidget {
 }
 
 class _ListOfGoodsState extends State<_ListOfGoods> {
-  final _viewModel = GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
+  final _viewModel =
+      GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
 
   @override
   Widget build(BuildContext context) {

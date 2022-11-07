@@ -5,20 +5,16 @@ import 'package:shop_products/domain/models/goods_model.dart';
 class MockApi implements IApi {
   @override
   Future<List<GoodsModel>> fetchData() async {
-    // final String goodsJson =
-    //     await rootBundle.loadString('assets/json/goods/goods.json');
-    // final goodsJsonData = jsonDecode(goodsJson) as List<dynamic>;
-    // return goodsJsonData
-    //     .map((e) => GoodsModel.fromJson(e as Map<String, dynamic>))
-    //     .toList();
     final listOfGoods = Json.goods;
     return listOfGoods.map((e) => GoodsModel.fromJson(e)).toList();
   }
 
+  @override
   void saveGoods(List<GoodsModel> listOfGoods) async {
     Json.goods = listOfGoods.map((e) => e.toJson()).toList();
   }
 
+  @override
   Future<void> addToFavoriteOneGoods(GoodsModel goods) async {
     final listOfGoods = await fetchData();
     final index = listOfGoods.indexWhere((element) => element.id == goods.id);
@@ -26,6 +22,7 @@ class MockApi implements IApi {
     saveGoods(listOfGoods);
   }
 
+  @override
   Future<void> removeFavoriteGoods(GoodsModel goods) async {
     final listOfGoods = await fetchData();
     final index = listOfGoods.indexWhere((element) => element.id == goods.id);

@@ -1,7 +1,7 @@
 part of '../goods_card.dart';
 
 class _DialogWindow extends StatefulWidget {
-  const _DialogWindow({super.key, required this.model});
+  const _DialogWindow({Key? key, required this.model}) : super(key: key);
 
   final GoodsModel model;
 
@@ -11,7 +11,8 @@ class _DialogWindow extends StatefulWidget {
 
 class _DialogWindowState extends State<_DialogWindow> {
   late final cubit = GoodsModalCubit();
-  late final vm = GoodsModalViewModel(model: widget.model, context: context, cubit: cubit);
+  late final vm =
+      GoodsModalViewModel(model: widget.model, context: context, cubit: cubit);
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(

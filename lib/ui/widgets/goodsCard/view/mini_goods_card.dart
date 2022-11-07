@@ -4,7 +4,6 @@ import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/goods_inherited.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
 class MiniGoodsCardWidget extends StatelessWidget {
   const MiniGoodsCardWidget({

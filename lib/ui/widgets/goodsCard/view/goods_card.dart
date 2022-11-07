@@ -100,10 +100,14 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
         ),
         InkWell(
           onTap: () {
-            GoodsInheritViewModel.read(context)?.model?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
+            GoodsInheritViewModel.read(context)
+                ?.model
+                ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
           },
           child: Icon(
-            GoodsInherited.of(context)!.model!.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
+            GoodsInherited.of(context)!.model!.favoriteGoods
+                ? AppIcons.bookmark
+                : AppIcons.bookmarkOff,
             color: AppColors.primaryPurple,
           ),
         ),
@@ -241,7 +245,8 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                   minimumSize: MaterialStateProperty.resolveWith(
                     (states) => const Size(100, 40),
                   ),
-                  backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.paymentGreen),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => AppColors.paymentGreen),
                 ),
                 onPressed: () {
                   _viewModel.addToCart(GoodsInherited.of(context)!.model!);

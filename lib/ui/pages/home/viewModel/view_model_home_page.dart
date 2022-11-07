@@ -6,7 +6,7 @@ class ViewModelHomePage {
     Navigator.of(context).pushNamed(AppRouteNames.profile);
   }
 
-  void returnTomainPage(BuildContext context) {
+  void returnToMainPage(BuildContext context) {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false);
   }
