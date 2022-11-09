@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/data/json.dart';
-import 'package:shop_products/ui/theme/app_icons.dart';
+import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/mini_goods_card.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ShoppingCartPage extends StatelessWidget {
-  const ShoppingCartPage({Key? key}) : super(key: key);
-
+  ShoppingCartPage({Key? key}) : super(key: key);
+  final _viewModel = ShopingCartViewModel();
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.bigP),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            _CartOfGoods(),
-            _ColumnToOrder(),
-          ],
+        child: ShopingCartProvider(
+          model: _viewModel,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              _CartOfGoods(),
+              _ColumnToOrder(),
+            ],
+          ),
         ),
       ),
     );
@@ -50,7 +53,7 @@ class _CartOfGoodsState extends State<_CartOfGoods> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'В корзине N товаров',
+                'В корзине ${ShopingCartProvider.read(context)!.model!.amountOfGoods} товаров',
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -75,9 +78,7 @@ class _CartOfGoodsState extends State<_CartOfGoods> {
 }
 
 class _AllGoodsInCart extends StatelessWidget {
-  const _AllGoodsInCart({
-    Key? key,
-  }) : super(key: key);
+  const _AllGoodsInCart({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +104,9 @@ class _ColumnToOrder extends StatelessWidget {
     return IntrinsicWidth(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          _PriceOfGoods(),
-          SizedBox(height: AppPadding.smallP),
+        children: [
+          const _PriceOfGoods(),
+          const SizedBox(height: AppPadding.smallP),
           _ToOrderButton(),
         ],
       ),
@@ -121,7 +122,7 @@ class _PriceOfGoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(minWidth: 400),
+      constraints: const BoxConstraints(minWidth: 600),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: AppColors.subStrate,
@@ -141,7 +142,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '396 ₽',
+                  '${ShopingCartProvider.read(context)!.model?.summOfAllGoods()} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -160,7 +161,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '-78 ₽',
+                  '${ShopingCartProvider.read(context)!.model!.discountFromCard} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -179,7 +180,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '199₽',
+                  '${ShopingCartProvider.read(context)!.model!.deliveryPrice} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -197,7 +198,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '517₽',
+                  '${ShopingCartProvider.read(context)!.model!.totalPrice} ₽',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         fontFamily: AppFonts.primaryFontRegular,
                       ),
@@ -212,9 +213,9 @@ class _PriceOfGoods extends StatelessWidget {
 }
 
 class _ToOrderButton extends StatelessWidget {
-  const _ToOrderButton({
-    Key? key,
-  }) : super(key: key);
+  _ToOrderButton({Key? key}) : super(key: key);
+
+  final _viewModel = ShopingCartViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +228,7 @@ class _ToOrderButton extends StatelessWidget {
             textStyle: MaterialStateProperty.resolveWith(
                 (states) => const TextStyle(fontSize: 18)),
           ),
-      onPressed: () {},
+      onPressed: () => _viewModel.enterToOrderGoods(context),
       child: const Padding(
         padding: EdgeInsets.all(AppPadding.bigP),
         child: Text("Перейти к оформлению"),
