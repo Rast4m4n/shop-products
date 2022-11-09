@@ -31,18 +31,20 @@ class GoodsViewModel extends ChangeNotifier {
   void addToCart(GoodsModel goods) {
     isAddedToCart = true;
     Json.cartGoods.add(goods);
-    print(Json.cartGoods);
   }
 
-  void amountGoods(bool plus) {
-    if (plus) {
-      counter += 1;
-    } else if (!plus) {
-      if (counter > 1) {
-        counter -= 1;
-      } else {
-        isAddedToCart = false;
-      }
+  void incrementGoods(GoodsModel goods) {
+    Json.cartGoods.add(goods);
+    counter += 1;
+  }
+
+  void decrementGoods() {
+    if (counter > 1) {
+      counter -= 1;
+      Json.cartGoods.removeLast();
+    } else {
+      Json.cartGoods.removeLast();
+      isAddedToCart = false;
     }
   }
 }

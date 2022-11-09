@@ -15,7 +15,9 @@ class GoodsModalCubit extends Cubit<GoodsModalState> {
   }
 
   void decrement() {
-    emit(state.copyWith(countGoods: state.countGoods - 1));
+    if (state.countGoods > 1) {
+      emit(state.copyWith(countGoods: state.countGoods - 1));
+    }
   }
 
   void addToCard(GoodsModel goods) {

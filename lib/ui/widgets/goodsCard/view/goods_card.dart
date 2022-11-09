@@ -204,7 +204,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                         ),
                       ),
                       onPressed: () {
-                        _viewModel.amountGoods(false);
+                        _viewModel.decrementGoods();
                         setState(() {});
                       },
                       child: Text(
@@ -227,7 +227,8 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                         ),
                       ),
                       onPressed: () {
-                        _viewModel.amountGoods(true);
+                        _viewModel
+                            .incrementGoods(GoodsInherited.of(context)!.model!);
                         setState(() {});
                       },
                       child: Text(
