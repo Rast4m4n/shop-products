@@ -16,8 +16,14 @@ class ShopingCartViewModel extends ChangeNotifier {
     return summOfGoods;
   }
 
+  void clearAllGoods() => Json.cartGoods.clear();
+
   void enterToOrderGoods(BuildContext context) {
     Navigator.of(context).pushNamed(AppRouteNames.orderGoods);
+  }
+
+  void enterToMainShop(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRouteNames.main);
   }
 }
 

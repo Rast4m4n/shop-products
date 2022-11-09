@@ -12,32 +12,61 @@ class ShoppingCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
-      body: Padding(
-        padding: const EdgeInsets.all(AppPadding.bigP),
-        child: ShopingCartProvider(
-          model: _viewModel,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              _CartOfGoods(),
-              _ColumnToOrder(),
-            ],
-          ),
-        ),
-      ),
+      body: Json.cartGoods.isNotEmpty
+          ? Padding(
+              padding: const EdgeInsets.all(AppPadding.bigP),
+              child: ShopingCartProvider(
+                model: _viewModel,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    _CartOfGoods(),
+                    _ColumnToOrder(),
+                  ],
+                ),
+              ),
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Корзина пуста',
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        fontFamily: AppFonts.primaryFontRegular,
+                      ),
+                ),
+                Text(
+                  'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontFamily: AppFonts.primaryFontMedium,
+                      ),
+                ),
+                const SizedBox(height: AppPadding.mediumP),
+                ElevatedButton(
+                    style: Theme.of(context).textButtonTheme.style?.copyWith(
+                          backgroundColor: MaterialStateProperty.resolveWith(
+                              (states) => AppColors.primaryPurple),
+                        ),
+                    onPressed: () => _viewModel.enterToMainShop(context),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
+                      child: Text(
+                        "На главную страницу",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 20, color: Colors.white),
+                      ),
+                    )),
+              ],
+            ),
     );
   }
 }
 
-class _CartOfGoods extends StatefulWidget {
+class _CartOfGoods extends StatelessWidget {
   const _CartOfGoods({Key? key}) : super(key: key);
-
-  @override
-  State<_CartOfGoods> createState() => _CartOfGoodsState();
-}
-
-class _CartOfGoodsState extends State<_CartOfGoods> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -64,7 +93,9 @@ class _CartOfGoodsState extends State<_CartOfGoods> {
                       foregroundColor: MaterialStateProperty.resolveWith(
                           (states) => Colors.black),
                     ),
-                onPressed: () {},
+                onPressed: () {
+                  ShopingCartProvider.watch(context)!.model!.clearAllGoods();
+                },
                 child: const Text("Очистить корзину"),
               ),
             ],

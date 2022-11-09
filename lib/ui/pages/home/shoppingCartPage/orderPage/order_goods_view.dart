@@ -17,7 +17,7 @@ class OrderGoodsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.bigP),
         child: Column(
-          children: [
+          children: const [
             _DataForDelivery(),
           ],
         ),
@@ -27,9 +27,7 @@ class OrderGoodsView extends StatelessWidget {
 }
 
 class _DataForDelivery extends StatelessWidget {
-  const _DataForDelivery({
-    Key? key,
-  }) : super(key: key);
+  const _DataForDelivery({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +60,7 @@ class _DataForDelivery extends StatelessWidget {
 
 // Вся информация необходимая для заказа
 class _UserInfoColumn extends StatelessWidget {
-  const _UserInfoColumn({
-    Key? key,
-  }) : super(key: key);
+  const _UserInfoColumn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
