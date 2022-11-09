@@ -48,6 +48,9 @@ class AppTheme {
             return null;
           },
         ),
+        textStyle: MaterialStateProperty.resolveWith(
+          (states) => const TextStyle(fontFamily: AppFonts.primaryFontRegular),
+        ),
       ),
     ),
   );

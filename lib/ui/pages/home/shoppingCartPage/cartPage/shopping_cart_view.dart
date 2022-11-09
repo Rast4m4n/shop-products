@@ -15,6 +15,7 @@ class ShoppingCartPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.bigP),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             _CartOfGoods(),
@@ -39,7 +40,7 @@ class _CartOfGoods extends StatelessWidget {
           style: Theme.of(context).textTheme.headline4,
         ),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: const BoxConstraints(maxWidth: 600),
           child: ListView.separated(
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
@@ -62,20 +63,138 @@ class _ColumnToOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "Перейти к оформлению",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+    return IntrinsicWidth(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          _PriceOfGoods(),
+          SizedBox(height: AppPadding.smallP),
+          _ToOrderButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class _PriceOfGoods extends StatelessWidget {
+  const _PriceOfGoods({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(minWidth: 400),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.subStrate,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.smallP),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Сумма товаров',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
                 ),
-          ),
+                Text(
+                  '396 ₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Скидка по карте',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+                Text(
+                  '-78 ₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Доставка',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+                Text(
+                  '199₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Итоговая сумма',
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                        fontFamily: AppFonts.primaryFontRegular,
+                      ),
+                ),
+                Text(
+                  '517₽',
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                        fontFamily: AppFonts.primaryFontRegular,
+                      ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
+      ),
+    );
+  }
+}
+
+class _ToOrderButton extends StatelessWidget {
+  const _ToOrderButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: Theme.of(context).textButtonTheme.style?.copyWith(
+            backgroundColor: MaterialStateProperty.resolveWith(
+                (states) => AppColors.primaryPurple),
+            foregroundColor:
+                MaterialStateProperty.resolveWith((states) => Colors.white),
+            textStyle: MaterialStateProperty.resolveWith(
+                (states) => const TextStyle(fontSize: 18)),
+          ),
+      onPressed: () {},
+      child: const Padding(
+        padding: EdgeInsets.all(AppPadding.bigP),
+        child: Text("Перейти к оформлению"),
+      ),
     );
   }
 }
