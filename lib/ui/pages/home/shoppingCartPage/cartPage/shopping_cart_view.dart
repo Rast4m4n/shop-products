@@ -27,34 +27,71 @@ class ShoppingCartPage extends StatelessWidget {
   }
 }
 
-class _CartOfGoods extends StatelessWidget {
+class _CartOfGoods extends StatefulWidget {
   const _CartOfGoods({Key? key}) : super(key: key);
 
   @override
+  State<_CartOfGoods> createState() => _CartOfGoodsState();
+}
+
+class _CartOfGoodsState extends State<_CartOfGoods> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Корзина товаров',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return MiniGoodsCardWidget(
-                  goods: Json.cartGoods[index],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(height: AppPadding.mediumP);
-              },
-              itemCount: Json.cartGoods.length),
-        ),
-      ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 600),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Корзина товаров',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'В корзине N товаров',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(fontSize: 14),
+              ),
+              TextButton(
+                style: Theme.of(context).textButtonTheme.style?.copyWith(
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                          (states) => Colors.black),
+                    ),
+                onPressed: () {},
+                child: const Text("Очистить корзину"),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppPadding.smallP),
+          const _AllGoodsInCart(),
+        ],
+      ),
     );
+  }
+}
+
+class _AllGoodsInCart extends StatelessWidget {
+  const _AllGoodsInCart({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return MiniGoodsCardWidget(
+            goods: Json.cartGoods[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: AppPadding.mediumP);
+        },
+        itemCount: Json.cartGoods.length);
   }
 }
 
