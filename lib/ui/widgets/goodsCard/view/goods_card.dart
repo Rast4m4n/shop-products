@@ -6,8 +6,8 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/base/view_model_provider.dart';
-import 'package:shop_products/ui/widgets/goodsCard/inheritedModel/goods_inherited.dart';
+import 'package:shop_products/ui/widgets/base/model_provider.dart';
+
 import 'package:shop_products/ui/widgets/goodsCard/view/modal/cubit/goods_modal_cubit.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/modal/view_model/goods_modal_view_model.dart';
 import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
@@ -34,7 +34,7 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GoodsInherited(
+    return ModelProvider<GoodsModel>(
       model: widget.goods,
       child: Material(
         child: InkWell(
@@ -83,6 +83,7 @@ class _HeaderOfGoodWidget extends StatefulWidget {
 class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
   @override
   Widget build(BuildContext context) {
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -91,7 +92,7 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
             const Icon(AppIcons.starWithFill, color: AppColors.secondaryYellow),
             const SizedBox(width: AppPadding.smallP),
             Text(
-              "${GoodsInherited.of(context)!.model!.ratingGoods}",
+              "${model.ratingGoods}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: 16,
                   ),
@@ -102,12 +103,10 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
           onTap: () {
             GoodsInheritViewModel.read(context)
                 ?.model
-                ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
+                ?.toFavoriteGoods(ModelProvider.of<GoodsModel>(context)!.model);
           },
           child: Icon(
-            GoodsInherited.of(context)!.model!.favoriteGoods
-                ? AppIcons.bookmark
-                : AppIcons.bookmarkOff,
+            model.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
             color: AppColors.primaryPurple,
           ),
         ),
@@ -121,12 +120,13 @@ class _InfoGoodsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
     return Column(
       children: [
         const SizedBox(height: AppPadding.mediumP),
-        if (GoodsInherited.of(context)!.model?.pathImage != null)
+        if (model.pathImage != null)
           Image(
-            image: AssetImage(GoodsInherited.of(context)!.model!.pathImage!),
+            image: AssetImage(model.pathImage!),
           )
         else
           const SizedBox(height: 160, width: 120, child: Placeholder()),
@@ -137,7 +137,7 @@ class _InfoGoodsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                GoodsInherited.of(context)!.model!.nameGoods,
+                model.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
@@ -147,7 +147,7 @@ class _InfoGoodsWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                GoodsInherited.of(context)!.model!.weightGoods,
+                model.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -174,11 +174,12 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${GoodsInherited.of(context)!.model!.priceGoods} ₽",
+          "${model.priceGoods} ₽",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 // fontFamily: AppFonts.primaryFontRegular,
                 fontSize: 16,
@@ -227,8 +228,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                         ),
                       ),
                       onPressed: () {
-                        _viewModel
-                            .incrementGoods(GoodsInherited.of(context)!.model!);
+                        _viewModel.incrementGoods(model);
                         setState(() {});
                       },
                       child: Text(
@@ -241,6 +241,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                   ],
                 ),
               )
+            // До нажатия
             : TextButton(
                 style: ButtonStyle(
                   minimumSize: MaterialStateProperty.resolveWith(
@@ -250,7 +251,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                       (states) => AppColors.paymentGreen),
                 ),
                 onPressed: () {
-                  _viewModel.addToCart(GoodsInherited.of(context)!.model!);
+                  _viewModel.addToCart(model);
                   setState(() {});
                 },
                 child: Text(

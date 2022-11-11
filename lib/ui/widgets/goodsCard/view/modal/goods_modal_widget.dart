@@ -17,8 +17,8 @@ class _DialogWindowState extends State<_DialogWindow> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: cubit,
-      child: ViewModelProvider(
-        vm: vm,
+      child: ModelProvider(
+        model: vm,
         child: const _ViewWidget(),
       ),
     );
@@ -56,7 +56,7 @@ class _ModalGoodsInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = ViewModelProvider.of<GoodsModalViewModel>(context)!.vm.model;
+    final model = ModelProvider.of<GoodsModalViewModel>(context)!.model.model;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -100,7 +100,7 @@ class _ModalBottomFooterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ViewModelProvider.of<GoodsModalViewModel>(context)!.vm;
+    final viewModel = ModelProvider.of<GoodsModalViewModel>(context)!.model;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
