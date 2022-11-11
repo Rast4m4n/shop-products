@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
-import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
-import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/base/model_provider.dart';
 
 class SecondGoodsCardWidget extends StatelessWidget {
@@ -29,33 +27,34 @@ class SecondGoodsCardWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: AppPadding.mediumP * 2),
-                  child: _TitleAndImageGoodsWidget(),
-                ),
-                const Spacer(),
-                // Кнопка удаления товара из избранного или истории покупок
-                IconButton(
-                  splashRadius: 1,
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.clear,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ),
-                const SizedBox(width: AppPadding.smallP),
-              ],
+        child: Stack(children: [
+          Positioned(
+            bottom: 90,
+            left: 560,
+            child: IconButton(
+              splashRadius: 1,
+              onPressed: () {},
+              icon: Icon(
+                Icons.clear,
+                color: Colors.black.withOpacity(0.5),
+              ),
             ),
-            const Spacer(),
-            const _FooterInfoWidget(),
-            const SizedBox(height: AppPadding.mediumP),
-          ],
-        ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  _TitleAndImageGoodsWidget(),
+                  SizedBox(width: AppPadding.smallP),
+                  _PriceAndCountGoods(),
+                  SizedBox(width: AppPadding.smallP),
+                ],
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
@@ -78,10 +77,10 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
                 ModelProvider.of<GoodsModel>(context)!.model.pathImage!),
           )
         else
-          const SizedBox(height: 60, width: 60, child: Placeholder()),
+          const SizedBox(height: 90, width: 90, child: Placeholder()),
         const SizedBox(width: AppPadding.mediumP),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 270),
+          constraints: const BoxConstraints(maxWidth: 400),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -109,106 +108,22 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
   }
 }
 
-class _FooterInfoWidget extends StatefulWidget {
-  const _FooterInfoWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<_FooterInfoWidget> createState() => _FooterInfoWidgetState();
-}
-
-class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.mediumP),
-      child: Row(
-        children: [
-          const _RatingOfGoodsWidget(),
-          const Spacer(),
-          InkWell(
-            onTap: () {
-              // GoodsInheritViewModel.read(context)
-              //     ?.model
-              //     ?.toFavoriteGoods(GoodsInherited.of(context)!.model!);
-            },
-            child: Icon(
-                ModelProvider.of<GoodsModel>(context)!.model.favoriteGoods
-                    ? AppIcons.bookmark
-                    : AppIcons.bookmarkOff,
-                color: AppColors.primaryPurple),
-          ),
-          const SizedBox(width: AppPadding.smallP),
-          const _ToCartButtonWidget(),
-          const SizedBox(width: AppPadding.bigP),
-          Text(
-            "${ModelProvider.of<GoodsModel>(context)!.model.priceGoods} ₽",
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  // fontFamily: AppFonts.primaryFontRegular,
-                  fontSize: 16,
-                ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ToCartButtonWidget extends StatelessWidget {
-  const _ToCartButtonWidget({
-    Key? key,
-  }) : super(key: key);
+class _PriceAndCountGoods extends StatelessWidget {
+  const _PriceAndCountGoods({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 78,
-      decoration: BoxDecoration(
-        color: AppColors.paymentGreen,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            InkWell(
-              onTap: () {
-                // _viewModel.addToCart(GoodsInherited.of(context)!.model!);
-              },
-              child: Text(
-                'В корзину',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.white,
-                    ),
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    return Column(
+      children: [
+        Text(
+          "${model.priceGoods} ₽",
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            ),
-          ],
         ),
-      ),
+      ],
     );
-  }
-}
-
-class _RatingOfGoodsWidget extends StatelessWidget {
-  const _RatingOfGoodsWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(children: [
-      const Icon(
-        AppIcons.starWithFill,
-        color: AppColors.secondaryYellow,
-        size: 12,
-      ),
-      const SizedBox(width: AppPadding.smallP),
-      Text(
-        '${ModelProvider.of<GoodsModel>(context)!.model.ratingGoods}',
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontSize: 16,
-            ),
-      ),
-    ]);
   }
 }
