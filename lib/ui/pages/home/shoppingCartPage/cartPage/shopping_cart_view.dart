@@ -49,7 +49,8 @@ class ShoppingCartPage extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.resolveWith(
                             (states) => AppColors.primaryPurple),
                       ),
-                  onPressed: () => _viewModel.enterToMainShop(context),
+                  onPressed: () =>
+                      ShopingCartViewModel.enterToMainShop(context),
                   child: Padding(
                     padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
                     child: Text(
@@ -139,11 +140,11 @@ class _ColumnToOrder extends StatelessWidget {
         width: 500,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const BonusCardWidget(),
-            const SizedBox(height: AppPadding.smallP),
-            const _PriceOfGoods(),
-            const SizedBox(height: AppPadding.smallP),
+          children: const [
+            BonusCardWidget(),
+            SizedBox(height: AppPadding.smallP),
+            _PriceOfGoods(),
+            SizedBox(height: AppPadding.smallP),
             _ToOrderButton(),
           ],
         ),
@@ -257,9 +258,7 @@ class _PriceOfGoods extends StatelessWidget {
 }
 
 class _ToOrderButton extends StatelessWidget {
-  _ToOrderButton({Key? key}) : super(key: key);
-
-  final _viewModel = ShopingCartViewModel();
+  const _ToOrderButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +271,7 @@ class _ToOrderButton extends StatelessWidget {
             textStyle: MaterialStateProperty.resolveWith(
                 (states) => const TextStyle(fontSize: 18)),
           ),
-      onPressed: () => _viewModel.enterToOrderGoods(context),
+      onPressed: () => ShopingCartViewModel.enterToOrderGoods(context),
       child: const Padding(
         padding: EdgeInsets.all(AppPadding.bigP),
         child: Text("Перейти к оформлению"),

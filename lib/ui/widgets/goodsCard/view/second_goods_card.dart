@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
+import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
+import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/base/model_provider.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 
+/// карточка товара для корзины
 class SecondGoodsCardWidget extends StatelessWidget {
   const SecondGoodsCardWidget({Key? key, required this.goods})
       : super(key: key);
@@ -46,8 +50,8 @@ class SecondGoodsCardWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  _TitleAndImageGoodsWidget(),
-                  SizedBox(width: AppPadding.smallP),
+                  _TitleOfGoods(),
+                  _CountOfGoods(),
                   _PriceAndCountGoods(),
                   SizedBox(width: AppPadding.smallP),
                 ],
@@ -60,32 +64,35 @@ class SecondGoodsCardWidget extends StatelessWidget {
   }
 }
 
-class _TitleAndImageGoodsWidget extends StatelessWidget {
-  const _TitleAndImageGoodsWidget({
+class _TitleOfGoods extends StatelessWidget {
+  const _TitleOfGoods({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(width: AppPadding.mediumP),
-        if (ModelProvider.of<GoodsModel>(context)?.model.pathImage != null)
+        if (model.pathImage != null)
           Image(
-            image: AssetImage(
-                ModelProvider.of<GoodsModel>(context)!.model.pathImage!),
+            image: AssetImage(model.pathImage!),
           )
         else
           const SizedBox(height: 90, width: 90, child: Placeholder()),
         const SizedBox(width: AppPadding.mediumP),
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: const BoxConstraints(
+            maxWidth: 300,
+            minWidth: 300,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                ModelProvider.of<GoodsModel>(context)!.model.nameGoods,
+                model.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
@@ -95,14 +102,43 @@ class _TitleAndImageGoodsWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                ModelProvider.of<GoodsModel>(context)!.model.weightGoods,
+                model.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
               ),
+              const SizedBox(height: AppPadding.smallP),
+              InkWell(
+                onTap: () {
+                  GoodsInheritViewModel.read(context)
+                      ?.model
+                      ?.toFavoriteGoods(model);
+                },
+                child: Icon(
+                  model.favoriteGoods
+                      ? AppIcons.bookmark
+                      : AppIcons.bookmarkOff,
+                  color: AppColors.primaryPurple,
+                ),
+              ),
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+class _CountOfGoods extends StatelessWidget {
+  const _CountOfGoods({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
+        Text('1', style: Theme.of(context).textTheme.bodyLarge),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
       ],
     );
   }
@@ -119,8 +155,7 @@ class _PriceAndCountGoods extends StatelessWidget {
         Text(
           "${model.priceGoods} ₽",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
         ),
       ],
