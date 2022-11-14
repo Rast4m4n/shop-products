@@ -64,11 +64,14 @@ class SecondGoodsCardWidget extends StatelessWidget {
   }
 }
 
-class _TitleOfGoods extends StatelessWidget {
-  const _TitleOfGoods({
-    Key? key,
-  }) : super(key: key);
+class _TitleOfGoods extends StatefulWidget {
+  const _TitleOfGoods({Key? key}) : super(key: key);
 
+  @override
+  State<_TitleOfGoods> createState() => _TitleOfGoodsState();
+}
+
+class _TitleOfGoodsState extends State<_TitleOfGoods> {
   @override
   Widget build(BuildContext context) {
     final model = ModelProvider.of<GoodsModel>(context)!.model;
@@ -113,6 +116,7 @@ class _TitleOfGoods extends StatelessWidget {
                   GoodsInheritViewModel.read(context)
                       ?.model
                       ?.toFavoriteGoods(model);
+                  setState(() {});
                 },
                 child: Icon(
                   model.favoriteGoods
@@ -129,16 +133,34 @@ class _TitleOfGoods extends StatelessWidget {
   }
 }
 
-class _CountOfGoods extends StatelessWidget {
+class _CountOfGoods extends StatefulWidget {
   const _CountOfGoods({Key? key}) : super(key: key);
 
   @override
+  State<_CountOfGoods> createState() => _CountOfGoodsState();
+}
+
+class _CountOfGoodsState extends State<_CountOfGoods> {
+  @override
   Widget build(BuildContext context) {
+    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final viewModel = GoodsInheritViewModel.read(context)!.model;
     return Row(
       children: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
-        Text('1', style: Theme.of(context).textTheme.bodyLarge),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+        IconButton(
+            onPressed: () {
+              viewModel!.decrementGoods();
+              setState(() {});
+            },
+            icon: const Icon(Icons.remove)),
+        Text('${viewModel!.counter}',
+            style: Theme.of(context).textTheme.bodyLarge),
+        IconButton(
+            onPressed: () {
+              viewModel.incrementGoods(model);
+              setState(() {});
+            },
+            icon: const Icon(Icons.add)),
       ],
     );
   }

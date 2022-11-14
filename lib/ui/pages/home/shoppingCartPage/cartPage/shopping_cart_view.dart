@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/json.dart';
+import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
-import 'package:shop_products/ui/widgets/goodsCard/view/second_goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/secondGoodsCard/second_goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ShoppingCartPage extends StatelessWidget {
@@ -111,22 +114,41 @@ class _CartOfGoods extends StatelessWidget {
   }
 }
 
-class _AllGoodsInCart extends StatelessWidget {
+class _AllGoodsInCart extends StatefulWidget {
   const _AllGoodsInCart({Key? key}) : super(key: key);
 
   @override
+  State<_AllGoodsInCart> createState() => _AllGoodsInCartState();
+}
+
+class _AllGoodsInCartState extends State<_AllGoodsInCart> {
+  final _viewModel =
+      GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _viewModel.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return SecondGoodsCardWidget(
-            goods: Json.cartGoods[index],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: AppPadding.mediumP);
-        },
-        itemCount: Json.cartGoods.length);
+    return GoodsInheritViewModel(
+      model: _viewModel,
+      child: ListView.separated(
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return SecondGoodsCardWidget(
+              goods: Json.cartGoods[index],
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: AppPadding.mediumP);
+          },
+          itemCount: Json.cartGoods.length),
+    );
   }
 }
 

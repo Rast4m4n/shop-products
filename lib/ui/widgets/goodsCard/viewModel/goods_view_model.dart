@@ -16,10 +16,24 @@ class GoodsViewModel extends ChangeNotifier {
   bool isAddedToCart = false;
   var listOfGoods = <GoodsModel>[];
 
+  /// Метод добавление товара в избранные, находясь в корзине
+  void toFavoriteGoodsInCart(GoodsModel goods) {
+    if (Json.cartGoods.contains(goods)) {
+      final index =
+          Json.cartGoods.indexWhere((element) => goods.id == element.id);
+      Json.cartGoods[index] =
+          goods.copyWith(favoriteGoods: goods.favoriteGoods ? false : true);
+    } else {
+      return;
+    }
+  }
+
+  // добавление товара в избранные
   Future<void> toFavoriteGoods(GoodsModel goods) async {
     goods.favoriteGoods
         ? await _goodsRepository.removeFavoriteGoods(goods)
         : await _goodsRepository.addToFavoriteOneGoods(goods);
+    toFavoriteGoodsInCart(goods);
     await load();
   }
 
@@ -43,8 +57,12 @@ class GoodsViewModel extends ChangeNotifier {
       counter -= 1;
       Json.cartGoods.removeLast();
     } else {
-      Json.cartGoods.removeLast();
-      isAddedToCart = false;
+      if (Json.cartGoods.isNotEmpty) {
+        Json.cartGoods.removeLast();
+        isAddedToCart = false;
+      } else {
+        return;
+      }
     }
   }
 }
