@@ -50,6 +50,7 @@ class GoodsViewModel extends ChangeNotifier {
   void incrementGoods(GoodsModel goods) {
     Json.cartGoods.add(goods);
     counter += 1;
+    notifyListeners();
   }
 
   void decrementGoods() {
@@ -64,6 +65,12 @@ class GoodsViewModel extends ChangeNotifier {
         return;
       }
     }
+    notifyListeners();
+  }
+
+  void deleteGoodsFromCart(GoodsModel goods) {
+    Json.cartGoods.removeWhere((element) => element.id == goods.id);
+    notifyListeners();
   }
 }
 

@@ -35,12 +35,19 @@ class SecondGoodsCardWidget extends StatelessWidget {
           Positioned(
             bottom: 90,
             left: 560,
-            child: IconButton(
-              splashRadius: 1,
-              onPressed: () {},
-              icon: Icon(
-                Icons.clear,
-                color: Colors.black.withOpacity(0.5),
+            child: Material(
+              child: IconButton(
+                tooltip: "Удалить товар из корзины",
+                splashRadius: 16,
+                onPressed: () {
+                  GoodsInheritViewModel.read(context)!
+                      .model
+                      ?.deleteGoodsFromCart(goods);
+                },
+                icon: Icon(
+                  Icons.clear,
+                  color: Colors.black.withOpacity(0.5),
+                ),
               ),
             ),
           ),
@@ -133,14 +140,9 @@ class _TitleOfGoodsState extends State<_TitleOfGoods> {
   }
 }
 
-class _CountOfGoods extends StatefulWidget {
+class _CountOfGoods extends StatelessWidget {
   const _CountOfGoods({Key? key}) : super(key: key);
 
-  @override
-  State<_CountOfGoods> createState() => _CountOfGoodsState();
-}
-
-class _CountOfGoodsState extends State<_CountOfGoods> {
   @override
   Widget build(BuildContext context) {
     final model = ModelProvider.of<GoodsModel>(context)!.model;
@@ -148,18 +150,12 @@ class _CountOfGoodsState extends State<_CountOfGoods> {
     return Row(
       children: [
         IconButton(
-            onPressed: () {
-              viewModel!.decrementGoods();
-              setState(() {});
-            },
+            onPressed: () => viewModel!.decrementGoods(),
             icon: const Icon(Icons.remove)),
         Text('${viewModel!.counter}',
             style: Theme.of(context).textTheme.bodyLarge),
         IconButton(
-            onPressed: () {
-              viewModel.incrementGoods(model);
-              setState(() {});
-            },
+            onPressed: () => viewModel.incrementGoods(model),
             icon: const Icon(Icons.add)),
       ],
     );
