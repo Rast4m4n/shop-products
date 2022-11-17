@@ -19,10 +19,8 @@ class GoodsViewModel extends ChangeNotifier {
   /// Метод добавление товара в избранные, находясь в корзине
   void toFavoriteGoodsInCart(GoodsModel goods) {
     if (Json.cartGoods.contains(goods)) {
-      final index =
-          Json.cartGoods.indexWhere((element) => goods.id == element.id);
-      Json.cartGoods[index] =
-          goods.copyWith(favoriteGoods: goods.favoriteGoods ? false : true);
+      final index = Json.cartGoods.indexWhere((element) => goods.id == element.id);
+      Json.cartGoods[index] = goods.copyWith(favoriteGoods: goods.favoriteGoods ? false : true);
     } else {
       return;
     }
@@ -68,7 +66,7 @@ class GoodsViewModel extends ChangeNotifier {
   void decrementGoodsCart(GoodsModel goods) {
     if (counter > 1) {
       counter -= 1;
-      final index = Json.cartGoods.indexOf(goods);
+      final index = Json.cartGoods.indexWhere((element) => element.id == goods.id);
       Json.cartGoods.removeAt(index);
     } else {
       return;
@@ -97,9 +95,7 @@ class GoodsInheritViewModel extends InheritedNotifier<GoodsViewModel> {
   }
 
   static GoodsInheritViewModel? read(BuildContext context) {
-    final widget = context
-        .getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()
-        ?.widget;
+    final widget = context.getElementForInheritedWidgetOfExactType<GoodsInheritViewModel>()?.widget;
     return widget is GoodsInheritViewModel ? widget : null;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/json.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
+import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
@@ -64,19 +65,16 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 const SizedBox(height: AppPadding.mediumP),
                 ElevatedButton(
                   style: Theme.of(context).textButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => AppColors.primaryPurple),
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith((states) => AppColors.primaryPurple),
                       ),
-                  onPressed: () =>
-                      ShopingCartViewModel.enterToMainShop(context),
+                  onPressed: () => ShopingCartViewModel.enterToMainShop(context),
                   child: Padding(
                     padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
                     child: Text(
                       "На главную страницу",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 20, color: Colors.white),
+                      style:
+                          Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ),
@@ -104,15 +102,11 @@ class _CartOfGoods extends StatelessWidget {
             children: [
               Text(
                 'Товаров в корзине ${ShopingCartProvider.read(context)!.model!.amountOfGoods}',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(fontSize: 14),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 14),
               ),
               TextButton(
                 style: Theme.of(context).textButtonTheme.style?.copyWith(
-                      foregroundColor: MaterialStateProperty.resolveWith(
-                          (states) => Colors.black),
+                      foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.black),
                     ),
                 onPressed: () {
                   ShopingCartProvider.watch(context)!.model!.clearAllGoods();
@@ -137,8 +131,7 @@ class _AllGoodsInCart extends StatefulWidget {
 }
 
 class _AllGoodsInCartState extends State<_AllGoodsInCart> {
-  final _viewModel =
-      GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
+  final _viewModel = GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
 
   @override
   void didChangeDependencies() {
@@ -150,19 +143,29 @@ class _AllGoodsInCartState extends State<_AllGoodsInCart> {
 
   @override
   Widget build(BuildContext context) {
+    final toDisplayGoods = <GoodsModel>[];
+    for (final goods in Json.cartGoods) {
+      if (toDisplayGoods.any((element) => element.id == goods.id)) {
+        final index = toDisplayGoods.indexWhere((element) => element.id == goods.id);
+        toDisplayGoods[index] =
+            toDisplayGoods[index].copyWith(numberOfGoods: toDisplayGoods[index].numberOfGoods + 1);
+        continue;
+      }
+      toDisplayGoods.add(goods);
+    }
     return GoodsInheritViewModel(
       model: _viewModel,
       child: ListView.separated(
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return SecondGoodsCardWidget(
-              goods: Json.cartGoods[index],
+              goods: toDisplayGoods[index],
             );
           },
           separatorBuilder: (BuildContext context, int index) {
             return const SizedBox(height: AppPadding.mediumP);
           },
-          itemCount: Json.cartGoods.length),
+          itemCount: toDisplayGoods.length),
     );
   }
 }
@@ -218,17 +221,11 @@ class _PriceOfGoods extends StatelessWidget {
               children: [
                 Text(
                   'Сумма товаров',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
                 Text(
                   '${ShopingCartProvider.read(context)!.model?.summOfAllGoods()} ₽',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
               ],
             ),
@@ -237,17 +234,11 @@ class _PriceOfGoods extends StatelessWidget {
               children: [
                 Text(
                   'Скидка по карте',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
                 Text(
                   '${ShopingCartProvider.read(context)!.model!.discountFromCard} ₽',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
               ],
             ),
@@ -256,17 +247,11 @@ class _PriceOfGoods extends StatelessWidget {
               children: [
                 Text(
                   'Доставка',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
                 Text(
                   '${ShopingCartProvider.read(context)!.model!.deliveryPrice} ₽',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
                 ),
               ],
             ),
@@ -301,12 +286,9 @@ class _ToOrderButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: Theme.of(context).textButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.resolveWith(
-                (states) => AppColors.primaryPurple),
-            foregroundColor:
-                MaterialStateProperty.resolveWith((states) => Colors.white),
-            textStyle: MaterialStateProperty.resolveWith(
-                (states) => const TextStyle(fontSize: 18)),
+            backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.primaryPurple),
+            foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+            textStyle: MaterialStateProperty.resolveWith((states) => const TextStyle(fontSize: 18)),
           ),
       onPressed: () => ShopingCartViewModel.enterToOrderGoods(context),
       child: const Padding(
