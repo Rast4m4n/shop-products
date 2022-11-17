@@ -53,17 +53,25 @@ class GoodsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void decrementGoods() {
+  void decrementGoods(GoodsModel goods) {
     if (counter > 1) {
       counter -= 1;
-      Json.cartGoods.removeLast();
+      final index = Json.cartGoods.indexOf(goods);
+      Json.cartGoods.removeAt(index);
     } else {
-      if (Json.cartGoods.isNotEmpty) {
-        Json.cartGoods.removeLast();
-        isAddedToCart = false;
-      } else {
-        return;
-      }
+      isAddedToCart = false;
+      return;
+    }
+    notifyListeners();
+  }
+
+  void decrementGoodsCart(GoodsModel goods) {
+    if (counter > 1) {
+      counter -= 1;
+      final index = Json.cartGoods.indexOf(goods);
+      Json.cartGoods.removeAt(index);
+    } else {
+      return;
     }
     notifyListeners();
   }

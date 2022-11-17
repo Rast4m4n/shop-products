@@ -76,7 +76,7 @@ class _CatalogOfGoods extends StatelessWidget {
                           fontFamily: AppFonts.primaryFontRegular,
                         ),
                   ),
-                  _ListCatalog(),
+                  const _ListCatalog(),
                 ],
               ),
             ),

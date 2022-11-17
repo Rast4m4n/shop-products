@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 
 class BankTypeTextWidget extends StatelessWidget {

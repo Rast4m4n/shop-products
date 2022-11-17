@@ -205,7 +205,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                         ),
                       ),
                       onPressed: () {
-                        _viewModel.decrementGoods();
+                        _viewModel.decrementGoods(model);
                         setState(() {});
                       },
                       child: Text(

@@ -6,13 +6,28 @@ import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_c
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
-import 'package:shop_products/ui/widgets/goodsCard/view/secondGoodsCard/second_goods_card.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/second_goods_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
-class ShoppingCartPage extends StatelessWidget {
-  ShoppingCartPage({Key? key}) : super(key: key);
+class ShoppingCartPage extends StatefulWidget {
+  const ShoppingCartPage({Key? key}) : super(key: key);
+
+  @override
+  State<ShoppingCartPage> createState() => _ShoppingCartPageState();
+}
+
+class _ShoppingCartPageState extends State<ShoppingCartPage> {
   final _viewModel = ShopingCartViewModel();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _viewModel.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageWrapper(

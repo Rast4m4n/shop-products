@@ -150,7 +150,7 @@ class _CountOfGoods extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-            onPressed: () => viewModel!.decrementGoods(),
+            onPressed: () => viewModel!.decrementGoodsCart(model),
             icon: const Icon(Icons.remove)),
         Text('${viewModel!.counter}',
             style: Theme.of(context).textTheme.bodyLarge),
