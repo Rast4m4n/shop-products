@@ -143,6 +143,21 @@ class _AllGoodsInCartState extends State<_AllGoodsInCart> {
 
   @override
   Widget build(BuildContext context) {
+    return GoodsInheritViewModel(
+      model: _viewModel,
+      child: const _ViewWidget(),
+    );
+  }
+}
+
+class _ViewWidget extends StatelessWidget {
+  const _ViewWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    GoodsInheritViewModel.watch(context);
     final toDisplayGoods = <GoodsModel>[];
     for (final goods in Json.cartGoods) {
       if (toDisplayGoods.any((element) => element.id == goods.id)) {
@@ -151,22 +166,20 @@ class _AllGoodsInCartState extends State<_AllGoodsInCart> {
             toDisplayGoods[index].copyWith(numberOfGoods: toDisplayGoods[index].numberOfGoods + 1);
         continue;
       }
-      toDisplayGoods.add(goods);
+      toDisplayGoods.add(goods.copyWith(numberOfGoods: 1));
     }
-    return GoodsInheritViewModel(
-      model: _viewModel,
-      child: ListView.separated(
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) {
-            return SecondGoodsCardWidget(
-              goods: toDisplayGoods[index],
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(height: AppPadding.mediumP);
-          },
-          itemCount: toDisplayGoods.length),
-    );
+    toDisplayGoods.sort((e, b) => e.id.compareTo(b.id));
+    return ListView.separated(
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return SecondGoodsCardWidget(
+            goods: toDisplayGoods[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: AppPadding.mediumP);
+        },
+        itemCount: toDisplayGoods.length);
   }
 }
 

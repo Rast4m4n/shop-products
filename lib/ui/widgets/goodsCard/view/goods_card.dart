@@ -216,7 +216,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                       ),
                     ),
                     Text(
-                      '${_viewModel.counter}',
+                      'мда', // Сделай норм, что это ??? -> '${_viewModel.counter}',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.white,
                           ),
@@ -247,8 +247,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                   minimumSize: MaterialStateProperty.resolveWith(
                     (states) => const Size(100, 40),
                   ),
-                  backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) => AppColors.paymentGreen),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.paymentGreen),
                 ),
                 onPressed: () {
                   _viewModel.addToCart(model);

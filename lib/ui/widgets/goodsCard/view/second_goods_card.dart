@@ -8,8 +8,7 @@ import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.da
 
 /// карточка товара для корзины
 class SecondGoodsCardWidget extends StatelessWidget {
-  const SecondGoodsCardWidget({Key? key, required this.goods})
-      : super(key: key);
+  const SecondGoodsCardWidget({Key? key, required this.goods}) : super(key: key);
 
   final GoodsModel goods;
 
@@ -40,9 +39,7 @@ class SecondGoodsCardWidget extends StatelessWidget {
                 tooltip: "Удалить товар из корзины",
                 splashRadius: 16,
                 onPressed: () {
-                  GoodsInheritViewModel.read(context)!
-                      .model
-                      ?.deleteGoodsFromCart(goods);
+                  GoodsInheritViewModel.read(context)!.model?.deleteGoodsFromCart(goods);
                 },
                 icon: Icon(
                   Icons.clear,
@@ -120,15 +117,11 @@ class _TitleOfGoodsState extends State<_TitleOfGoods> {
               const SizedBox(height: AppPadding.smallP),
               InkWell(
                 onTap: () {
-                  GoodsInheritViewModel.read(context)
-                      ?.model
-                      ?.toFavoriteGoods(model);
+                  GoodsInheritViewModel.read(context)?.model?.toFavoriteGoods(model);
                   setState(() {});
                 },
                 child: Icon(
-                  model.favoriteGoods
-                      ? AppIcons.bookmark
-                      : AppIcons.bookmarkOff,
+                  model.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
                   color: AppColors.primaryPurple,
                 ),
               ),
@@ -149,14 +142,9 @@ class _CountOfGoods extends StatelessWidget {
     final viewModel = GoodsInheritViewModel.read(context)!.model;
     return Row(
       children: [
-        IconButton(
-            onPressed: () => viewModel!.decrementGoodsCart(model),
-            icon: const Icon(Icons.remove)),
-        Text('${viewModel!.counter}',
-            style: Theme.of(context).textTheme.bodyLarge),
-        IconButton(
-            onPressed: () => viewModel.incrementGoods(model),
-            icon: const Icon(Icons.add)),
+        IconButton(onPressed: () => viewModel!.decrementGoodsCart(model), icon: const Icon(Icons.remove)),
+        Text(model.numberOfGoods.toString(), style: Theme.of(context).textTheme.bodyLarge),
+        IconButton(onPressed: () => viewModel!.incrementGoods(model), icon: const Icon(Icons.add)),
       ],
     );
   }

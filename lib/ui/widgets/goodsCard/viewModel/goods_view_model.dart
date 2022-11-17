@@ -12,7 +12,6 @@ class GoodsViewModel extends ChangeNotifier {
 
   final GoodsRepository _goodsRepository;
 
-  int counter = 1;
   bool isAddedToCart = false;
   var listOfGoods = <GoodsModel>[];
 
@@ -47,13 +46,11 @@ class GoodsViewModel extends ChangeNotifier {
 
   void incrementGoods(GoodsModel goods) {
     Json.cartGoods.add(goods);
-    counter += 1;
     notifyListeners();
   }
 
   void decrementGoods(GoodsModel goods) {
-    if (counter > 1) {
-      counter -= 1;
+    if (goods.numberOfGoods > 1) {
       final index = Json.cartGoods.indexOf(goods);
       Json.cartGoods.removeAt(index);
     } else {
@@ -64,14 +61,14 @@ class GoodsViewModel extends ChangeNotifier {
   }
 
   void decrementGoodsCart(GoodsModel goods) {
-    if (counter > 1) {
-      counter -= 1;
+    if (goods.numberOfGoods > 1) {
+      print(Json.cartGoods);
       final index = Json.cartGoods.indexWhere((element) => element.id == goods.id);
       Json.cartGoods.removeAt(index);
+      notifyListeners();
     } else {
       return;
     }
-    notifyListeners();
   }
 
   void deleteGoodsFromCart(GoodsModel goods) {
