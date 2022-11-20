@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
@@ -10,7 +11,6 @@ import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.
 
 class OrderGoodsView extends StatelessWidget {
   const OrderGoodsView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
@@ -41,16 +41,24 @@ class _DataForDelivery extends StatelessWidget {
         const SizedBox(height: AppPadding.mediumP),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Column(
               children: const [
                 _UserInfoColumn(),
               ],
             ),
-            const SizedBox(
-              width: AppPadding.bigP * 2,
+            const SizedBox(width: AppPadding.bigP * 2),
+            IntrinsicWidth(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  _BonusColumn(),
+                  SizedBox(height: AppPadding.smallP),
+                  _ColumnToBuy(),
+                ],
+              ),
             ),
-            const _BonusColumn(),
           ],
         ),
       ],
@@ -297,6 +305,152 @@ class _PromoCodeTextField extends StatelessWidget {
             right: AppPadding.mediumP,
           ),
         ),
+      ),
+    );
+  }
+}
+
+// Колонка оформление заказа
+class _ColumnToBuy extends StatelessWidget {
+  const _ColumnToBuy({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicWidth(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          _PriceOfGoods(),
+          SizedBox(height: AppPadding.smallP),
+          _ToBuyButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class _PriceOfGoods extends StatelessWidget {
+  const _PriceOfGoods({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            offset: const Offset(0.4, 0.4),
+            color: Colors.black.withOpacity(0.3),
+          ),
+        ],
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.smallP),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Сумма товаров',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+                Text(
+                  ' ₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Скидка по карте',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+                Text(
+                  '₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Доставка',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+                Text(
+                  ' ₽',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Итоговая сумма',
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                        fontFamily: AppFonts.primaryFontRegular,
+                      ),
+                ),
+                Text(
+                  ' ₽',
+                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                        fontFamily: AppFonts.primaryFontRegular,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ToBuyButton extends StatelessWidget {
+  const _ToBuyButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: Theme.of(context).textButtonTheme.style?.copyWith(
+            backgroundColor: MaterialStateProperty.resolveWith(
+                (states) => AppColors.primaryPurple),
+            foregroundColor:
+                MaterialStateProperty.resolveWith((states) => Colors.white),
+            textStyle: MaterialStateProperty.resolveWith(
+                (states) => const TextStyle(fontSize: 18)),
+          ),
+      onPressed: () {},
+      child: const Padding(
+        padding: EdgeInsets.all(AppPadding.bigP),
+        child: Text("Заказать"),
       ),
     );
   }

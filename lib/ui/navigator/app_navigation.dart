@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/pages/home/favoriteGoodsPage/favorite_goods_page.dart';
 import 'package:shop_products/ui/pages/home/home_page.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/orderPage/order_goods_view.dart';
@@ -9,6 +10,7 @@ abstract class AppRouteNames {
   static const profile = '/profile';
   static const shopingCart = '/shopingCart';
   static const orderGoods = '/OrderGoods';
+  static const favoriteGoods = '/favoriteGoods';
 }
 
 class AppNavigation {
@@ -19,5 +21,6 @@ class AppNavigation {
         AppRouteNames.profile: (context) => ProfilePage(),
         AppRouteNames.shopingCart: (context) => const ShoppingCartPage(),
         AppRouteNames.orderGoods: (context) => const OrderGoodsView(),
+        AppRouteNames.favoriteGoods: (context) => const FavoriteGoodsPage(),
       };
 }

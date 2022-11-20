@@ -70,7 +70,7 @@ class BonusCardWidget extends StatelessWidget {
             top: 30,
             left: 10,
             child: Text(
-              '1%',
+              '0%',
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.white.withOpacity(0.25),
                   ),

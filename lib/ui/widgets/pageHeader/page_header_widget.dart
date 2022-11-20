@@ -30,9 +30,11 @@ class PageHeaderWidget extends StatelessWidget {
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
-              textButton: "Избранные",
-              iconButton: AppIcons.favourites,
-              callBack: () {}),
+            textButton: "Избранные",
+            iconButton: AppIcons.favourites,
+            callBack: () =>
+                Navigator.of(context).pushNamed(AppRouteNames.favoriteGoods),
+          ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(
             textButton: "Профиль",
