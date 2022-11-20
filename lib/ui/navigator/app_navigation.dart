@@ -17,7 +17,7 @@ class AppNavigation {
   Map<String, Widget Function(BuildContext context)> get routes => {
         AppRouteNames.main: (context) => const HomePage(),
         AppRouteNames.profile: (context) => ProfilePage(),
-        AppRouteNames.shopingCart: (context) => ShoppingCartPage(),
+        AppRouteNames.shopingCart: (context) => const ShoppingCartPage(),
         AppRouteNames.orderGoods: (context) => const OrderGoodsView(),
       };
 }

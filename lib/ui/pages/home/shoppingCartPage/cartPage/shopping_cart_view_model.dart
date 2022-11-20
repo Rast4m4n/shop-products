@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/data/json.dart';
+import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ShopingCartViewModel extends ChangeNotifier {
@@ -8,6 +9,19 @@ class ShopingCartViewModel extends ChangeNotifier {
   int discountFromCard = 0;
   int deliveryPrice = 199;
   late int totalPrice = deliveryPrice + discountFromCard + summOfGoods;
+
+  Map<GoodsModel, int> listOfGoods = {};
+
+  void counterGoods() {
+    for (final goods in Json.cartGoods) {
+      if (listOfGoods.containsKey(goods)) {
+        listOfGoods[goods] = listOfGoods[goods]! + 1;
+      } else {
+        listOfGoods[goods] = 1;
+      }
+    }
+    listOfGoods.keys.toList().sort((e, b) => e.id.compareTo(b.id));
+  }
 
   int summOfAllGoods() {
     for (var element in Json.cartGoods) {

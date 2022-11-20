@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/json.dart';
-import 'package:shop_products/data/repository/goods_repository.dart';
-import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
@@ -46,41 +43,44 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 ),
               ),
             )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Корзина пуста',
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        fontFamily: AppFonts.primaryFontRegular,
+          : SizedBox(
+              height: 500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Корзина пуста',
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                          fontFamily: AppFonts.primaryFontRegular,
+                        ),
+                  ),
+                  Text(
+                    'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontFamily: AppFonts.primaryFontMedium,
+                        ),
+                  ),
+                  const SizedBox(height: AppPadding.mediumP),
+                  ElevatedButton(
+                    style: Theme.of(context).textButtonTheme.style?.copyWith(
+                          backgroundColor: MaterialStateProperty.resolveWith(
+                              (states) => AppColors.primaryPurple),
+                        ),
+                    onPressed: () =>
+                        ShopingCartViewModel.enterToMainShop(context),
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
+                      child: Text(
+                        "На главную страницу",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 20, color: Colors.white),
                       ),
-                ),
-                Text(
-                  'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontFamily: AppFonts.primaryFontMedium,
-                      ),
-                ),
-                const SizedBox(height: AppPadding.mediumP),
-                ElevatedButton(
-                  style: Theme.of(context).textButtonTheme.style?.copyWith(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => AppColors.primaryPurple),
-                      ),
-                  onPressed: () =>
-                      ShopingCartViewModel.enterToMainShop(context),
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
-                    child: Text(
-                      "На главную страницу",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: 20, color: Colors.white),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }
@@ -147,27 +147,20 @@ class _ViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final toDisplayGoods = <GoodsModel, int>{};
-    for (final goods in Json.cartGoods) {
-      if (toDisplayGoods.containsKey(goods)) {
-        toDisplayGoods[goods] = toDisplayGoods[goods]! + 1;
-      } else {
-        toDisplayGoods[goods] = 1;
-      }
-    }
-    toDisplayGoods.keys.toList().sort((e, b) => e.id.compareTo(b.id));
+    final viewModel = ShopingCartProvider.watch(context)!.model!;
+    viewModel.counterGoods();
     return ListView.separated(
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return GoodsCardFactory.cart(
-            countOfGoods: toDisplayGoods.entries.toList()[index].value,
-            goods: toDisplayGoods.entries.toList()[index].key,
+            countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
+            goods: viewModel.listOfGoods.entries.toList()[index].key,
           );
         },
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(height: AppPadding.mediumP);
         },
-        itemCount: toDisplayGoods.length);
+        itemCount: viewModel.listOfGoods.length);
   }
 }
 
