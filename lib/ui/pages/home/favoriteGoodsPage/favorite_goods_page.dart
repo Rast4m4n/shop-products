@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
+import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
@@ -45,23 +46,34 @@ class _AllFavoriteGoods extends StatelessWidget {
           final goods = snapshot.data!
               .where((element) => element.favoriteGoods == true)
               .toList();
-          return ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1000),
-            child: GridView.builder(
-              padding: const EdgeInsets.all(AppPadding.bigP),
-              shrinkWrap: true,
-              itemCount: goods.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: AppPadding.bigP,
-                mainAxisSpacing: AppPadding.bigP,
-                childAspectRatio: 0.65,
+          if (goods.isNotEmpty) {
+            return ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1000),
+              child: GridView.builder(
+                padding: const EdgeInsets.all(AppPadding.bigP),
+                shrinkWrap: true,
+                itemCount: goods.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: AppPadding.bigP,
+                  mainAxisSpacing: AppPadding.bigP,
+                  childAspectRatio: 0.65,
+                ),
+                itemBuilder: (context, index) {
+                  return GoodsCardFactory.catalog(goods: goods[index]);
+                },
               ),
-              itemBuilder: (context, index) {
-                return GoodsCardFactory.catalog(goods: goods[index]);
-              },
-            ),
-          );
+            );
+          } else {
+            return Center(
+              child: Text(
+                "На данный момент здесь нет избранных товаров",
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontFamily: AppFonts.primaryFontMedium,
+                    ),
+              ),
+            );
+          }
         } else {
           return const Center(
             child: CircularProgressIndicator(),

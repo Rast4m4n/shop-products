@@ -7,7 +7,6 @@ import 'package:shop_products/ui/pages/profilePage/views/mySettingsView/my_setti
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
-import 'package:shop_products/ui/widgets/footer_info.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ProfilePage extends StatelessWidget {

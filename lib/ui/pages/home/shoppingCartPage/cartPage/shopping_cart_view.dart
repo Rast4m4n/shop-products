@@ -128,22 +128,8 @@ class _CartOfGoods extends StatelessWidget {
   }
 }
 
-class _AllGoodsInCart extends StatefulWidget {
+class _AllGoodsInCart extends StatelessWidget {
   const _AllGoodsInCart({Key? key}) : super(key: key);
-
-  @override
-  State<_AllGoodsInCart> createState() => _AllGoodsInCartState();
-}
-
-class _AllGoodsInCartState extends State<_AllGoodsInCart> {
-  @override
-  Widget build(BuildContext context) {
-    return const _ViewWidget();
-  }
-}
-
-class _ViewWidget extends StatelessWidget {
-  const _ViewWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

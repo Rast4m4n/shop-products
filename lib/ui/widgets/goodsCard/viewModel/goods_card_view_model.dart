@@ -23,6 +23,10 @@ class _GoodsCardViewModel extends ChangeNotifier {
         ? await _goodsRepository.removeFavoriteGoods(goods)
         : await _goodsRepository.addToFavoriteOneGoods(goods);
     isFavorite = !isFavorite;
+    if (Json.cartGoods.contains(goods)) {
+      final index = Json.cartGoods.indexOf(goods);
+      Json.cartGoods[index] = goods.copyWith(favoriteGoods: isFavorite);
+    }
     notifyListeners();
   }
 

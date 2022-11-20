@@ -12,7 +12,7 @@ class GoodsModel {
   });
   final int id;
   final String nameGoods;
-  final String compositionOfGoods; //состав продукта
+  final String compositionOfGoods;
   final String? pathImage;
   final String weightGoods;
   final double ratingGoods;

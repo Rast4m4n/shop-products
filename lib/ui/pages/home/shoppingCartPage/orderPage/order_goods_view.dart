@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
