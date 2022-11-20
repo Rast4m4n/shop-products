@@ -106,12 +106,21 @@ class _LogotypeShopWidget extends StatelessWidget {
   }
 }
 
-class _SearchField extends StatelessWidget {
+class _SearchField extends StatefulWidget {
   const _SearchField({Key? key}) : super(key: key);
+
+  @override
+  State<_SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<_SearchField> {
+  final _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: _searchController,
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.4),
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color.fromARGB(203, 221, 231, 255),

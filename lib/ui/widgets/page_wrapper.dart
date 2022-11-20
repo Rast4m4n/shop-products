@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/widgets/footer_info.dart';
 
 import 'package:shop_products/ui/widgets/pageHeader/page_header_widget.dart';
 
@@ -29,7 +30,14 @@ class PageWrapper extends StatelessWidget {
             body: Column(
               children: [
                 const PageHeaderWidget(),
-                Expanded(child: SingleChildScrollView(child: body)),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      body,
+                      const FooterInfo(),
+                    ],
+                  ),
+                ),
               ],
             ),
           );

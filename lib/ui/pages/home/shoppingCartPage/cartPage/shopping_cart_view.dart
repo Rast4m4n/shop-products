@@ -44,7 +44,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               ),
             )
           : SizedBox(
-              height: 500,
+              height: 600,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -92,7 +92,7 @@ class _CartOfGoods extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 600),
+      constraints: const BoxConstraints(maxWidth: 600, minHeight: 600),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
