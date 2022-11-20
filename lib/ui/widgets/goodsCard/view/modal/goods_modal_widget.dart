@@ -1,4 +1,4 @@
-part of '../goods_card.dart';
+part of '../goods_card_factory.dart';
 
 class _DialogWindow extends StatefulWidget {
   const _DialogWindow({Key? key, required this.model}) : super(key: key);

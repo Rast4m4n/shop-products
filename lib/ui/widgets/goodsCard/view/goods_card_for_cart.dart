@@ -1,21 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:shop_products/domain/models/goods_model.dart';
-import 'package:shop_products/ui/theme/app_icons.dart';
-import 'package:shop_products/ui/theme/app_paddings.dart';
-import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/base/model_provider.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
+part of 'goods_card_factory.dart';
 
 /// карточка товара для корзины
-class SecondGoodsCardWidget extends StatelessWidget {
-  const SecondGoodsCardWidget({Key? key, required this.goods}) : super(key: key);
+class GoodsCardForCart extends StatefulWidget {
+  const GoodsCardForCart(
+      {Key? key, required this.goods, required this.countOfGoods})
+      : super(key: key);
 
   final GoodsModel goods;
+  final int countOfGoods;
+  @override
+  State<GoodsCardForCart> createState() => _GoodsCardForCartState();
+}
+
+class _GoodsCardForCartState extends State<GoodsCardForCart> {
+  late final _viewModel = _GoodsCardViewModel(
+      initialCountOfGoods: widget.countOfGoods,
+      goods: widget.goods,
+      goodsRepository: GetIt.I.get<GoodsRepository>());
 
   @override
   Widget build(BuildContext context) {
-    return ModelProvider<GoodsModel>(
-      model: goods,
+    return GoodsInheritViewModel(
+      model: _viewModel,
       child: Container(
         width: 400,
         height: 130,
@@ -31,23 +37,7 @@ class SecondGoodsCardWidget extends StatelessWidget {
           ],
         ),
         child: Stack(children: [
-          Positioned(
-            bottom: 90,
-            left: 560,
-            child: Material(
-              child: IconButton(
-                tooltip: "Удалить товар из корзины",
-                splashRadius: 16,
-                onPressed: () {
-                  GoodsInheritViewModel.read(context)!.model?.deleteGoodsFromCart(goods);
-                },
-                icon: Icon(
-                  Icons.clear,
-                  color: Colors.black.withOpacity(0.5),
-                ),
-              ),
-            ),
-          ),
+          const _DeleteGoodsButton(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -56,7 +46,7 @@ class SecondGoodsCardWidget extends StatelessWidget {
                 children: const [
                   _TitleOfGoods(),
                   _CountOfGoods(),
-                  _PriceAndCountGoods(),
+                  _PriceGoods(),
                   SizedBox(width: AppPadding.smallP),
                 ],
               ),
@@ -68,24 +58,43 @@ class SecondGoodsCardWidget extends StatelessWidget {
   }
 }
 
-class _TitleOfGoods extends StatefulWidget {
+class _DeleteGoodsButton extends StatelessWidget {
+  const _DeleteGoodsButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = GoodsInheritViewModel.watch(context)!.model!;
+    return Positioned(
+      bottom: 90,
+      left: 560,
+      child: Material(
+        child: IconButton(
+          tooltip: "Удалить товар из корзины",
+          splashRadius: 16,
+          onPressed: viewModel.onDeleteGoodsFromCart,
+          icon: Icon(
+            Icons.clear,
+            color: Colors.black.withOpacity(0.5),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TitleOfGoods extends StatelessWidget {
   const _TitleOfGoods({Key? key}) : super(key: key);
 
   @override
-  State<_TitleOfGoods> createState() => _TitleOfGoodsState();
-}
-
-class _TitleOfGoodsState extends State<_TitleOfGoods> {
-  @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final goods = GoodsInheritViewModel.read(context)!.model!.goods;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(width: AppPadding.mediumP),
-        if (model.pathImage != null)
+        if (goods.pathImage != null)
           Image(
-            image: AssetImage(model.pathImage!),
+            image: AssetImage(goods.pathImage!),
           )
         else
           const SizedBox(height: 90, width: 90, child: Placeholder()),
@@ -99,7 +108,7 @@ class _TitleOfGoodsState extends State<_TitleOfGoods> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                model.nameGoods,
+                goods.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
@@ -109,22 +118,13 @@ class _TitleOfGoodsState extends State<_TitleOfGoods> {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                model.weightGoods,
+                goods.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
               ),
               const SizedBox(height: AppPadding.smallP),
-              InkWell(
-                onTap: () {
-                  GoodsInheritViewModel.read(context)?.model?.toFavoriteGoods(model);
-                  setState(() {});
-                },
-                child: Icon(
-                  model.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
-                  color: AppColors.primaryPurple,
-                ),
-              ),
+              const _ToFavoriteButton(),
             ],
           ),
         ),
@@ -138,28 +138,32 @@ class _CountOfGoods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
-    final viewModel = GoodsInheritViewModel.read(context)!.model;
+    final viewModel = GoodsInheritViewModel.watch(context)!.model!;
     return Row(
       children: [
-        IconButton(onPressed: () => viewModel!.decrementGoodsCart(model), icon: const Icon(Icons.remove)),
-        Text(model.numberOfGoods.toString(), style: Theme.of(context).textTheme.bodyLarge),
-        IconButton(onPressed: () => viewModel!.incrementGoods(model), icon: const Icon(Icons.add)),
+        IconButton(
+            onPressed: viewModel.onDecrementButtonPressed,
+            icon: const Icon(Icons.remove)),
+        Text(viewModel.countOfGoods.toString(),
+            style: Theme.of(context).textTheme.bodyLarge),
+        IconButton(
+            onPressed: viewModel.onIncrementButtonPressed,
+            icon: const Icon(Icons.add)),
       ],
     );
   }
 }
 
-class _PriceAndCountGoods extends StatelessWidget {
-  const _PriceAndCountGoods({Key? key}) : super(key: key);
+class _PriceGoods extends StatelessWidget {
+  const _PriceGoods({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final model = GoodsInheritViewModel.watch(context)!.model!;
     return Column(
       children: [
         Text(
-          "${model.priceGoods} ₽",
+          "${model.goods.priceGoods * model.countOfGoods} ₽",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: 20,
               ),

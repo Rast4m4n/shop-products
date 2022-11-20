@@ -22,7 +22,7 @@ abstract class Json {
       "ratingGoods": 4.7,
       "priceGoods": 160,
       "numberOfGoods": 1,
-      "favoriteGoods": true
+      "favoriteGoods": false
     },
     {
       "id": 2,

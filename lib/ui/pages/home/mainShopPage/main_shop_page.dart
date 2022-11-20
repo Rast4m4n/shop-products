@@ -5,8 +5,7 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/utils/app_ui_utils.dart';
-import 'package:shop_products/ui/widgets/goodsCard/view/goods_card.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
+import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 
 class MainShopPage extends StatelessWidget {
   const MainShopPage({Key? key}) : super(key: key);
@@ -153,15 +152,9 @@ class _ListOfGoods extends StatefulWidget {
 }
 
 class _ListOfGoodsState extends State<_ListOfGoods> {
-  final _viewModel =
-      GoodsViewModel(goodsRepository: GetIt.I.get<GoodsRepository>());
-
   @override
   Widget build(BuildContext context) {
-    return GoodsInheritViewModel(
-      model: _viewModel,
-      child: _ViewWidget(goodsRepository: GetIt.I.get<GoodsRepository>()),
-    );
+    return _ViewWidget(goodsRepository: GetIt.I.get<GoodsRepository>());
   }
 }
 
@@ -175,7 +168,6 @@ class _ViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GoodsInheritViewModel.watch(context);
     return FutureBuilder<List<GoodsModel>>(
       future: goodsRepository.fetchData(),
       builder: (context, snapshot) {
@@ -194,7 +186,7 @@ class _ViewWidget extends StatelessWidget {
                 childAspectRatio: 0.7,
               ),
               itemBuilder: (context, index) {
-                return GoodsCardWidget(goods: goods[index]);
+                return GoodsCardFactory.catalog(goods: goods[index]);
               },
             ),
           );

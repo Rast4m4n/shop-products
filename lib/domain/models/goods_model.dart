@@ -72,4 +72,33 @@ class GoodsModel {
   String toString() {
     return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is GoodsModel &&
+        other.id == id &&
+        other.nameGoods == nameGoods &&
+        other.compositionOfGoods == compositionOfGoods &&
+        other.pathImage == pathImage &&
+        other.weightGoods == weightGoods &&
+        other.ratingGoods == ratingGoods &&
+        other.priceGoods == priceGoods &&
+        other.numberOfGoods == numberOfGoods &&
+        other.favoriteGoods == favoriteGoods;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        nameGoods.hashCode ^
+        compositionOfGoods.hashCode ^
+        pathImage.hashCode ^
+        weightGoods.hashCode ^
+        ratingGoods.hashCode ^
+        priceGoods.hashCode ^
+        numberOfGoods.hashCode ^
+        favoriteGoods.hashCode;
+  }
 }

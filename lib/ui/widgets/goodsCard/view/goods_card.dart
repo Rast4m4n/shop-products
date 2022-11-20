@@ -1,18 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-
-import 'package:shop_products/data/repository/goods_repository.dart';
-import 'package:shop_products/domain/models/goods_model.dart';
-import 'package:shop_products/ui/theme/app_icons.dart';
-import 'package:shop_products/ui/theme/app_paddings.dart';
-import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/base/model_provider.dart';
-import 'package:shop_products/ui/widgets/goodsCard/view/modal/cubit/goods_modal_cubit.dart';
-import 'package:shop_products/ui/widgets/goodsCard/view/modal/view_model/goods_modal_view_model.dart';
-import 'package:shop_products/ui/widgets/goodsCard/viewModel/goods_view_model.dart';
-
-part 'modal/goods_modal_widget.dart';
+part of 'goods_card_factory.dart';
 
 class GoodsCardWidget extends StatefulWidget {
   const GoodsCardWidget({Key? key, required this.goods}) : super(key: key);
@@ -23,6 +9,9 @@ class GoodsCardWidget extends StatefulWidget {
 }
 
 class _GoodsCardWidgetState extends State<GoodsCardWidget> {
+  late final _viewModel = _GoodsCardViewModel(
+      goods: widget.goods, goodsRepository: GetIt.I.get<GoodsRepository>());
+
   Future<void> dialogBuilder(BuildContext context) {
     return showDialog(
       context: context,
@@ -34,8 +23,8 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ModelProvider<GoodsModel>(
-      model: widget.goods,
+    return GoodsInheritViewModel(
+      model: _viewModel,
       child: Material(
         child: InkWell(
           onTap: () => dialogBuilder(context),
@@ -73,17 +62,12 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
   }
 }
 
-class _HeaderOfGoodWidget extends StatefulWidget {
+class _HeaderOfGoodWidget extends StatelessWidget {
   const _HeaderOfGoodWidget({Key? key}) : super(key: key);
 
   @override
-  State<_HeaderOfGoodWidget> createState() => _HeaderOfGoodWidgetState();
-}
-
-class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
-  @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final goods = GoodsInheritViewModel.read(context)!.model!.goods;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -92,24 +76,14 @@ class _HeaderOfGoodWidgetState extends State<_HeaderOfGoodWidget> {
             const Icon(AppIcons.starWithFill, color: AppColors.secondaryYellow),
             const SizedBox(width: AppPadding.smallP),
             Text(
-              "${model.ratingGoods}",
+              "${goods.ratingGoods}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontSize: 16,
                   ),
             ),
           ],
         ),
-        InkWell(
-          onTap: () {
-            GoodsInheritViewModel.read(context)
-                ?.model
-                ?.toFavoriteGoods(ModelProvider.of<GoodsModel>(context)!.model);
-          },
-          child: Icon(
-            model.favoriteGoods ? AppIcons.bookmark : AppIcons.bookmarkOff,
-            color: AppColors.primaryPurple,
-          ),
-        ),
+        const _ToFavoriteButton(),
       ],
     );
   }
@@ -120,13 +94,13 @@ class _InfoGoodsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final goods = GoodsInheritViewModel.read(context)!.model!.goods;
     return Column(
       children: [
         const SizedBox(height: AppPadding.mediumP),
-        if (model.pathImage != null)
+        if (goods.pathImage != null)
           Image(
-            image: AssetImage(model.pathImage!),
+            image: AssetImage(goods.pathImage!),
           )
         else
           const SizedBox(height: 160, width: 120, child: Placeholder()),
@@ -137,9 +111,8 @@ class _InfoGoodsWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                model.nameGoods,
+                goods.nameGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      // fontFamily: AppFonts.primaryFontRegular,
                       fontSize: 18,
                     ),
                 maxLines: 2,
@@ -147,7 +120,7 @@ class _InfoGoodsWidget extends StatelessWidget {
               ),
               const SizedBox(height: AppPadding.smallP),
               Text(
-                model.weightGoods,
+                goods.weightGoods,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.black.withOpacity(0.7),
                     ),
@@ -160,26 +133,17 @@ class _InfoGoodsWidget extends StatelessWidget {
   }
 }
 
-class _FooterInfoWidget extends StatefulWidget {
+class _FooterInfoWidget extends StatelessWidget {
   const _FooterInfoWidget({Key? key}) : super(key: key);
 
   @override
-  State<_FooterInfoWidget> createState() => _FooterInfoWidgetState();
-}
-
-class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
-  final _viewModel = GoodsViewModel(
-    goodsRepository: GetIt.I.get<GoodsRepository>(),
-  );
-
-  @override
   Widget build(BuildContext context) {
-    final model = ModelProvider.of<GoodsModel>(context)!.model;
+    final viewModel = GoodsInheritViewModel.watch(context)!.model!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${model.priceGoods} ₽",
+          "${viewModel.goods.priceGoods} ₽",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 // fontFamily: AppFonts.primaryFontRegular,
                 fontSize: 16,
@@ -187,7 +151,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
         ),
 
         // Кнопка добавление товара в корзину
-        _viewModel.isAddedToCart
+        viewModel.isAddedToCart
             ? Container(
                 width: 92,
                 height: 32,
@@ -204,10 +168,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                           (states) => const Size(40, 20),
                         ),
                       ),
-                      onPressed: () {
-                        _viewModel.decrementGoods(model);
-                        setState(() {});
-                      },
+                      onPressed: viewModel.onDecrementButtonPressed,
                       child: Text(
                         '-',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -216,7 +177,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                       ),
                     ),
                     Text(
-                      'мда', // Сделай норм, что это ??? -> '${_viewModel.counter}',
+                      viewModel.countOfGoods.toString(),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.white,
                           ),
@@ -227,10 +188,7 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                           (states) => const Size(40, 20),
                         ),
                       ),
-                      onPressed: () {
-                        _viewModel.incrementGoods(model);
-                        setState(() {});
-                      },
+                      onPressed: viewModel.onIncrementButtonPressed,
                       child: Text(
                         '+',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -247,12 +205,10 @@ class _FooterInfoWidgetState extends State<_FooterInfoWidget> {
                   minimumSize: MaterialStateProperty.resolveWith(
                     (states) => const Size(100, 40),
                   ),
-                  backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.paymentGreen),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => AppColors.paymentGreen),
                 ),
-                onPressed: () {
-                  _viewModel.addToCart(model);
-                  setState(() {});
-                },
+                onPressed: viewModel.onAddToCartButtonPressed,
                 child: Text(
                   'В корзину',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
