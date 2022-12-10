@@ -7,32 +7,18 @@ import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
-class ShoppingCartPage extends StatefulWidget {
-  const ShoppingCartPage({Key? key}) : super(key: key);
-
-  @override
-  State<ShoppingCartPage> createState() => _ShoppingCartPageState();
-}
-
-class _ShoppingCartPageState extends State<ShoppingCartPage> {
+class ShoppingCartPage extends StatelessWidget {
+  ShoppingCartPage({Key? key}) : super(key: key);
   final _viewModel = ShopingCartViewModel();
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _viewModel.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return PageWrapper(
-      body: Json.cartGoods.isNotEmpty
-          ? Padding(
-              padding: const EdgeInsets.all(AppPadding.bigP),
-              child: ShopingCartProvider(
-                model: _viewModel,
+    return ShopingCartProvider(
+      model: _viewModel,
+      child: PageWrapper(
+        body: Json.cartGoods.isNotEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(AppPadding.bigP),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,47 +27,49 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     _ColumnToOrder(),
                   ],
                 ),
-              ),
-            )
-          : SizedBox(
-              height: 600,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Корзина пуста',
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontFamily: AppFonts.primaryFontRegular,
+              )
+            : SizedBox(
+                height: 600,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Корзина пуста',
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                fontFamily: AppFonts.primaryFontRegular,
+                              ),
+                    ),
+                    Text(
+                      'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontFamily: AppFonts.primaryFontMedium,
+                              ),
+                    ),
+                    const SizedBox(height: AppPadding.mediumP),
+                    ElevatedButton(
+                      style: Theme.of(context).textButtonTheme.style?.copyWith(
+                            backgroundColor: MaterialStateProperty.resolveWith(
+                                (states) => AppColors.primaryPurple),
+                          ),
+                      onPressed: () =>
+                          ShopingCartViewModel.enterToMainShop(context),
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
+                        child: Text(
+                          "На главную страницу",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(fontSize: 20, color: Colors.white),
                         ),
-                  ),
-                  Text(
-                    'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontFamily: AppFonts.primaryFontMedium,
-                        ),
-                  ),
-                  const SizedBox(height: AppPadding.mediumP),
-                  ElevatedButton(
-                    style: Theme.of(context).textButtonTheme.style?.copyWith(
-                          backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => AppColors.primaryPurple),
-                        ),
-                    onPressed: () =>
-                        ShopingCartViewModel.enterToMainShop(context),
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppPadding.bigP * 1.5),
-                      child: Text(
-                        "На главную страницу",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontSize: 20, color: Colors.white),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }
@@ -134,19 +122,19 @@ class _AllGoodsInCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
-    viewModel.counterGoods();
     return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return GoodsCardFactory.cart(
-            countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
-            goods: viewModel.listOfGoods.entries.toList()[index].key,
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: AppPadding.mediumP);
-        },
-        itemCount: viewModel.listOfGoods.length);
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return GoodsCardFactory.cart(
+          countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
+          goods: viewModel.listOfGoods.entries.toList()[index].key,
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const SizedBox(height: AppPadding.mediumP);
+      },
+      itemCount: viewModel.listOfGoods.length,
+    );
   }
 }
 
@@ -180,6 +168,7 @@ class _PriceOfGoods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ShopingCartProvider.watch(context)!.model!;
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -207,7 +196,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${ShopingCartProvider.read(context)!.model?.summOfAllGoods()} ₽',
+                  '${viewModel.summOfAllGoods()} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -226,7 +215,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${ShopingCartProvider.read(context)!.model!.discountFromCard} ₽',
+                  '${viewModel.discountFromCard} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -245,7 +234,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${ShopingCartProvider.read(context)!.model!.deliveryPrice} ₽',
+                  '${viewModel.deliveryPrice} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -263,7 +252,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '${ShopingCartProvider.read(context)!.model!.totalPrice} ₽',
+                  '${viewModel.totalPrice} ₽',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         fontFamily: AppFonts.primaryFontRegular,
                       ),

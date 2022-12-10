@@ -4,11 +4,14 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ShopingCartViewModel extends ChangeNotifier {
+  ShopingCartViewModel() {
+    counterGoods();
+  }
   int amountOfGoods = Json.cartGoods.length;
   int summOfGoods = 0;
   int discountFromCard = 0;
   int deliveryPrice = 199;
-  late int totalPrice = deliveryPrice + discountFromCard + summOfGoods;
+  late int totalPrice = deliveryPrice + summOfGoods - discountFromCard;
 
   Map<GoodsModel, int> listOfGoods = {};
 
@@ -32,6 +35,7 @@ class ShopingCartViewModel extends ChangeNotifier {
 
   void clearAllGoods() {
     Json.cartGoods.clear();
+    listOfGoods.clear();
     notifyListeners();
   }
 
