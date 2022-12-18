@@ -4,6 +4,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
   _GoodsCardViewModel({
     required this.goods,
     required GoodsRepository goodsRepository,
+    required this.updateCart,
     int? initialCountOfGoods,
   }) : _goodsRepository = goodsRepository {
     isFavorite = goods.favoriteGoods;
@@ -11,7 +12,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
       countOfGoods = initialCountOfGoods;
     }
   }
-
+  VoidCallback updateCart;
   int countOfGoods = 0;
   final GoodsModel goods;
   bool isAddedToCart = false;
@@ -33,6 +34,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
   void onIncrementButtonPressed() {
     countOfGoods += 1;
     Json.cartGoods.add(goods);
+    updateCart();
     notifyListeners();
   }
 
@@ -40,6 +42,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
     final index = Json.cartGoods.indexOf(goods);
     if (index != -1) {
       countOfGoods -= 1;
+      updateCart();
       Json.cartGoods.removeAt(index);
     }
     if (countOfGoods == 0) {
@@ -55,11 +58,14 @@ class _GoodsCardViewModel extends ChangeNotifier {
 
   void onDeleteGoodsFromCart() {
     Json.cartGoods.removeWhere((el) => el.id == goods.id);
+    updateCart();
+    countOfGoods = 0;
     notifyListeners();
   }
 }
 
 class GoodsInheritViewModel extends InheritedNotifier<_GoodsCardViewModel> {
+  // ignore: library_private_types_in_public_api
   final _GoodsCardViewModel? model;
   const GoodsInheritViewModel({
     Key? key,

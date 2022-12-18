@@ -26,10 +26,12 @@ abstract class GoodsCardFactory {
   static GoodsCardForCart cart({
     required GoodsModel goods,
     required int countOfGoods,
+    required VoidCallback updateCart,
   }) {
     return GoodsCardForCart(
       goods: goods,
       countOfGoods: countOfGoods,
+      updateCart: updateCart,
     );
   }
 }

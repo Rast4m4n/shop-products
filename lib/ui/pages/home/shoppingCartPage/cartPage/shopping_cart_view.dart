@@ -41,7 +41,7 @@ class ShoppingCartPage extends StatelessWidget {
                               ),
                     ),
                     Text(
-                      'Чтобы это исправить, загляните на каталог товаров и закажите что желаете',
+                      'Чтобы добавить товар в корзину, загляните на каталог товаров и закажите что желаете',
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 fontFamily: AppFonts.primaryFontMedium,
@@ -92,7 +92,7 @@ class _CartOfGoods extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Товаров в корзине ${viewModel.amountOfGoods}',
+                'Товаров в корзине ${viewModel.amountOfGoodsFunc()}',
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -118,23 +118,23 @@ class _CartOfGoods extends StatelessWidget {
 
 class _AllGoodsInCart extends StatelessWidget {
   const _AllGoodsInCart({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
+
     return ListView.separated(
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) {
-        return GoodsCardFactory.cart(
-          countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
-          goods: viewModel.listOfGoods.entries.toList()[index].key,
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: AppPadding.mediumP);
-      },
-      itemCount: viewModel.listOfGoods.length,
-    );
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return GoodsCardFactory.cart(
+            countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
+            goods: viewModel.listOfGoods.entries.toList()[index].key,
+            updateCart: viewModel.updateCart,
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: AppPadding.mediumP);
+        },
+        itemCount: viewModel.listOfGoods.length);
   }
 }
 
@@ -215,7 +215,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${viewModel.discountFromCard} ₽',
+                  '${viewModel.discountCard} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -252,7 +252,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '${viewModel.totalPrice} ₽',
+                  '${viewModel.totalPriceFunc()} ₽',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         fontFamily: AppFonts.primaryFontRegular,
                       ),

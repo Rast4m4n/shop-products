@@ -2,21 +2,27 @@ part of 'goods_card_factory.dart';
 
 /// карточка товара для корзины
 class GoodsCardForCart extends StatefulWidget {
-  const GoodsCardForCart(
-      {Key? key, required this.goods, required this.countOfGoods})
-      : super(key: key);
+  const GoodsCardForCart({
+    Key? key,
+    required this.goods,
+    required this.countOfGoods,
+    required this.updateCart,
+  }) : super(key: key);
 
   final GoodsModel goods;
   final int countOfGoods;
+  final VoidCallback updateCart;
   @override
   State<GoodsCardForCart> createState() => _GoodsCardForCartState();
 }
 
 class _GoodsCardForCartState extends State<GoodsCardForCart> {
   late final _viewModel = _GoodsCardViewModel(
-      initialCountOfGoods: widget.countOfGoods,
-      goods: widget.goods,
-      goodsRepository: GetIt.I.get<GoodsRepository>());
+    initialCountOfGoods: widget.countOfGoods,
+    goods: widget.goods,
+    goodsRepository: GetIt.I.get<GoodsRepository>(),
+    updateCart: widget.updateCart,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +141,6 @@ class _TitleOfGoods extends StatelessWidget {
 
 class _CountOfGoods extends StatelessWidget {
   const _CountOfGoods({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final viewModel = GoodsInheritViewModel.watch(context)!.model!;

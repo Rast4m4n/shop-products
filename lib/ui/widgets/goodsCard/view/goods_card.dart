@@ -1,7 +1,10 @@
 part of 'goods_card_factory.dart';
 
 class GoodsCardWidget extends StatefulWidget {
-  const GoodsCardWidget({Key? key, required this.goods}) : super(key: key);
+  const GoodsCardWidget({
+    Key? key,
+    required this.goods,
+  }) : super(key: key);
   final GoodsModel goods;
 
   @override
@@ -10,7 +13,10 @@ class GoodsCardWidget extends StatefulWidget {
 
 class _GoodsCardWidgetState extends State<GoodsCardWidget> {
   late final _viewModel = _GoodsCardViewModel(
-      goods: widget.goods, goodsRepository: GetIt.I.get<GoodsRepository>());
+    goods: widget.goods,
+    goodsRepository: GetIt.I.get<GoodsRepository>(),
+    updateCart: () {},
+  );
 
   Future<void> dialogBuilder(BuildContext context) {
     return showDialog(

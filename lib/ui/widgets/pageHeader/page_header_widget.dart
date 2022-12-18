@@ -1,13 +1,19 @@
 //Для веб/десктопа
 import 'package:flutter/material.dart';
+import 'package:shop_products/data/json.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
-class PageHeaderWidget extends StatelessWidget {
+class PageHeaderWidget extends StatefulWidget {
   const PageHeaderWidget({Key? key}) : super(key: key);
 
+  @override
+  State<PageHeaderWidget> createState() => _PageHeaderWidgetState();
+}
+
+class _PageHeaderWidgetState extends State<PageHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,11 +28,27 @@ class PageHeaderWidget extends StatelessWidget {
           const SizedBox(width: AppPadding.bigP),
           const AddressWidget(),
           const Spacer(),
-          _IconTextButtonWidget(
-            textButton: "Корзина",
-            iconButton: AppIcons.basket,
-            callBack: () =>
-                Navigator.of(context).pushNamed(AppRouteNames.shopingCart),
+          Stack(
+            children: [
+              _IconTextButtonWidget(
+                textButton: "Корзина",
+                iconButton: AppIcons.basket,
+                callBack: () =>
+                    Navigator.of(context).pushNamed(AppRouteNames.shopingCart),
+              ),
+              Positioned(
+                top: 35,
+                left: 35,
+                child: Json.cartGoods.isEmpty
+                    ? const SizedBox()
+                    : Text(
+                        "${Json.cartGoods.length}",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.secondaryYellow,
+                            ),
+                      ),
+              ),
+            ],
           ),
           const SizedBox(width: AppPadding.bigP),
           _IconTextButtonWidget(

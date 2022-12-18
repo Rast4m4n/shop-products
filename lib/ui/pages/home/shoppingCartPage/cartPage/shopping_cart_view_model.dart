@@ -5,17 +5,17 @@ import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ShopingCartViewModel extends ChangeNotifier {
   ShopingCartViewModel() {
-    counterGoods();
+    _counterGoods();
   }
-  int amountOfGoods = Json.cartGoods.length;
-  int summOfGoods = 0;
-  int discountFromCard = 0;
+  int _amountOfGoods = 0;
+  int _summOfGoods = 0;
+  int discountCard = 0;
   int deliveryPrice = 199;
-  late int totalPrice = deliveryPrice + summOfGoods - discountFromCard;
+  int _totalPrice = 0;
 
   Map<GoodsModel, int> listOfGoods = {};
 
-  void counterGoods() {
+  void _counterGoods() {
     for (final goods in Json.cartGoods) {
       if (listOfGoods.containsKey(goods)) {
         listOfGoods[goods] = listOfGoods[goods]! + 1;
@@ -26,17 +26,33 @@ class ShopingCartViewModel extends ChangeNotifier {
     listOfGoods.keys.toList().sort((e, b) => e.id.compareTo(b.id));
   }
 
+  void updateCart() {
+    notifyListeners();
+  }
+
   int summOfAllGoods() {
     for (var element in Json.cartGoods) {
-      summOfGoods += element.priceGoods;
+      _summOfGoods += element.priceGoods;
     }
-    return summOfGoods;
+    return _summOfGoods;
+  }
+
+  int amountOfGoodsFunc() {
+    _amountOfGoods = Json.cartGoods.length;
+    return _amountOfGoods;
   }
 
   void clearAllGoods() {
     Json.cartGoods.clear();
     listOfGoods.clear();
+    _totalPrice = 0;
+    _summOfGoods = 0;
     notifyListeners();
+  }
+
+  int totalPriceFunc() {
+    _totalPrice = deliveryPrice + _summOfGoods - discountCard;
+    return _totalPrice;
   }
 
   static void enterToOrderGoods(BuildContext context) {
