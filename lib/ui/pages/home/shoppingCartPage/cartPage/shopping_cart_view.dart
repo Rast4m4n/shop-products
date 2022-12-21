@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/data/json.dart';
+import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
@@ -9,14 +9,16 @@ import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class ShoppingCartPage extends StatelessWidget {
   ShoppingCartPage({Key? key}) : super(key: key);
-  final _viewModel = ShopingCartViewModel();
+  final _viewModel = ShopingCartViewModel(
+    cartGoods: const CartModel(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return ShopingCartProvider(
       model: _viewModel,
       child: PageWrapper(
-        body: Json.cartGoods.isNotEmpty
+        body: CartModel.cartGoods.isNotEmpty
             ? Padding(
                 padding: const EdgeInsets.all(AppPadding.bigP),
                 child: Row(
@@ -79,6 +81,7 @@ class _CartOfGoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
+    // viewModel.countOfGoodsFunc();
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600, minHeight: 600),
       child: Column(
@@ -92,7 +95,7 @@ class _CartOfGoods extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Товаров в корзине ${viewModel.amountOfGoodsFunc()}',
+                'Товаров в корзине ${viewModel.cartGoods.amountOfGoodsString}',
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -121,20 +124,21 @@ class _AllGoodsInCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
-
+    final listGoods = viewModel.cartGoods.countOfGoods();
     return ListView.separated(
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return GoodsCardFactory.cart(
-            countOfGoods: viewModel.listOfGoods.entries.toList()[index].value,
-            goods: viewModel.listOfGoods.entries.toList()[index].key,
-            updateCart: viewModel.updateCart,
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: AppPadding.mediumP);
-        },
-        itemCount: viewModel.listOfGoods.length);
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return GoodsCardFactory.cart(
+          countOfGoods: listGoods.values.toList()[index],
+          goods: listGoods.keys.toList()[index],
+          updateCart: viewModel.updateCart,
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const SizedBox(height: AppPadding.mediumP);
+      },
+      itemCount: listGoods.length,
+    );
   }
 }
 
@@ -196,7 +200,8 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${viewModel.summOfAllGoods()} ₽',
+                  // '123 ₽',
+                  '${viewModel.cartGoods.summOfGoodsString} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -215,7 +220,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${viewModel.discountCard} ₽',
+                  '${viewModel.cartGoods.discontString} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
@@ -234,12 +239,12 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${viewModel.deliveryPrice} ₽',
+                  '${viewModel.cartGoods.deliveryString} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge
                       ?.copyWith(fontSize: 16),
-                ),
+                )
               ],
             ),
             Row(
@@ -252,7 +257,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ),
                 ),
                 Text(
-                  '${viewModel.totalPriceFunc()} ₽',
+                  '${viewModel.cartGoods.totalSummString} ₽',
                   style: Theme.of(context).textTheme.headline6?.copyWith(
                         fontFamily: AppFonts.primaryFontRegular,
                       ),

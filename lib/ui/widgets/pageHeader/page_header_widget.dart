@@ -36,18 +36,18 @@ class _PageHeaderWidgetState extends State<PageHeaderWidget> {
                 callBack: () =>
                     Navigator.of(context).pushNamed(AppRouteNames.shopingCart),
               ),
-              Positioned(
-                top: 35,
-                left: 35,
-                child: Json.cartGoods.isEmpty
-                    ? const SizedBox()
-                    : Text(
-                        "${Json.cartGoods.length}",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.secondaryYellow,
-                            ),
-                      ),
-              ),
+              // Positioned(
+              //   top: 35,
+              //   left: 35,
+              //   child: Json.cartGoods.isEmpty
+              //       ? const SizedBox()
+              //       : Text(
+              //           "${Json.cartGoods.length}",
+              //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              //                 color: AppColors.secondaryYellow,
+              //               ),
+              //         ),
+              // ),
             ],
           ),
           const SizedBox(width: AppPadding.bigP),

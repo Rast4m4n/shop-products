@@ -24,28 +24,29 @@ class _GoodsCardViewModel extends ChangeNotifier {
         ? await _goodsRepository.removeFavoriteGoods(goods)
         : await _goodsRepository.addToFavoriteOneGoods(goods);
     isFavorite = !isFavorite;
-    if (Json.cartGoods.contains(goods)) {
-      final index = Json.cartGoods.indexOf(goods);
-      Json.cartGoods[index] = goods.copyWith(favoriteGoods: isFavorite);
+    if (CartModel.cartGoods.contains(goods)) {
+      final index = CartModel.cartGoods.indexOf(goods);
+      CartModel.cartGoods[index] = goods.copyWith(favoriteGoods: isFavorite);
     }
     notifyListeners();
   }
 
   void onIncrementButtonPressed() {
     countOfGoods += 1;
-    Json.cartGoods.add(goods);
+    CartModel.cartGoods.add(goods);
     updateCart();
     notifyListeners();
   }
 
   void onDecrementButtonPressed() {
-    final index = Json.cartGoods.indexOf(goods);
+    final index = CartModel.cartGoods.indexOf(goods);
     if (index != -1) {
       countOfGoods -= 1;
       updateCart();
-      Json.cartGoods.removeAt(index);
+      CartModel.cartGoods.removeAt(index);
     }
     if (countOfGoods == 0) {
+      updateCart();
       isAddedToCart = false;
     }
     notifyListeners();
@@ -57,7 +58,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
   }
 
   void onDeleteGoodsFromCart() {
-    Json.cartGoods.removeWhere((el) => el.id == goods.id);
+    CartModel.cartGoods.removeWhere((el) => el.id == goods.id);
     updateCart();
     countOfGoods = 0;
     notifyListeners();

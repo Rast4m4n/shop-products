@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/json.dart';
 
 import 'package:shop_products/data/repository/goods_repository.dart';
+import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';

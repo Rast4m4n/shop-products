@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-import 'package:shop_products/data/json.dart';
+import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 part 'goods_modal_state.dart';
@@ -22,7 +22,7 @@ class GoodsModalCubit extends Cubit<GoodsModalState> {
 
   void addToCard(GoodsModel goods) {
     for (int i = 0; i < state.countGoods; i++) {
-      Json.cartGoods.add(goods);
+      CartModel.cartGoods.add(goods);
     }
   }
 }
