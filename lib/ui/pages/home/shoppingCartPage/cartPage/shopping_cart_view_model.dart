@@ -30,7 +30,18 @@ class ShopingCartViewModel extends ChangeNotifier {
   }
 
   static void enterToOrderGoods(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRouteNames.orderGoods);
+    Navigator.of(context).pushNamed(AppRouteNames.main);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Заказ оформлен! Ждите звонка от курьера',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Colors.white,
+              ),
+        ),
+      ),
+    );
+    CartModel.cartGoods.clear();
   }
 
   static void enterToMainShop(BuildContext context) {

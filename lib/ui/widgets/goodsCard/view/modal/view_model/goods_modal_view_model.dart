@@ -29,7 +29,11 @@ class GoodsModalViewModel {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Товар ${model.nameGoods} Добавлен в корзину в количестве ${cubit.state.countGoods} штук'),
+          'Товар ${model.nameGoods} Добавлен в корзину в количестве ${cubit.state.countGoods} штук',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Colors.white,
+              ),
+        ),
       ),
     );
   }

@@ -150,7 +150,7 @@ class _ColumnToOrder extends StatelessWidget {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
     return IntrinsicWidth(
       child: SizedBox(
-        width: 500,
+        width: 600,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -180,7 +180,113 @@ class _ColumnToOrder extends StatelessWidget {
             const SizedBox(height: AppPadding.smallP),
             const _PriceOfGoods(),
             const SizedBox(height: AppPadding.smallP),
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _CardInfoAboutDataOfPerson(
+                      onTap: () {},
+                      isPersonInfo: true,
+                    ),
+                  ),
+                  const SizedBox(width: AppPadding.mediumP),
+                  Expanded(
+                    child: _CardInfoAboutDataOfPerson(
+                      onTap: () {},
+                      isPersonInfo: false,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppPadding.smallP),
             const _ToOrderButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CardInfoAboutDataOfPerson extends StatelessWidget {
+  const _CardInfoAboutDataOfPerson({
+    Key? key,
+    required this.onTap,
+    required this.isPersonInfo,
+  }) : super(key: key);
+  final VoidCallback onTap;
+
+  ///Если false то будет информация о способе оплаты, если true, то информация о получатиле заказа
+  final bool isPersonInfo;
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xffA6A6A6),
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.mediumP),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  isPersonInfo ? 'Получатель' : "Способ оплаты",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                InkWell(
+                  onTap: onTap,
+                  child: Text(
+                    "Изменить",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: AppColors.primaryPurple,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppPadding.smallP),
+            isPersonInfo
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.person),
+                          const SizedBox(height: AppPadding.smallP),
+                          Text(
+                            "Иван Петров",
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppPadding.smallP),
+                      Row(
+                        children: [
+                          const Icon(Icons.map),
+                          Text(
+                            'Улица Краеухово дом 15',
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      const Icon(Icons.payment),
+                      const SizedBox(width: AppPadding.smallP),
+                      Text(
+                        '5482-2323-2323-2323',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
@@ -344,15 +450,19 @@ class _ToOrderButton extends StatelessWidget {
       style: Theme.of(context).textButtonTheme.style?.copyWith(
             backgroundColor: MaterialStateProperty.resolveWith(
                 (states) => AppColors.primaryPurple),
-            foregroundColor:
-                MaterialStateProperty.resolveWith((states) => Colors.white),
-            textStyle: MaterialStateProperty.resolveWith(
-                (states) => const TextStyle(fontSize: 18)),
           ),
-      onPressed: () => ShopingCartViewModel.enterToOrderGoods(context),
-      child: const Padding(
-        padding: EdgeInsets.all(AppPadding.bigP),
-        child: Text("Перейти к оформлению"),
+      onPressed: () => CartModel.cartGoods.isNotEmpty
+          ? ShopingCartViewModel.enterToOrderGoods(context)
+          : null,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.bigP),
+        child: Text(
+          "Заказать",
+          style: Theme.of(context)
+              .textTheme
+              .headline5
+              ?.copyWith(color: Colors.white),
+        ),
       ),
     );
   }
