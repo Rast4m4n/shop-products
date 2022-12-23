@@ -19,6 +19,10 @@ class _GoodsCardViewModel extends ChangeNotifier {
   final GoodsRepository _goodsRepository;
   bool isFavorite = false;
 
+//Товар становится истинно избранным только
+//после обновления страницы каталога товаров, а так, избранным
+//становиться он только для вида, для карточки.
+//Нужно это исправить
   Future<void> onFavoriteButtonPressed() async {
     isFavorite
         ? await _goodsRepository.removeFavoriteGoods(goods)

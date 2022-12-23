@@ -147,18 +147,82 @@ class _ColumnToOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ShopingCartProvider.watch(context)!.model!;
     return IntrinsicWidth(
       child: SizedBox(
         width: 500,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            BonusCardWidget(),
-            SizedBox(height: AppPadding.smallP),
-            _PriceOfGoods(),
-            SizedBox(height: AppPadding.smallP),
-            _ToOrderButton(),
+          children: [
+            const BonusCardWidget(),
+            const SizedBox(height: AppPadding.smallP),
+            Row(
+              children: [
+                _ButtonWriteOffPoints(
+                  viewModel: viewModel,
+                  text: 'Не списывать баллы',
+                  color: viewModel.isWriteOff
+                      ? Colors.grey
+                      : AppColors.primaryPurple,
+                  onPressed: viewModel.accumulatePoints,
+                ),
+                const SizedBox(width: AppPadding.smallP),
+                _ButtonWriteOffPoints(
+                  viewModel: viewModel,
+                  text: 'Списать баллы',
+                  color: viewModel.isWriteOff
+                      ? AppColors.primaryPurple
+                      : Colors.grey,
+                  onPressed: viewModel.writeOffPoint,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppPadding.smallP),
+            const _PriceOfGoods(),
+            const SizedBox(height: AppPadding.smallP),
+            const _ToOrderButton(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ButtonWriteOffPoints extends StatelessWidget {
+  const _ButtonWriteOffPoints({
+    Key? key,
+    required this.viewModel,
+    required this.text,
+    required this.color,
+    required this.onPressed,
+  }) : super(key: key);
+
+  final ShopingCartViewModel viewModel;
+  final String text;
+  final Color color;
+  final VoidCallback onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: OutlinedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.resolveWith(
+            (states) =>
+                const EdgeInsets.symmetric(vertical: AppPadding.mediumP * 2),
+          ),
+          side: MaterialStateProperty.all(
+            BorderSide(
+              color: color,
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
         ),
       ),
     );

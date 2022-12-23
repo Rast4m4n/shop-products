@@ -20,7 +20,7 @@ class AppNavigation {
         AppRouteNames.main: (context) => const HomePage(),
         AppRouteNames.profile: (context) => ProfilePage(),
         AppRouteNames.shopingCart: (context) => ShoppingCartPage(),
-        AppRouteNames.orderGoods: (context) => const OrderGoodsView(),
+        AppRouteNames.orderGoods: (context) => const OrderingGoodsView(),
         AppRouteNames.favoriteGoods: (context) => const FavoriteGoodsPage(),
       };
 }

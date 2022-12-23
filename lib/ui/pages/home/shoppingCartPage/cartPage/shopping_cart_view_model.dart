@@ -6,6 +6,7 @@ class ShopingCartViewModel extends ChangeNotifier {
   ShopingCartViewModel({required this.cartGoods});
 
   final CartModel cartGoods;
+  bool isWriteOff = false;
 
   void updateCart() {
     notifyListeners();
@@ -13,6 +14,18 @@ class ShopingCartViewModel extends ChangeNotifier {
 
   void clearAllGoods() {
     CartModel.cartGoods.clear();
+    notifyListeners();
+  }
+
+  ///Списать баллы
+  void writeOffPoint() {
+    isWriteOff = true;
+    notifyListeners();
+  }
+
+  ///Накапливать баллы
+  void accumulatePoints() {
+    isWriteOff = false;
     notifyListeners();
   }
 
@@ -31,10 +44,8 @@ class ShopingCartProvider extends InheritedNotifier<ShopingCartViewModel> {
     Key? key,
     required this.model,
     required super.child,
-  }) : super(
-          key: key,
-          notifier: model,
-        );
+  }) : super(key: key, notifier: model);
+
   static ShopingCartProvider? watch(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<ShopingCartProvider>();
   }

@@ -3,8 +3,11 @@ import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/modal/cubit/goods_modal_cubit.dart';
 
 class GoodsModalViewModel {
-  GoodsModalViewModel(
-      {required this.context, required this.model, required this.cubit});
+  GoodsModalViewModel({
+    required this.context,
+    required this.model,
+    required this.cubit,
+  });
 
   final BuildContext context;
 

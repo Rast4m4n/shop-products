@@ -26,9 +26,7 @@ class _DialogWindowState extends State<_DialogWindow> {
 }
 
 class _ViewWidget extends StatelessWidget {
-  const _ViewWidget({
-    Key? key,
-  }) : super(key: key);
+  const _ViewWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +122,6 @@ class _ModalBottomFooterWidget extends StatelessWidget {
               state.countGoods.toString(),
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontFamily: AppFonts.primaryFontRegular,
-                    // color: Colors.black,
                   ),
             );
           },

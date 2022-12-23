@@ -1,6 +1,6 @@
 //Для веб/десктопа
 import 'package:flutter/material.dart';
-import 'package:shop_products/data/json.dart';
+import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
@@ -36,18 +36,18 @@ class _PageHeaderWidgetState extends State<PageHeaderWidget> {
                 callBack: () =>
                     Navigator.of(context).pushNamed(AppRouteNames.shopingCart),
               ),
-              // Positioned(
-              //   top: 35,
-              //   left: 35,
-              //   child: Json.cartGoods.isEmpty
-              //       ? const SizedBox()
-              //       : Text(
-              //           "${Json.cartGoods.length}",
-              //           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              //                 color: AppColors.secondaryYellow,
-              //               ),
-              //         ),
-              // ),
+              Positioned(
+                top: 35,
+                left: 35,
+                child: CartModel.cartGoods.isEmpty
+                    ? const SizedBox()
+                    : Text(
+                        "${CartModel.cartGoods.length}",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.secondaryYellow,
+                            ),
+                      ),
+              ),
             ],
           ),
           const SizedBox(width: AppPadding.bigP),

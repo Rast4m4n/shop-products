@@ -1,5 +1,3 @@
-import 'package:shop_products/domain/models/goods_model.dart';
-
 abstract class Json {
   static List<Map<String, dynamic>> goods = [
     {
@@ -80,6 +78,4 @@ abstract class Json {
       "favoriteGoods": false
     }
   ];
-
-  static List<GoodsModel> cartGoods = [];
 }
