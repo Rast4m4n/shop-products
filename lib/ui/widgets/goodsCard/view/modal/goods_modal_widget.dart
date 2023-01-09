@@ -11,8 +11,12 @@ class _DialogWindow extends StatefulWidget {
 
 class _DialogWindowState extends State<_DialogWindow> {
   late final cubit = GoodsModalCubit();
-  late final vm =
-      GoodsModalViewModel(model: widget.model, context: context, cubit: cubit);
+  late final vm = GoodsModalViewModel(
+    model: widget.model,
+    context: context,
+    cubit: cubit,
+  );
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(

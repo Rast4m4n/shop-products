@@ -6,6 +6,8 @@ import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
+part '../modal/receiver/receiver_modal.dart';
+part '../modal/payment/payment_modal.dart';
 
 class ShoppingCartPage extends StatelessWidget {
   ShoppingCartPage({Key? key}) : super(key: key);
@@ -145,6 +147,24 @@ class _AllGoodsInCart extends StatelessWidget {
 class _ColumnToOrder extends StatelessWidget {
   const _ColumnToOrder({Key? key}) : super(key: key);
 
+  Future<void> _dialogReceiver(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const _DialogReceiver();
+      },
+    );
+  }
+
+  Future<void> _dialogPayment(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const _DialogPayment();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = ShopingCartProvider.watch(context)!.model!;
@@ -160,7 +180,7 @@ class _ColumnToOrder extends StatelessWidget {
               children: [
                 _ButtonWriteOffPoints(
                   viewModel: viewModel,
-                  text: 'Не списывать баллы',
+                  text: 'Записать баллы',
                   color: viewModel.isWriteOff
                       ? Colors.grey
                       : AppColors.primaryPurple,
@@ -185,14 +205,14 @@ class _ColumnToOrder extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _CardInfoAboutDataOfPerson(
-                      onTap: () {},
+                      onTap: () => _dialogReceiver(context),
                       isPersonInfo: true,
                     ),
                   ),
                   const SizedBox(width: AppPadding.mediumP),
                   Expanded(
                     child: _CardInfoAboutDataOfPerson(
-                      onTap: () {},
+                      onTap: () => _dialogPayment(context),
                       isPersonInfo: false,
                     ),
                   ),
