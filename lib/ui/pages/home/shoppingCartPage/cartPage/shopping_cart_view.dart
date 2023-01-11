@@ -6,6 +6,7 @@ import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
+import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.dart';
 part '../modal/receiver/receiver_modal.dart';
 part '../modal/payment/payment_modal.dart';
 
