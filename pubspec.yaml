@@ -37,6 +37,9 @@ dependencies:
   shared_preferences: ^2.0.15
   get_it: ^7.2.0
   flutter_bloc: ^8.1.1
+  json_serializable: ^6.5.4
+  json_annotation: ^4.7.0
+  build_runner: ^2.3.3
 
 dev_dependencies:
   flutter_test:

@@ -9,7 +9,7 @@ class SharedPreferencesRepository {
 
   final pref = SharedPreferences.getInstance();
 
-  //------------Сохранение темы-----------------
+  //------------Темы-----------------
 
   Future<void> saveTheme(bool theme) async {
     await (await pref).setBool('isDark', theme);
@@ -18,4 +18,16 @@ class SharedPreferencesRepository {
   Future<bool> loadTheme() async {
     return (await pref).getBool('isDark') ?? false;
   }
+
+  //---------Данные о пользователе------------
+  Future<void> saveDataOfUser(String userData) async {
+    await (await pref).setString('user', userData);
+  }
+
+  Future<String> loadDataOfUser() async {
+    return (await pref).getString('user') ?? '';
+  }
+
+  //---------Данные о банковских картах-----------------
+
 }

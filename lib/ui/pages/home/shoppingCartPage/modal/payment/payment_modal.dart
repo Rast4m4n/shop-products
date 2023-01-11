@@ -36,6 +36,7 @@ class _DialogPaymentState extends State<_DialogPayment> {
               ),
               const SizedBox(height: AppPadding.smallP),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   _CardForms(),
@@ -122,7 +123,13 @@ class _BankCards extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [],
+      children: [
+        Text(
+          'Банковские карты',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+        const SizedBox(height: AppPadding.smallP),
+      ],
     );
   }
 }

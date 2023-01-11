@@ -281,7 +281,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                           const Icon(Icons.person),
                           const SizedBox(height: AppPadding.smallP),
                           Text(
-                            "Иван Петров",
+                            "Неизвестный",
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -291,7 +291,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                         children: [
                           const Icon(Icons.map),
                           Text(
-                            'Улица Краеухово дом 15',
+                            'Неизвестный',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -303,7 +303,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                       const Icon(Icons.payment),
                       const SizedBox(width: AppPadding.smallP),
                       Text(
-                        '5482-2323-2323-2323',
+                        'Неизвестный',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
