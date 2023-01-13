@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bank_cards_model.dart';
+part of '../../domain/models/bank_cards_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,8 +8,8 @@ part of 'bank_cards_model.dart';
 
 BankCardModel _$BankCardModelFromJson(Map<String, dynamic> json) =>
     BankCardModel(
-      numCard: json['numCard'] as int,
-      cvv: json['cvv'] as int,
+      numCard: json['numCard'] as String,
+      cvv: json['cvv'] as String,
     );
 
 Map<String, dynamic> _$BankCardModelToJson(BankCardModel instance) =>

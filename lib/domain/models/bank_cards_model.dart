@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'bank_cards_model.g.dart';
+part '../../data/mappers/bank_cards_model.g.dart';
 
 @JsonSerializable()
 class BankCardModel {
@@ -8,8 +8,8 @@ class BankCardModel {
     required this.numCard,
     required this.cvv,
   });
-  final int numCard;
-  final int cvv;
+  final String numCard;
+  final String cvv;
 
   Map<String, dynamic> toJson() => _$BankCardModelToJson(this);
 
