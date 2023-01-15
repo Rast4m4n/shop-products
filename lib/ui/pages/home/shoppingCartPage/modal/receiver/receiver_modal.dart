@@ -8,6 +8,12 @@ class _DialogReceiver extends StatefulWidget {
 }
 
 class __DialoRreceiverState extends State<_DialogReceiver> {
+  final vm = ReceiverViewModel(
+    addressController: TextEditingController(),
+    nameController: TextEditingController(),
+    flatController: TextEditingController(),
+    phoneNumController: TextEditingController(),
+  );
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -34,13 +40,29 @@ class __DialoRreceiverState extends State<_DialogReceiver> {
                 ],
               ),
               const SizedBox(height: AppPadding.mediumP),
-              const UserInfoTextFieldWidget(labelText: 'ФИО'),
+              UserInfoTextFieldWidget(
+                labelText: 'ФИО',
+                controller: vm.nameController,
+                onChanged: () {},
+              ),
               const SizedBox(height: AppPadding.mediumP),
-              const UserInfoTextFieldWidget(labelText: 'Адрес'),
+              UserInfoTextFieldWidget(
+                labelText: 'Адрес',
+                controller: vm.addressController,
+                onChanged: () {},
+              ),
               const SizedBox(height: AppPadding.mediumP),
-              const UserInfoTextFieldWidget(labelText: 'Телефон'),
+              UserInfoTextFieldWidget(
+                labelText: 'Телефон',
+                controller: vm.phoneNumController,
+                onChanged: () {},
+              ),
               const SizedBox(height: AppPadding.mediumP),
-              const UserInfoTextFieldWidget(labelText: 'Квартира'),
+              UserInfoTextFieldWidget(
+                labelText: 'Квартира',
+                controller: vm.flatController,
+                onChanged: () {},
+              ),
               const SizedBox(height: AppPadding.mediumP),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

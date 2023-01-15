@@ -3,14 +3,22 @@ import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
 class UserInfoTextFieldWidget extends StatelessWidget {
-  const UserInfoTextFieldWidget({Key? key, required this.labelText})
-      : super(key: key);
+  const UserInfoTextFieldWidget({
+    Key? key,
+    required this.labelText,
+    required this.controller,
+    required this.onChanged,
+  }) : super(key: key);
   final String labelText;
+  final TextEditingController controller;
+  final VoidCallback onChanged;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 300),
       child: TextField(
+        controller: controller,
+        onChanged: (value) => onChanged,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontFamily: AppFonts.primaryFontRegular,
             ),

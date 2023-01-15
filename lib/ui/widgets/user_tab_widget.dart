@@ -13,12 +13,12 @@ class UserTab extends StatelessWidget {
       icon: const Icon(Icons.person),
       itemBuilder: (BuildContext context) {
         return [
-          PopupMenuItem(
-            child: _PopupItemWidget(
-              name: 'Профиль',
-              onTap: () => model.enterProfilePage(context),
-            ),
-          ),
+          // PopupMenuItem(
+          //   child: _PopupItemWidget(
+          //     name: 'Профиль',
+          //     onTap: () => model.enterProfilePage(context),
+          //   ),
+          // ),
           const PopupMenuItem(
             child: _PopupItemWidget(name: 'Корзина'),
           ),

@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shop_products/data/repository/shared_pref_repository.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
-import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ShopingCartViewModel extends ChangeNotifier {

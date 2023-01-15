@@ -8,6 +8,10 @@ class _DialogPayment extends StatefulWidget {
 }
 
 class _DialogPaymentState extends State<_DialogPayment> {
+  final vm = PaymentViewModel(
+    csvCvv: TextEditingController(),
+    numCard: TextEditingController(),
+  );
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -17,59 +21,63 @@ class _DialogPaymentState extends State<_DialogPayment> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.smallP),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Способы оплаты',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  IconButton(
-                    splashRadius: 24,
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppPadding.smallP),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  _CardForms(),
-                  _BankCards(),
-                ],
-              ),
-              const SizedBox(height: AppPadding.smallP),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: Theme.of(context).textButtonTheme.style?.copyWith(
-                          backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => AppColors.primaryPurple),
+          child: PaymentProvider(
+            model: vm,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Способы оплаты',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    IconButton(
+                      splashRadius: 24,
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.close),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppPadding.smallP),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    _CardForms(),
+                    _BankCards(),
+                  ],
+                ),
+                const SizedBox(height: AppPadding.smallP),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      style: Theme.of(context).textButtonTheme.style?.copyWith(
+                            backgroundColor: MaterialStateProperty.resolveWith(
+                                (states) => AppColors.primaryPurple),
+                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppPadding.smallP,
+                          vertical: AppPadding.smallP,
                         ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppPadding.smallP,
-                        vertical: AppPadding.smallP,
-                      ),
-                      child: Text(
-                        'Сохранить',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
+                        child: Text(
+                          'Сохранить',
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                  ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -82,13 +90,22 @@ class _CardForms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = PaymentProvider.of(context)!.model;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const UserInfoTextFieldWidget(labelText: 'Номер карты'),
+        UserInfoTextFieldWidget(
+          labelText: 'Номер карты',
+          controller: vm.numCard,
+          onChanged: () {},
+        ),
         const SizedBox(height: AppPadding.mediumP),
-        const UserInfoTextFieldWidget(labelText: 'CSV/CVV'),
+        UserInfoTextFieldWidget(
+          labelText: 'CSV/CVV',
+          controller: vm.csvCvv,
+          onChanged: () {},
+        ),
         const SizedBox(height: AppPadding.mediumP),
         TextButton(
           onPressed: () {},

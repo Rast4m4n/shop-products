@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
+import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/payment/payment_view_model.dart';
+import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/receiver/receiver_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
@@ -281,7 +283,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                           const Icon(Icons.person),
                           const SizedBox(height: AppPadding.smallP),
                           Text(
-                            "Неизвестный",
+                            "Нет данных",
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -291,7 +293,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                         children: [
                           const Icon(Icons.map),
                           Text(
-                            'Неизвестный',
+                            'Нет данных',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -303,7 +305,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
                       const Icon(Icons.payment),
                       const SizedBox(width: AppPadding.smallP),
                       Text(
-                        'Неизвестный',
+                        'Нет данных',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
