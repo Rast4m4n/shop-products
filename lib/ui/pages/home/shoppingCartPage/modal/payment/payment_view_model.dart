@@ -1,16 +1,23 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shop_products/data/repository/shared_pref_repository.dart';
+import 'package:shop_products/domain/models/bank_cards_model.dart';
 
 class PaymentViewModel {
   PaymentViewModel({
-    required this.csvCvv,
-    required this.numCard,
+    required this.cvvController,
+    required this.numCardController,
   });
 
-  final TextEditingController csvCvv;
-  final TextEditingController numCard;
+  final TextEditingController cvvController;
+  final TextEditingController numCardController;
 
-  void saveData(BuildContext context) {
-    Navigator.of(context).pop();
+  Future<void> saveData(BuildContext context) async {
+    final bankCard = BankCardModel(
+      numCard: numCardController.text,
+      cvv: cvvController.text,
+    );
+
+    await SharedPreferencesRepository.instance.saveBankCard(bankCard);
   }
 }
 

@@ -7,11 +7,11 @@ class UserInfoTextFieldWidget extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.controller,
-    required this.onChanged,
+    this.onChanged,
   }) : super(key: key);
   final String labelText;
   final TextEditingController controller;
-  final VoidCallback onChanged;
+  final VoidCallback? onChanged;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(

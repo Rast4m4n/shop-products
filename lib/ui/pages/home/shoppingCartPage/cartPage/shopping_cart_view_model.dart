@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/data/repository/shared_pref_repository.dart';
+import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
+import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 
 class ShopingCartViewModel extends ChangeNotifier {
   ShopingCartViewModel({required this.cartGoods});
 
   final CartModel cartGoods;
+
   bool isWriteOff = false;
 
   void updateCart() {
@@ -15,6 +19,14 @@ class ShopingCartViewModel extends ChangeNotifier {
   void clearAllGoods() {
     CartModel.cartGoods.clear();
     notifyListeners();
+  }
+
+  Future<UserModel> getUserData() async {
+    return await SharedPreferencesRepository.instance.loadDataOfUser();
+  }
+
+  Future<BankCardModel> getBankCardData() async {
+    return await SharedPreferencesRepository.instance.loadBankCard();
   }
 
   ///Списать баллы

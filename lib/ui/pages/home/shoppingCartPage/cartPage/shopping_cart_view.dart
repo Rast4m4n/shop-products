@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/data/repository/shared_pref_repository.dart';
+import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
+import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/payment/payment_view_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/receiver/receiver_view_model.dart';
@@ -243,6 +246,7 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
   final bool isPersonInfo;
   @override
   Widget build(BuildContext context) {
+    final vm = ShopingCartProvider.read(context)!.model;
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.all(
@@ -274,45 +278,91 @@ class _CardInfoAboutDataOfPerson extends StatelessWidget {
               ],
             ),
             const SizedBox(height: AppPadding.smallP),
-            isPersonInfo
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.person),
-                          const SizedBox(height: AppPadding.smallP),
-                          Text(
-                            "Нет данных",
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppPadding.smallP),
-                      Row(
-                        children: [
-                          const Icon(Icons.map),
-                          Text(
-                            'Нет данных',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      const Icon(Icons.payment),
-                      const SizedBox(width: AppPadding.smallP),
-                      Text(
-                        'Нет данных',
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ],
-                  ),
+            isPersonInfo ? _UserDataReceiver(vm: vm) : _BankCardData(vm: vm),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _BankCardData extends StatelessWidget {
+  const _BankCardData({
+    Key? key,
+    required this.vm,
+  }) : super(key: key);
+
+  final ShopingCartViewModel? vm;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<BankCardModel>(
+      future: vm!.getBankCardData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final bankCard = snapshot.data!;
+          return Row(
+            children: [
+              const Icon(Icons.payment),
+              const SizedBox(width: AppPadding.smallP),
+              Text(
+                bankCard.numCard,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+}
+
+class _UserDataReceiver extends StatelessWidget {
+  const _UserDataReceiver({
+    Key? key,
+    required this.vm,
+  }) : super(key: key);
+
+  final ShopingCartViewModel? vm;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<UserModel>(
+      future: vm!.getUserData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data!;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.person),
+                  const SizedBox(height: AppPadding.smallP),
+                  Text(
+                    user.fio,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppPadding.smallP),
+              Row(
+                children: [
+                  const Icon(Icons.map),
+                  Text(
+                    user.address,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+            ],
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }

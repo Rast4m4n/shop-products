@@ -9,15 +9,15 @@ class _DialogPayment extends StatefulWidget {
 
 class _DialogPaymentState extends State<_DialogPayment> {
   final vm = PaymentViewModel(
-    csvCvv: TextEditingController(),
-    numCard: TextEditingController(),
+    cvvController: TextEditingController(),
+    numCardController: TextEditingController(),
   );
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(
-          maxWidth: 700,
+          maxWidth: 500, // 700
         ),
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.smallP),
@@ -25,6 +25,7 @@ class _DialogPaymentState extends State<_DialogPayment> {
             model: vm,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,20 +42,24 @@ class _DialogPaymentState extends State<_DialogPayment> {
                   ],
                 ),
                 const SizedBox(height: AppPadding.smallP),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    _CardForms(),
-                    _BankCards(),
-                  ],
-                ),
+                const _CardForms(),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: const [
+                //     _CardForms(),
+                //     // _BankCards(),
+                //   ],
+                // ),
                 const SizedBox(height: AppPadding.smallP),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        vm.saveData(context);
+                        Navigator.of(context).pop();
+                      },
                       style: Theme.of(context).textButtonTheme.style?.copyWith(
                             backgroundColor: MaterialStateProperty.resolveWith(
                                 (states) => AppColors.primaryPurple),
@@ -97,56 +102,54 @@ class _CardForms extends StatelessWidget {
       children: [
         UserInfoTextFieldWidget(
           labelText: 'Номер карты',
-          controller: vm.numCard,
-          onChanged: () {},
+          controller: vm.numCardController,
         ),
         const SizedBox(height: AppPadding.mediumP),
         UserInfoTextFieldWidget(
           labelText: 'CSV/CVV',
-          controller: vm.csvCvv,
-          onChanged: () {},
+          controller: vm.cvvController,
         ),
         const SizedBox(height: AppPadding.mediumP),
-        TextButton(
-          onPressed: () {},
-          style: Theme.of(context).textButtonTheme.style?.copyWith(
-                backgroundColor: MaterialStateProperty.resolveWith(
-                  (states) => AppColors.paymentGreen,
-                ),
-              ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.smallP,
-              vertical: AppPadding.smallP,
-            ),
-            child: Text(
-              'Добавить карту',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Colors.white,
-                  ),
-            ),
-          ),
-        ),
+        // TextButton(
+        //   onPressed: () {},
+        //   style: Theme.of(context).textButtonTheme.style?.copyWith(
+        //         backgroundColor: MaterialStateProperty.resolveWith(
+        //           (states) => AppColors.paymentGreen,
+        //         ),
+        //       ),
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(
+        //       horizontal: AppPadding.smallP,
+        //       vertical: AppPadding.smallP,
+        //     ),
+        //     child: Text(
+        //       'Добавить карту',
+        //       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+        //             color: Colors.white,
+        //           ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
 }
 
-class _BankCards extends StatelessWidget {
-  const _BankCards({Key? key}) : super(key: key);
+// class _BankCards extends StatelessWidget {
+//   const _BankCards({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Банковские карты',
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        const SizedBox(height: AppPadding.smallP),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           'Банковские карты',
+//           style: Theme.of(context).textTheme.bodyLarge,
+//         ),
+//         const SizedBox(height: AppPadding.smallP),
+//       ],
+//     );
+//   }
+// }

@@ -9,10 +9,10 @@ class _DialogReceiver extends StatefulWidget {
 
 class __DialoRreceiverState extends State<_DialogReceiver> {
   final vm = ReceiverViewModel(
-    addressController: TextEditingController(),
     nameController: TextEditingController(),
-    flatController: TextEditingController(),
+    addressController: TextEditingController(),
     phoneNumController: TextEditingController(),
+    flatController: TextEditingController(),
   );
   @override
   Widget build(BuildContext context) {
@@ -43,32 +43,31 @@ class __DialoRreceiverState extends State<_DialogReceiver> {
               UserInfoTextFieldWidget(
                 labelText: 'ФИО',
                 controller: vm.nameController,
-                onChanged: () {},
               ),
               const SizedBox(height: AppPadding.mediumP),
               UserInfoTextFieldWidget(
                 labelText: 'Адрес',
                 controller: vm.addressController,
-                onChanged: () {},
               ),
               const SizedBox(height: AppPadding.mediumP),
               UserInfoTextFieldWidget(
                 labelText: 'Телефон',
                 controller: vm.phoneNumController,
-                onChanged: () {},
               ),
               const SizedBox(height: AppPadding.mediumP),
               UserInfoTextFieldWidget(
                 labelText: 'Квартира',
                 controller: vm.flatController,
-                onChanged: () {},
               ),
               const SizedBox(height: AppPadding.mediumP),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      vm.saveData(context);
+                      Navigator.of(context).pop();
+                    },
                     style: Theme.of(context).textButtonTheme.style?.copyWith(
                           backgroundColor: MaterialStateProperty.resolveWith(
                               (states) => AppColors.primaryPurple),
