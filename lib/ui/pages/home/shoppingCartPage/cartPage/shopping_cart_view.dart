@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/data/repository/shared_pref_repository.dart';
 import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/domain/models/user_model.dart';
@@ -352,7 +351,7 @@ class _UserDataReceiver extends StatelessWidget {
                 children: [
                   const Icon(Icons.map),
                   Text(
-                    user.address,
+                    "${user.address}, кв ${user.flat}",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],

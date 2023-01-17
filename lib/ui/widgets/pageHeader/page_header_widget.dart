@@ -6,14 +6,9 @@ import 'package:shop_products/ui/theme/app_icons.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
-class PageHeaderWidget extends StatefulWidget {
+class PageHeaderWidget extends StatelessWidget {
   const PageHeaderWidget({Key? key}) : super(key: key);
 
-  @override
-  State<PageHeaderWidget> createState() => _PageHeaderWidgetState();
-}
-
-class _PageHeaderWidgetState extends State<PageHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,7 +106,7 @@ class _LogotypeShopWidget extends StatelessWidget {
       width: 140,
       child: InkWell(
         onTap: () => Navigator.of(context)
-            .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false),
+            .pushNamedAndRemoveUntil(AppRouteNames.home, (route) => false),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
@@ -140,10 +135,17 @@ class _SearchField extends StatefulWidget {
 class _SearchFieldState extends State<_SearchField> {
   final _searchController = TextEditingController();
 
+  void searchGoods() {
+    var text = _searchController.text;
+
+    Navigator.of(context).pushNamed(AppRouteNames.home, arguments: text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: _searchController,
+      onSubmitted: (value) => searchGoods(),
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.4),
       decoration: InputDecoration(
         filled: true,

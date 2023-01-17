@@ -42,7 +42,7 @@ class ShopingCartViewModel extends ChangeNotifier {
   }
 
   static void enterToOrderGoods(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRouteNames.main);
+    Navigator.of(context).pushNamed(AppRouteNames.home);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -57,7 +57,7 @@ class ShopingCartViewModel extends ChangeNotifier {
   }
 
   static void enterToMainShop(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRouteNames.main);
+    Navigator.of(context).pushNamed(AppRouteNames.home);
   }
 }
 

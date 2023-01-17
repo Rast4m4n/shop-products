@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeSwitcher.instance.currentTheme(),
       initialRoute: widget.navigation.initialRoute,
       routes: widget.navigation.routes,
+      onGenerateRoute: widget.navigation.onGenerateRoute,
     );
   }
 }

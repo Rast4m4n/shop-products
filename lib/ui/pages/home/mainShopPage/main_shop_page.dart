@@ -2,23 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
+import 'package:shop_products/ui/navigator/app_navigation.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/utils/app_ui_utils.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
+import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class MainShopPage extends StatelessWidget {
   const MainShopPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        _CatalogOfGoods(),
-        _ListOfGoods(),
-      ],
+    return PageWrapper(
+      appBar: AppBar(
+        title: InkWell(
+          onTap: () => Navigator.of(context).pushNamed(AppRouteNames.home),
+          child: const Text('Магия вкуса'),
+        ),
+        actions: const [],
+      ),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          _CatalogOfGoods(),
+          _ListOfGoods(),
+        ],
+      ),
     );
   }
 }
