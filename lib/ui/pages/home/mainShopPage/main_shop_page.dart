@@ -10,14 +10,18 @@ import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart'
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 
 class MainShopPage extends StatelessWidget {
-  const MainShopPage({Key? key}) : super(key: key);
+  const MainShopPage({
+    Key? key,
+    this.searchFiltred,
+  }) : super(key: key);
 
+  final String? searchFiltred;
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
       appBar: AppBar(
         title: InkWell(
-          onTap: () => Navigator.of(context).pushNamed(AppRouteNames.home),
+          onTap: () => Navigator.of(context).pushNamed(AppRouteNames.main),
           child: const Text('Магия вкуса'),
         ),
         actions: const [],
@@ -25,9 +29,9 @@ class MainShopPage extends StatelessWidget {
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          _CatalogOfGoods(),
-          _ListOfGoods(),
+        children: [
+          const _CatalogOfGoods(),
+          _ListOfGoods(searchFiltred: searchFiltred),
         ],
       ),
     );
@@ -156,8 +160,9 @@ class _CatalogCardWidget extends StatelessWidget {
 class _ListOfGoods extends StatefulWidget {
   const _ListOfGoods({
     Key? key,
+    this.searchFiltred,
   }) : super(key: key);
-
+  final String? searchFiltred;
   @override
   State<_ListOfGoods> createState() => _ListOfGoodsState();
 }
@@ -165,7 +170,10 @@ class _ListOfGoods extends StatefulWidget {
 class _ListOfGoodsState extends State<_ListOfGoods> {
   @override
   Widget build(BuildContext context) {
-    return _ViewWidget(goodsRepository: GetIt.I.get<GoodsRepository>());
+    return _ViewWidget(
+      goodsRepository: GetIt.I.get<GoodsRepository>(),
+      searchFiltred: widget.searchFiltred,
+    );
   }
 }
 
@@ -173,17 +181,26 @@ class _ViewWidget extends StatelessWidget {
   const _ViewWidget({
     Key? key,
     required this.goodsRepository,
+    this.searchFiltred,
   }) : super(key: key);
 
   final GoodsRepository goodsRepository;
-
+  final String? searchFiltred;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<GoodsModel>>(
       future: goodsRepository.fetchData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final goods = snapshot.data!;
+          final goods = searchFiltred == null
+              ? snapshot.data!
+              : snapshot.data!
+                  .where(
+                    (element) => element.nameGoods.toLowerCase().startsWith(
+                          searchFiltred!.toLowerCase(),
+                        ),
+                  )
+                  .toList();
           return ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 800),
             child: GridView.builder(

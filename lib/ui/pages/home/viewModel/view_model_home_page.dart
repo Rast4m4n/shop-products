@@ -8,6 +8,6 @@ class ViewModelHomePage {
 
   void returnToMainPage(BuildContext context) {
     Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRouteNames.home, (route) => false);
+        .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false);
   }
 }

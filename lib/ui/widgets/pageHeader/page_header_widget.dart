@@ -106,7 +106,7 @@ class _LogotypeShopWidget extends StatelessWidget {
       width: 140,
       child: InkWell(
         onTap: () => Navigator.of(context)
-            .pushNamedAndRemoveUntil(AppRouteNames.home, (route) => false),
+            .pushNamedAndRemoveUntil(AppRouteNames.main, (route) => false),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
@@ -137,8 +137,7 @@ class _SearchFieldState extends State<_SearchField> {
 
   void searchGoods() {
     var text = _searchController.text;
-
-    Navigator.of(context).pushNamed(AppRouteNames.home, arguments: text);
+    Navigator.of(context).pushNamed(AppRouteNames.main, arguments: text);
   }
 
   @override
