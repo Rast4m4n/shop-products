@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
@@ -50,7 +51,7 @@ class BonusCardWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '0',
+                      '${DiscontModel.discont}',
                       style: Theme.of(context).textTheme.headline4?.copyWith(
                             color: AppColors.secondaryYellow,
                           ),

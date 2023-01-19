@@ -1,3 +1,4 @@
+import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class CartModel {
@@ -8,16 +9,14 @@ class CartModel {
 
   int get summOfGoods =>
       cartGoods.fold(0, (total, current) => total + current.priceGoods);
-  final int discont = 0;
 
   String get summOfGoodsString => summOfGoods.toString();
-  String get discontString => discont.toString();
   String get deliveryString => delivery(summOfGoods).toString();
 
   String get totalSummString => totalSumm().toString();
 
   int totalSumm() {
-    return summOfGoods + delivery(summOfGoods) - discont;
+    return summOfGoods + delivery(summOfGoods) - DiscontModel.discont;
   }
 
   int amountOfGoods() {

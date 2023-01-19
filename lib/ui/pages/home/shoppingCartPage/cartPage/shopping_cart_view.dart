@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
+import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/payment/payment_view_model.dart';
@@ -311,7 +312,10 @@ class _BankCardData extends StatelessWidget {
             ],
           );
         } else {
-          return const CircularProgressIndicator();
+          return Text(
+            'Нет данных',
+            style: Theme.of(context).textTheme.bodyLarge,
+          );
         }
       },
     );
@@ -359,7 +363,10 @@ class _UserDataReceiver extends StatelessWidget {
             ],
           );
         } else {
-          return const CircularProgressIndicator();
+          return Text(
+            'Нет данных',
+            style: Theme.of(context).textTheme.bodyLarge,
+          );
         }
       },
     );
@@ -462,7 +469,7 @@ class _PriceOfGoods extends StatelessWidget {
                       ?.copyWith(fontSize: 16),
                 ),
                 Text(
-                  '${viewModel.cartGoods.discontString} ₽',
+                  '${DiscontModel.discont} ₽',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge

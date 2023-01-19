@@ -19,11 +19,9 @@ class AppNavigation {
       };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    var goodsName = '';
-    var categoryGoods;
     if (settings.arguments != null) {
       if (settings.arguments is String) {
-        goodsName = settings.arguments as String;
+        final goodsName = settings.arguments as String;
         if (settings.name == AppRouteNames.main) {
           return MaterialPageRoute(
             builder: (context) {
@@ -33,7 +31,7 @@ class AppNavigation {
         }
       }
       if (settings.arguments is CategoryEnum) {
-        categoryGoods = settings.arguments as CategoryEnum;
+        final categoryGoods = settings.arguments as CategoryEnum;
         if (settings.name == AppRouteNames.main) {
           return MaterialPageRoute(
             builder: (context) {
@@ -43,7 +41,6 @@ class AppNavigation {
         }
       }
     }
-
     return MaterialPageRoute(
       builder: (context) {
         return const MainShopPage();
