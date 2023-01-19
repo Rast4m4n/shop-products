@@ -9,7 +9,8 @@ abstract class Json {
       "ratingGoods": 4.5,
       "priceGoods": 290,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Мясо'
     },
     {
       "id": 1,
@@ -20,7 +21,8 @@ abstract class Json {
       "ratingGoods": 4.7,
       "priceGoods": 160,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Снеки'
     },
     {
       "id": 2,
@@ -31,7 +33,8 @@ abstract class Json {
       "ratingGoods": 4.0,
       "priceGoods": 65,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Фрукты'
     },
     {
       "id": 3,
@@ -42,7 +45,8 @@ abstract class Json {
       "ratingGoods": 4.4,
       "priceGoods": 55,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Фрукты'
     },
     {
       "id": 4,
@@ -53,7 +57,8 @@ abstract class Json {
       "ratingGoods": 4.8,
       "priceGoods": 50,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Выпечка'
     },
     {
       "id": 5,
@@ -64,7 +69,8 @@ abstract class Json {
       "ratingGoods": 4.7,
       "priceGoods": 85,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Яйца'
     },
     {
       "id": 6,
@@ -75,7 +81,8 @@ abstract class Json {
       "ratingGoods": 4.5,
       "priceGoods": 30,
       "numberOfGoods": 1,
-      "favoriteGoods": false
+      "favoriteGoods": false,
+      "category": 'Молочные продукты'
     }
   ];
 }

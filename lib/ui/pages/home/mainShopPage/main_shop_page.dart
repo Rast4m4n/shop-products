@@ -114,7 +114,6 @@ class _ListCatalog extends StatelessWidget {
           const _CatalogCardWidget(categoryName: "Яйца"),
           const _CatalogCardWidget(categoryName: "Вода и напитки"),
           const _CatalogCardWidget(categoryName: "Снеки"),
-          const _CatalogCardWidget(categoryName: "Фрукты и ягоды"),
           const _CatalogCardWidget(categoryName: "Сладости"),
           const _CatalogCardWidget(categoryName: "Мясные изделия"),
           const _CatalogCardWidget(categoryName: "Морепродукты"),

@@ -9,6 +9,7 @@ class GoodsModel {
     required this.priceGoods,
     required this.numberOfGoods,
     required this.favoriteGoods,
+    required this.category,
   });
   final int id;
   final String nameGoods;
@@ -19,6 +20,7 @@ class GoodsModel {
   final int priceGoods;
   final int numberOfGoods;
   final bool favoriteGoods;
+  final String category;
 
   factory GoodsModel.fromJson(Map<String, dynamic> json) => GoodsModel(
         id: json["id"],
@@ -30,6 +32,7 @@ class GoodsModel {
         priceGoods: json["priceGoods"],
         numberOfGoods: json["numberOfGoods"],
         favoriteGoods: json["favoriteGoods"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -42,6 +45,7 @@ class GoodsModel {
         "priceGoods": priceGoods,
         "numberOfGoods": numberOfGoods,
         "favoriteGoods": favoriteGoods,
+        "category": category,
       };
 
   GoodsModel copyWith({
@@ -54,6 +58,7 @@ class GoodsModel {
     int? priceGoods,
     int? numberOfGoods,
     bool? favoriteGoods,
+    String? category,
   }) {
     return GoodsModel(
       id: id ?? this.id,
@@ -65,12 +70,13 @@ class GoodsModel {
       priceGoods: priceGoods ?? this.priceGoods,
       numberOfGoods: numberOfGoods ?? this.numberOfGoods,
       favoriteGoods: favoriteGoods ?? this.favoriteGoods,
+      category: category ?? this.category,
     );
   }
 
   @override
   String toString() {
-    return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods';
+    return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods $category';
   }
 
   @override
@@ -86,7 +92,8 @@ class GoodsModel {
         other.ratingGoods == ratingGoods &&
         other.priceGoods == priceGoods &&
         other.numberOfGoods == numberOfGoods &&
-        other.favoriteGoods == favoriteGoods;
+        other.favoriteGoods == favoriteGoods &&
+        other.category == category;
   }
 
   @override
@@ -99,6 +106,7 @@ class GoodsModel {
         ratingGoods.hashCode ^
         priceGoods.hashCode ^
         numberOfGoods.hashCode ^
-        favoriteGoods.hashCode;
+        favoriteGoods.hashCode ^
+        category.hashCode;
   }
 }
