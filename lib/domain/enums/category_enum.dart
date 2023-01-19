@@ -17,7 +17,7 @@ enum CategoryEnum {
 }
 
 extension CategoryEnumExt on CategoryEnum {
-  static String getName(int id) {
+  static String getName(int? id) {
     if (id == CategoryEnum.vegetable.index) {
       return "Овощи";
     } else if (id == CategoryEnum.fruit.index) {

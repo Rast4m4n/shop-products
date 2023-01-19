@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
+import 'package:shop_products/domain/enums/category_enum.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
@@ -13,9 +15,11 @@ class MainShopPage extends StatelessWidget {
   const MainShopPage({
     Key? key,
     this.searchFiltred,
+    this.category,
   }) : super(key: key);
 
   final String? searchFiltred;
+  final CategoryEnum? category;
   @override
   Widget build(BuildContext context) {
     return PageWrapper(
@@ -31,7 +35,10 @@ class MainShopPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const _CatalogOfGoods(),
-          _ListOfGoods(searchFiltred: searchFiltred),
+          _ListOfGoods(
+            searchFiltred: searchFiltred,
+            category: category,
+          ),
         ],
       ),
     );
@@ -108,18 +115,90 @@ class _ListCatalog extends StatelessWidget {
     return Column(
       children: AppUiUtils.buildSeparated(
         [
-          const _CatalogCardWidget(categoryName: "Овощи, зелень"),
-          const _CatalogCardWidget(categoryName: "Фрукты, ягоды"),
-          const _CatalogCardWidget(categoryName: "Молочные продукты"),
-          const _CatalogCardWidget(categoryName: "Яйца"),
-          const _CatalogCardWidget(categoryName: "Вода и напитки"),
-          const _CatalogCardWidget(categoryName: "Снеки"),
-          const _CatalogCardWidget(categoryName: "Сладости"),
-          const _CatalogCardWidget(categoryName: "Мясные изделия"),
-          const _CatalogCardWidget(categoryName: "Морепродукты"),
-          const _CatalogCardWidget(categoryName: "Чай и кофе"),
-          const _CatalogCardWidget(categoryName: "Специи и соусы"),
-          const _CatalogCardWidget(categoryName: "Выпечка"),
+          _CatalogCardWidget(
+            categoryName: "Овощи, зелень",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.vegetable,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Фрукты, ягоды",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.fruit,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Молочные продукты",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.milk,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Яйца",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.eggs,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Вода и напитки",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.drinks,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Снеки",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.snack,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Сладости",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.sweets,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Мясные изделия",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.meat,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Морепродукты",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.seafood,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Чай и кофе",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.teaAndCoffee,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Специи и соусы",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.spicesAndSauces,
+            ),
+          ),
+          _CatalogCardWidget(
+            categoryName: "Выпечка",
+            onTap: () => Navigator.of(context).pushNamed(
+              AppRouteNames.main,
+              arguments: CategoryEnum.bake,
+            ),
+          ),
         ],
       ),
     );
@@ -127,15 +206,19 @@ class _ListCatalog extends StatelessWidget {
 }
 
 class _CatalogCardWidget extends StatelessWidget {
-  const _CatalogCardWidget({Key? key, required this.categoryName})
-      : super(key: key);
+  const _CatalogCardWidget({
+    Key? key,
+    required this.categoryName,
+    required this.onTap,
+  }) : super(key: key);
   final String categoryName;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Material(
       // color: Colors.grey,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
           child: Row(
@@ -160,8 +243,10 @@ class _ListOfGoods extends StatefulWidget {
   const _ListOfGoods({
     Key? key,
     this.searchFiltred,
+    this.category,
   }) : super(key: key);
   final String? searchFiltred;
+  final CategoryEnum? category;
   @override
   State<_ListOfGoods> createState() => _ListOfGoodsState();
 }
@@ -172,6 +257,7 @@ class _ListOfGoodsState extends State<_ListOfGoods> {
     return _ViewWidget(
       goodsRepository: GetIt.I.get<GoodsRepository>(),
       searchFiltred: widget.searchFiltred,
+      category: widget.category,
     );
   }
 }
@@ -181,23 +267,34 @@ class _ViewWidget extends StatelessWidget {
     Key? key,
     required this.goodsRepository,
     this.searchFiltred,
+    this.category,
   }) : super(key: key);
 
   final GoodsRepository goodsRepository;
   final String? searchFiltred;
+  final CategoryEnum? category;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<GoodsModel>>(
       future: goodsRepository.fetchData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final goods = searchFiltred == null
+          var goods = searchFiltred == null
               ? snapshot.data!
               : snapshot.data!
                   .where(
-                    (element) => element.nameGoods.toLowerCase().startsWith(
+                    (el) => el.nameGoods.toLowerCase().startsWith(
                           searchFiltred!.toLowerCase(),
                         ),
+                  )
+                  .toList();
+
+          goods = category == null
+              ? goods
+              : goods
+                  .where(
+                    (el) =>
+                        el.category == CategoryEnumExt.getName(category?.index),
                   )
                   .toList();
           return ConstrainedBox(
