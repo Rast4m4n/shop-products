@@ -76,6 +76,7 @@ class GoodsInheritViewModel extends InheritedNotifier<_GoodsCardViewModel> {
   final _GoodsCardViewModel? model;
   const GoodsInheritViewModel({
     Key? key,
+    // ignore: library_private_types_in_public_api
     required this.model,
     required super.child,
   }) : super(

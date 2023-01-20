@@ -99,8 +99,17 @@ class _TitleOfGoods extends StatelessWidget {
       children: [
         const SizedBox(width: AppPadding.mediumP),
         if (goods.pathImage != null)
-          Image(
-            image: AssetImage(goods.pathImage!),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 90,
+              maxWidth: 90,
+              minHeight: 90,
+              minWidth: 90,
+            ),
+            child: Image(
+              image: AssetImage("assets/images/products/${goods.pathImage}"),
+              fit: BoxFit.contain,
+            ),
           )
         else
           const SizedBox(height: 90, width: 90, child: Placeholder()),

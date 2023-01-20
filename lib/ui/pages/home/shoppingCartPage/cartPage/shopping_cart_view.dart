@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
-import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/payment/payment_view_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/receiver/receiver_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
-import 'package:shop_products/ui/widgets/bonusCard/bonus_card.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.dart';
@@ -173,36 +171,36 @@ class _ColumnToOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ShopingCartProvider.watch(context)!.model!;
+    // final viewModel = ShopingCartProvider.watch(context)!.model!;
     return IntrinsicWidth(
       child: SizedBox(
         width: 600,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const BonusCardWidget(),
+            // const BonusCardWidget(),
             const SizedBox(height: AppPadding.smallP),
-            Row(
-              children: [
-                _ButtonWriteOffPoints(
-                  viewModel: viewModel,
-                  text: 'Записать баллы',
-                  color: viewModel.isWriteOff
-                      ? Colors.grey
-                      : AppColors.primaryPurple,
-                  onPressed: viewModel.accumulatePoints,
-                ),
-                const SizedBox(width: AppPadding.smallP),
-                _ButtonWriteOffPoints(
-                  viewModel: viewModel,
-                  text: 'Списать баллы',
-                  color: viewModel.isWriteOff
-                      ? AppColors.primaryPurple
-                      : Colors.grey,
-                  onPressed: viewModel.writeOffPoint,
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     _ButtonWriteOffPoints(
+            //       viewModel: viewModel,
+            //       text: 'Записать баллы',
+            //       color: viewModel.isWriteOff
+            //           ? Colors.grey
+            //           : AppColors.primaryPurple,
+            //       onPressed: viewModel.accumulatePoints,
+            //     ),
+            //     const SizedBox(width: AppPadding.smallP),
+            //     _ButtonWriteOffPoints(
+            //       viewModel: viewModel,
+            //       text: 'Списать баллы',
+            //       color: viewModel.isWriteOff
+            //           ? AppColors.primaryPurple
+            //           : Colors.grey,
+            //       onPressed: viewModel.writeOffPoint,
+            //     ),
+            //   ],
+            // ),
             const SizedBox(height: AppPadding.smallP),
             const _PriceOfGoods(),
             const SizedBox(height: AppPadding.smallP),
@@ -373,46 +371,46 @@ class _UserDataReceiver extends StatelessWidget {
   }
 }
 
-class _ButtonWriteOffPoints extends StatelessWidget {
-  const _ButtonWriteOffPoints({
-    Key? key,
-    required this.viewModel,
-    required this.text,
-    required this.color,
-    required this.onPressed,
-  }) : super(key: key);
+// class _ButtonWriteOffPoints extends StatelessWidget {
+//   const _ButtonWriteOffPoints({
+//     Key? key,
+//     required this.viewModel,
+//     required this.text,
+//     required this.color,
+//     required this.onPressed,
+//   }) : super(key: key);
 
-  final ShopingCartViewModel viewModel;
-  final String text;
-  final Color color;
-  final VoidCallback onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: OutlinedButton(
-        style: ButtonStyle(
-          padding: MaterialStateProperty.resolveWith(
-            (states) =>
-                const EdgeInsets.symmetric(vertical: AppPadding.mediumP * 2),
-          ),
-          side: MaterialStateProperty.all(
-            BorderSide(
-              color: color,
-            ),
-          ),
-        ),
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-        ),
-      ),
-    );
-  }
-}
+//   final ShopingCartViewModel viewModel;
+//   final String text;
+//   final Color color;
+//   final VoidCallback onPressed;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Expanded(
+//       child: OutlinedButton(
+//         style: ButtonStyle(
+//           padding: MaterialStateProperty.resolveWith(
+//             (states) =>
+//                 const EdgeInsets.symmetric(vertical: AppPadding.mediumP * 2),
+//           ),
+//           side: MaterialStateProperty.all(
+//             BorderSide(
+//               color: color,
+//             ),
+//           ),
+//         ),
+//         onPressed: onPressed,
+//         child: Text(
+//           text,
+//           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+//                 fontWeight: FontWeight.bold,
+//                 color: color,
+//               ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class _PriceOfGoods extends StatelessWidget {
   const _PriceOfGoods({
@@ -458,25 +456,27 @@ class _PriceOfGoods extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Скидка по карте',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
-                ),
-                Text(
-                  '${DiscontModel.discont} ₽',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 16),
-                ),
-              ],
-            ),
+            // Скидка по карте
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       'Скидка по карте',
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .bodyLarge
+            //           ?.copyWith(fontSize: 16),
+            //     ),
+            //     Text(
+            //       '${DiscontModel.discont} ₽',
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .bodyLarge
+            //           ?.copyWith(fontSize: 16),
+            //     ),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

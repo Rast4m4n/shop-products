@@ -120,6 +120,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.vegetable,
             ),
+            image: "vegetable.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Фрукты, ягоды",
@@ -127,6 +128,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.fruit,
             ),
+            image: "fruit.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Молочные продукты",
@@ -134,6 +136,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.milk,
             ),
+            image: "milk.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Яйца",
@@ -141,6 +144,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.eggs,
             ),
+            image: "egg.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Вода и напитки",
@@ -148,6 +152,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.drinks,
             ),
+            image: "drinks.png",
           ),
           _CatalogCardWidget(
             categoryName: "Снеки",
@@ -155,6 +160,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.snack,
             ),
+            image: "snack.png",
           ),
           _CatalogCardWidget(
             categoryName: "Сладости",
@@ -162,6 +168,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.sweets,
             ),
+            image: "sweets.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Мясные изделия",
@@ -169,6 +176,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.meat,
             ),
+            image: "meat.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Морепродукты",
@@ -176,6 +184,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.seafood,
             ),
+            image: "seafood.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Чай и кофе",
@@ -183,6 +192,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.teaAndCoffee,
             ),
+            image: "teaAndCoffee.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Специи и соусы",
@@ -190,6 +200,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.spicesAndSauces,
             ),
+            image: "spiceAndSauses.jpg",
           ),
           _CatalogCardWidget(
             categoryName: "Выпечка",
@@ -197,6 +208,7 @@ class _ListCatalog extends StatelessWidget {
               AppRouteNames.main,
               arguments: CategoryEnum.bake,
             ),
+            image: "bakes.jpg",
           ),
         ],
       ),
@@ -209,29 +221,47 @@ class _CatalogCardWidget extends StatelessWidget {
     Key? key,
     required this.categoryName,
     required this.onTap,
+    this.image,
   }) : super(key: key);
+
   final String categoryName;
   final VoidCallback onTap;
+  final String? image;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      // color: Colors.grey,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
-          child: Row(
-            children: [
-              const SizedBox(height: 40, width: 40, child: Placeholder()),
-              const SizedBox(width: AppPadding.smallP),
-              Text(
-                categoryName,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 16,
-                    ),
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppPadding.bigP),
+        child: Row(
+          children: [
+            if (image != null)
+              ConstrainedBox(
+                constraints: const BoxConstraints(
+                  maxHeight: 60,
+                  maxWidth: 60,
+                  minHeight: 60,
+                  minWidth: 60,
+                ),
+                child: Image(
+                  image: AssetImage("assets/images/category/$image"),
+                  fit: BoxFit.cover,
+                ),
+              )
+            else
+              const SizedBox(
+                height: 40,
+                width: 40,
+                child: Placeholder(),
               ),
-            ],
-          ),
+            const SizedBox(width: AppPadding.smallP),
+            Text(
+              categoryName,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 16,
+                  ),
+            ),
+          ],
         ),
       ),
     );

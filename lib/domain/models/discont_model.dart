@@ -1,3 +1,4 @@
-abstract class DiscontModel {
-  static int discont = 0;
+class DiscontModel {
+  const DiscontModel({required this.discont});
+  final int discont;
 }

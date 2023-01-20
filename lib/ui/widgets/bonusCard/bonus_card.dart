@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
 class BonusCardWidget extends StatelessWidget {
-  const BonusCardWidget({Key? key}) : super(key: key);
+  const BonusCardWidget({
+    Key? key,
+    required this.amountOfBounus,
+  }) : super(key: key);
+
+  final int amountOfBounus;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class BonusCardWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '${DiscontModel.discont}',
+                      '$amountOfBounus',
                       style: Theme.of(context).textTheme.headline4?.copyWith(
                             color: AppColors.secondaryYellow,
                           ),

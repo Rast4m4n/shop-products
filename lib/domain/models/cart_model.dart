@@ -1,4 +1,3 @@
-import 'package:shop_products/domain/models/discont_model.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class CartModel {
@@ -16,7 +15,7 @@ class CartModel {
   String get totalSummString => totalSumm().toString();
 
   int totalSumm() {
-    return summOfGoods + delivery(summOfGoods) - DiscontModel.discont;
+    return summOfGoods + delivery(summOfGoods);
   }
 
   int amountOfGoods() {

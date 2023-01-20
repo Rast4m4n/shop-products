@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/widgets/footer_info.dart';
 
 import 'package:shop_products/ui/widgets/pageHeader/page_header_widget.dart';
@@ -34,6 +35,7 @@ class PageWrapper extends StatelessWidget {
                   child: ListView(
                     children: [
                       body,
+                      const SizedBox(height: AppPadding.bigP),
                       const FooterInfo(),
                     ],
                   ),
