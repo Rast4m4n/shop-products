@@ -40,6 +40,8 @@ dependencies:
   json_serializable: ^6.5.4
   json_annotation: ^4.7.0
   build_runner: ^2.3.3
+  dio: ^5.0.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -84,8 +86,6 @@ flutter:
     - family: DaysOne
       fonts:
         - asset: assets/fonts/DaysOne-Regular.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
   # Шрифт Roboto
     - family: Roboto
       fonts:
@@ -102,6 +102,6 @@ flutter:
   # Иконки
     - family: MagicOfTasteIcons
       fonts:
-        - asset: assets/icons/Icons.ttf
+        - asset: assets/icons/icons.ttf
 
 

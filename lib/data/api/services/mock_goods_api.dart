@@ -15,7 +15,7 @@ class MockApi implements IApi {
   }
 
   @override
-  Future<void> addToFavoriteOneGoods(GoodsModel goods) async {
+  Future<void> addToFavoriteGoods(GoodsModel goods) async {
     final listOfGoods = await fetchData();
     final index = listOfGoods.indexWhere((element) => element.id == goods.id);
     listOfGoods[index] = goods.copyWith(favoriteGoods: true);

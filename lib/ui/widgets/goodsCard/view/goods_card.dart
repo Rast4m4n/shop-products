@@ -53,7 +53,7 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
               child: Column(
                 children: const [
                   SizedBox(height: AppPadding.mediumP),
-                  _HeaderOfGoodWidget(),
+                  _FavoriteButton(),
                   _InfoGoodsWidget(),
                   Spacer(flex: 2),
                   _FooterInfoWidget(),
@@ -68,28 +68,15 @@ class _GoodsCardWidgetState extends State<GoodsCardWidget> {
   }
 }
 
-class _HeaderOfGoodWidget extends StatelessWidget {
-  const _HeaderOfGoodWidget({Key? key}) : super(key: key);
+class _FavoriteButton extends StatelessWidget {
+  const _FavoriteButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final goods = GoodsInheritViewModel.read(context)!.model!.goods;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            const Icon(AppIcons.starWithFill, color: AppColors.secondaryYellow),
-            const SizedBox(width: AppPadding.smallP),
-            Text(
-              "${goods.ratingGoods}",
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 16,
-                  ),
-            ),
-          ],
-        ),
-        const _ToFavoriteButton(),
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: const [
+        _ToFavoriteButton(),
       ],
     );
   }
@@ -101,6 +88,7 @@ class _InfoGoodsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final goods = GoodsInheritViewModel.read(context)!.model!.goods;
+
     return Column(
       children: [
         const SizedBox(height: AppPadding.mediumP),
@@ -108,13 +96,21 @@ class _InfoGoodsWidget extends StatelessWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(
                 maxHeight: 160, maxWidth: 120, minHeight: 160, minWidth: 120),
-            child: Image(
-              image: AssetImage("assets/images/products/${goods.pathImage}"),
+            child: Image.network(
+              goods.pathImage!,
+              // image: AssetImage("assets/images/products/${goods.pathImage}"),
               fit: BoxFit.contain,
             ),
           )
         else
-          const SizedBox(height: 160, width: 120, child: Placeholder()),
+          ConstrainedBox(
+            constraints: const BoxConstraints(
+                maxHeight: 160, maxWidth: 120, minHeight: 160, minWidth: 120),
+            child: const Image(
+              image: AssetImage("assets/images/ups.jpg"),
+              fit: BoxFit.contain,
+            ),
+          ),
         const SizedBox(height: AppPadding.mediumP),
         ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 200),

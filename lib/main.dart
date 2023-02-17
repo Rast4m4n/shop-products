@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shop_products/app.dart';
-import 'package:shop_products/data/api/services/mock_api.dart';
+import 'package:shop_products/data/api/services/goods_api.dart';
+import 'package:shop_products/data/api/services/mock_goods_api.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
 import 'package:shop_products/data/repository/shared_pref_repository.dart';
 import 'package:shop_products/domain/state/theme_switcher.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
 }
 
 void dependencyInjection() {
-  final api = MockApi();
+  // final api = MockApi();
+  final api = GoodsApi();
   GetIt.I.registerSingleton(GoodsRepository(api));
 }

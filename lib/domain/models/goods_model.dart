@@ -5,9 +5,7 @@ class GoodsModel {
     required this.compositionOfGoods,
     required this.pathImage,
     required this.weightGoods,
-    required this.ratingGoods,
     required this.priceGoods,
-    required this.numberOfGoods,
     required this.favoriteGoods,
     required this.category,
   });
@@ -16,9 +14,7 @@ class GoodsModel {
   final String compositionOfGoods;
   final String? pathImage;
   final String weightGoods;
-  final double ratingGoods;
   final int priceGoods;
-  final int numberOfGoods;
   final bool favoriteGoods;
   final String category;
 
@@ -28,9 +24,7 @@ class GoodsModel {
         compositionOfGoods: json["compositionOfGoods"],
         pathImage: json["pathImage"],
         weightGoods: json["weightGoods"],
-        ratingGoods: json["ratingGoods"],
         priceGoods: json["priceGoods"],
-        numberOfGoods: json["numberOfGoods"],
         favoriteGoods: json["favoriteGoods"],
         category: json["category"],
       );
@@ -41,9 +35,7 @@ class GoodsModel {
         "compositionOfGoods": compositionOfGoods,
         "pathImage": pathImage,
         "weightGoods": weightGoods,
-        "ratingGoods": ratingGoods,
         "priceGoods": priceGoods,
-        "numberOfGoods": numberOfGoods,
         "favoriteGoods": favoriteGoods,
         "category": category,
       };
@@ -54,9 +46,7 @@ class GoodsModel {
     String? compositionOfGoods,
     String? pathImage,
     String? weightGoods,
-    double? ratingGoods,
     int? priceGoods,
-    int? numberOfGoods,
     bool? favoriteGoods,
     String? category,
   }) {
@@ -66,9 +56,7 @@ class GoodsModel {
       compositionOfGoods: compositionOfGoods ?? this.compositionOfGoods,
       pathImage: pathImage ?? this.pathImage,
       weightGoods: weightGoods ?? this.weightGoods,
-      ratingGoods: ratingGoods ?? this.ratingGoods,
       priceGoods: priceGoods ?? this.priceGoods,
-      numberOfGoods: numberOfGoods ?? this.numberOfGoods,
       favoriteGoods: favoriteGoods ?? this.favoriteGoods,
       category: category ?? this.category,
     );
@@ -76,7 +64,7 @@ class GoodsModel {
 
   @override
   String toString() {
-    return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $ratingGoods $priceGoods $numberOfGoods $favoriteGoods $category';
+    return '$nameGoods $id $compositionOfGoods $pathImage $weightGoods $priceGoods $favoriteGoods $category';
   }
 
   @override
@@ -89,9 +77,7 @@ class GoodsModel {
         other.compositionOfGoods == compositionOfGoods &&
         other.pathImage == pathImage &&
         other.weightGoods == weightGoods &&
-        other.ratingGoods == ratingGoods &&
         other.priceGoods == priceGoods &&
-        other.numberOfGoods == numberOfGoods &&
         other.favoriteGoods == favoriteGoods &&
         other.category == category;
   }
@@ -103,9 +89,7 @@ class GoodsModel {
         compositionOfGoods.hashCode ^
         pathImage.hashCode ^
         weightGoods.hashCode ^
-        ratingGoods.hashCode ^
         priceGoods.hashCode ^
-        numberOfGoods.hashCode ^
         favoriteGoods.hashCode ^
         category.hashCode;
   }

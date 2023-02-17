@@ -14,7 +14,7 @@
         "id" :1,
         "nameGoods": "Чипсы Lay`s сметана и зелень",
         "compositionOfGoods" : "соства",
-        "pathImage":null,
+        "pathImage": null,
         "weightGoods": "225 г",
         "ratingGoods": 4.7,
         "priceGoods": 160,

@@ -6,7 +6,9 @@ class GoodsRepository {
   final IApi api;
   Future<List<GoodsModel>> fetchData() => api.fetchData();
 
-  Future<void> addToFavoriteOneGoods(GoodsModel goods) => api.addToFavoriteOneGoods(goods);
+  Future<void> addToFavoriteOneGoods(GoodsModel goods) =>
+      api.addToFavoriteGoods(goods);
 
-  Future<void> removeFavoriteGoods(GoodsModel goods) => api.removeFavoriteGoods(goods);
+  Future<void> removeFavoriteGoods(GoodsModel goods) =>
+      api.removeFavoriteGoods(goods);
 }
