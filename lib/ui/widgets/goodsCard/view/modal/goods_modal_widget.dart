@@ -65,19 +65,21 @@ class _ModalGoodsInfoWidget extends StatelessWidget {
       children: [
         if (model.pathImage != null)
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxHeight: 300,
-              maxWidth: 300,
-              minHeight: 300,
-              minWidth: 300,
-            ),
-            child: Image(
-              image: AssetImage("assets/images/products/${model.pathImage!}"),
+            constraints: const BoxConstraints(maxHeight: 350, maxWidth: 350),
+            child: Image.network(
+              model.pathImage!,
+              // image: AssetImage("assets/images/products/${goods.pathImage}"),
               fit: BoxFit.contain,
             ),
           )
         else
-          const SizedBox(height: 300, width: 300, child: Placeholder()),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 350, maxWidth: 350),
+            child: const Image(
+              image: AssetImage("assets/images/ups.jpg"),
+              fit: BoxFit.contain,
+            ),
+          ),
         const SizedBox(width: AppPadding.bigP),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

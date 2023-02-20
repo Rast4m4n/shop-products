@@ -106,13 +106,31 @@ class _TitleOfGoods extends StatelessWidget {
               minHeight: 90,
               minWidth: 90,
             ),
-            child: Image(
-              image: AssetImage("assets/images/products/${goods.pathImage}"),
-              fit: BoxFit.contain,
-            ),
-          )
-        else
-          const SizedBox(height: 90, width: 90, child: Placeholder()),
+            child: goods.pathImage != null
+                ? ConstrainedBox(
+                    constraints: const BoxConstraints(
+                        maxHeight: 160,
+                        maxWidth: 120,
+                        minHeight: 160,
+                        minWidth: 120),
+                    child: Image.network(
+                      goods.pathImage!,
+                      // image: AssetImage("assets/images/products/${goods.pathImage}"),
+                      fit: BoxFit.contain,
+                    ),
+                  )
+                : ConstrainedBox(
+                    constraints: const BoxConstraints(
+                        maxHeight: 160,
+                        maxWidth: 120,
+                        minHeight: 160,
+                        minWidth: 120),
+                    child: const Image(
+                      image: AssetImage("assets/images/ups.jpg"),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+          ),
         const SizedBox(width: AppPadding.mediumP),
         ConstrainedBox(
           constraints: const BoxConstraints(

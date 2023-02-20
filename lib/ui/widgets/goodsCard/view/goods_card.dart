@@ -88,7 +88,6 @@ class _InfoGoodsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final goods = GoodsInheritViewModel.read(context)!.model!.goods;
-
     return Column(
       children: [
         const SizedBox(height: AppPadding.mediumP),
