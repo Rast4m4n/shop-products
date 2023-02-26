@@ -10,8 +10,6 @@ class ShopingCartViewModel extends ChangeNotifier {
 
   final CartModel cartGoods;
 
-  bool isWriteOff = false;
-
   void updateCart() {
     notifyListeners();
   }
@@ -27,18 +25,6 @@ class ShopingCartViewModel extends ChangeNotifier {
 
   Future<BankCardModel> getBankCardData() async {
     return await SharedPreferencesRepository.instance.loadBankCard();
-  }
-
-  ///Списать баллы
-  void writeOffPoint() {
-    isWriteOff = true;
-    notifyListeners();
-  }
-
-  ///Накапливать баллы
-  void accumulatePoints() {
-    isWriteOff = false;
-    notifyListeners();
   }
 
   static void enterToOrderGoods(BuildContext context) {
