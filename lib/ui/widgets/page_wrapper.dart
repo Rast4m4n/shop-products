@@ -35,7 +35,7 @@ class PageWrapper extends StatelessWidget {
                   child: ListView(
                     children: [
                       body,
-                      const SizedBox(height: AppPadding.bigP),
+                      // const SizedBox(height: AppPadding.bigP),
                       const FooterInfo(),
                     ],
                   ),

@@ -26,8 +26,7 @@ class _GoodsCardViewModel extends ChangeNotifier {
         ? await _goodsRepository.removeFavoriteGoods(goods)
         : await _goodsRepository.addToFavoriteOneGoods(goods);
     isFavorite = !isFavorite;
-    // Если исправить проблему с добавлением избранных,
-    // то этот участок кода можно будет удалить
+    // Миникостыль для корзины
     if (CartModel.cartGoods.contains(goods)) {
       final index = CartModel.cartGoods.indexOf(goods);
       CartModel.cartGoods[index] = goods.copyWith(favoriteGoods: isFavorite);

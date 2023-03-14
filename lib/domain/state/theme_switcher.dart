@@ -15,9 +15,9 @@ class ThemeSwitcher extends ChangeNotifier {
 
   bool switchTheme() {
     isDark = !isDark;
-    SharedPreferencesRepository.instance
-        .saveTheme(isDark)
-        .then((value) => notifyListeners());
+    SharedPreferencesRepository.instance.saveTheme(isDark).then(
+          (value) => notifyListeners(),
+        );
     return isDark;
   }
 }

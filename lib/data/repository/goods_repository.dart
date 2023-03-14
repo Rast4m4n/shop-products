@@ -1,4 +1,4 @@
-import 'package:shop_products/data/api/services/interface_api.dart';
+import 'package:shop_products/data/api/interface_api.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class GoodsRepository {

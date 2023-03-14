@@ -19,7 +19,7 @@ Future<void> main() async {
 }
 
 void dependencyInjection() {
-  final api = MockApi();
-  // final api = GoodsApi();
+  // final api = MockApi();
+  final api = GoodsApi();
   GetIt.I.registerSingleton(GoodsRepository(api));
 }

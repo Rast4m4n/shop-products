@@ -26,7 +26,7 @@ class GoodsModel {
         weightGoods: json["weightGoods"],
         priceGoods: json["priceGoods"],
         favoriteGoods: json["favoriteGoods"],
-        category: json["category"],
+        category: json["categoryName"],
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -37,7 +37,7 @@ class GoodsModel {
         "weightGoods": weightGoods,
         "priceGoods": priceGoods,
         "favoriteGoods": favoriteGoods,
-        "category": category,
+        "categoryName": category,
       };
 
   GoodsModel copyWith({

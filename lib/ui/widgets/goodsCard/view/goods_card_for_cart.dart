@@ -113,9 +113,10 @@ class _TitleOfGoods extends StatelessWidget {
                         maxWidth: 120,
                         minHeight: 160,
                         minWidth: 120),
-                    child: Image.network(
-                      goods.pathImage!,
-                      // image: AssetImage("assets/images/products/${goods.pathImage}"),
+                    child: Image(
+                      // goods.pathImage!,
+                      image: AssetImage(
+                          "assets/images/products/${goods.pathImage}"),
                       fit: BoxFit.contain,
                     ),
                   )

@@ -2,18 +2,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:shop_products/data/api/services/interface_api.dart';
+import 'package:shop_products/data/api/interface_api.dart';
+import 'package:shop_products/data/api/static/url_api.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class GoodsApi extends IApi {
   final _client = Client();
-  final _baseUrl = "http://localhost:8000";
 
   @override
   Future<List<GoodsModel>> fetchData() async {
     List<GoodsModel> listGoods = [];
     try {
-      final response = await _client.get(Uri.parse('$_baseUrl/api/goods/'));
+      final response = await _client.get(Uri.parse(UrlApi.goodsUrl));
       if (response.statusCode == 200) {
         final data = jsonDecode(utf8.decode(response.bodyBytes)) as List;
         listGoods = data

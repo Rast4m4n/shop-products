@@ -53,13 +53,12 @@ class PageHeaderWidget extends StatelessWidget {
                 Navigator.of(context).pushNamed(AppRouteNames.favoriteGoods),
           ),
           const SizedBox(width: AppPadding.bigP),
-          // _IconTextButtonWidget(
-          //   textButton: "Профиль",
-          //   iconButton: AppIcons.profile,
-          //   callBack: () =>
-          //       Navigator.of(context).pushNamed(AppRouteNames.profile),
-          // ),
-          // const SizedBox(width: AppPadding.bigP * 2),
+          _IconTextButtonWidget(
+            textButton: "Профиль",
+            iconButton: AppIcons.profile,
+            callBack: () => Navigator.of(context).pushNamed(AppRouteNames.auth),
+          ),
+          const SizedBox(width: AppPadding.bigP * 2),
         ],
       ),
     );
