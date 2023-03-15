@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/data/repository/shared_pref_repository.dart';
+import 'package:shop_products/data/repository/storage/shared_pref_repository.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 
 class ThemeSwitcher extends ChangeNotifier {

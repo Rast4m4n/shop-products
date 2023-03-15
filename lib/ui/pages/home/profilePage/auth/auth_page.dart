@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_products/ui/pages/home/profilePage/auth/viewModel/auth_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
@@ -16,41 +18,53 @@ class AuthPage extends StatelessWidget {
             'images/background_login.jpg',
             fit: BoxFit.cover,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Авторизация',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: AppPadding.bigP),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 300),
-                child: const _AuthTextField(),
-              ),
-              const SizedBox(height: AppPadding.mediumP),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith(
-                    (states) => AppColors.primaryPurple,
-                  ),
-                  fixedSize: MaterialStateProperty.resolveWith(
-                    (states) => const Size(300, 45),
-                  ),
+          Provider<AuthViewModel>(
+            create: (context) => AuthViewModel(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Авторизация',
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                onPressed: () {},
-                child: Text(
-                  'Получить код',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                const SizedBox(height: AppPadding.bigP),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: const _AuthTextField(),
                 ),
-              )
-            ],
+                const SizedBox(height: AppPadding.mediumP),
+                const _AuthButton()
+              ],
+            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AuthButton extends StatelessWidget {
+  const _AuthButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) => AppColors.primaryPurple,
+        ),
+        fixedSize: MaterialStateProperty.resolveWith(
+          (states) => const Size(300, 45),
+        ),
+      ),
+      onPressed: () {},
+      child: Text(
+        'Зарегистрироваться',
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Colors.white,
+              fontSize: 18,
+            ),
       ),
     );
   }

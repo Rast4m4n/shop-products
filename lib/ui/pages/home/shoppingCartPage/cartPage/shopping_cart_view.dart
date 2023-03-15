@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shop_products/domain/models/bank_cards_model.dart';
 import 'package:shop_products/domain/models/cart_model.dart';
 import 'package:shop_products/domain/models/user_model.dart';
 import 'package:shop_products/ui/pages/home/shoppingCartPage/cartPage/shopping_cart_view_model.dart';
-import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/payment/payment_view_model.dart';
-import 'package:shop_products/ui/pages/home/shoppingCartPage/modal/receiver/receiver_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
 import 'package:shop_products/ui/theme/app_theme.dart';
 import 'package:shop_products/ui/widgets/goodsCard/view/goods_card_factory.dart';
 import 'package:shop_products/ui/widgets/page_wrapper.dart';
 import 'package:shop_products/ui/widgets/userInfoTextField/user_info_text_field.dart';
-part '../modal/receiver/receiver_modal.dart';
-part '../modal/payment/payment_modal.dart';
 
 class ShoppingCartPage extends StatelessWidget {
   ShoppingCartPage({Key? key}) : super(key: key);
@@ -151,24 +146,6 @@ class _AllGoodsInCart extends StatelessWidget {
 class _ColumnToOrder extends StatelessWidget {
   const _ColumnToOrder({Key? key}) : super(key: key);
 
-  Future<void> _dialogReceiver(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const _DialogReceiver();
-      },
-    );
-  }
-
-  Future<void> _dialogPayment(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const _DialogPayment();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     // final viewModel = ShopingCartProvider.watch(context)!.model!;
@@ -177,9 +154,9 @@ class _ColumnToOrder extends StatelessWidget {
         width: 600,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+          children: const [
             // const BonusCardWidget(),
-            const SizedBox(height: AppPadding.smallP),
+            SizedBox(height: AppPadding.smallP),
             // Row(
             //   children: [
             //     _ButtonWriteOffPoints(
@@ -201,172 +178,14 @@ class _ColumnToOrder extends StatelessWidget {
             //     ),
             //   ],
             // ),
-            const SizedBox(height: AppPadding.smallP),
-            const _PriceOfGoods(),
-            const SizedBox(height: AppPadding.smallP),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _CardInfoAboutDataOfPerson(
-                      onTap: () => _dialogReceiver(context),
-                      isPersonInfo: true,
-                    ),
-                  ),
-                  const SizedBox(width: AppPadding.mediumP),
-                  Expanded(
-                    child: _CardInfoAboutDataOfPerson(
-                      onTap: () => _dialogPayment(context),
-                      isPersonInfo: false,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppPadding.smallP),
-            const _ToOrderButton(),
+            SizedBox(height: AppPadding.smallP),
+            _PriceOfGoods(),
+
+            SizedBox(height: AppPadding.smallP),
+            _ToOrderButton(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _CardInfoAboutDataOfPerson extends StatelessWidget {
-  const _CardInfoAboutDataOfPerson({
-    Key? key,
-    required this.onTap,
-    required this.isPersonInfo,
-  }) : super(key: key);
-  final VoidCallback onTap;
-
-  ///Если false то будет информация о способе оплаты, если true, то информация о получатиле заказа
-  final bool isPersonInfo;
-  @override
-  Widget build(BuildContext context) {
-    final vm = ShopingCartProvider.read(context)!.model;
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: const Color(0xffA6A6A6),
-        ),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.mediumP),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  isPersonInfo ? 'Получатель' : "Способ оплаты",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                InkWell(
-                  onTap: onTap,
-                  child: Text(
-                    "Изменить",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.primaryPurple,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppPadding.smallP),
-            isPersonInfo ? _UserDataReceiver(vm: vm) : _BankCardData(vm: vm),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _BankCardData extends StatelessWidget {
-  const _BankCardData({
-    Key? key,
-    required this.vm,
-  }) : super(key: key);
-
-  final ShopingCartViewModel? vm;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<BankCardModel>(
-      future: vm!.getBankCardData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final bankCard = snapshot.data!;
-          return Row(
-            children: [
-              const Icon(Icons.payment),
-              const SizedBox(width: AppPadding.smallP),
-              Text(
-                bankCard.numCard,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          );
-        } else {
-          return Text(
-            'Нет данных',
-            style: Theme.of(context).textTheme.bodyLarge,
-          );
-        }
-      },
-    );
-  }
-}
-
-class _UserDataReceiver extends StatelessWidget {
-  const _UserDataReceiver({
-    Key? key,
-    required this.vm,
-  }) : super(key: key);
-
-  final ShopingCartViewModel? vm;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<UserModel>(
-      future: vm!.getUserData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final user = snapshot.data!;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.person),
-                  const SizedBox(height: AppPadding.smallP),
-                  Text(
-                    user.fio,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppPadding.smallP),
-              Row(
-                children: [
-                  const Icon(Icons.map),
-                  Text(
-                    "${user.address}, кв ${user.flat}",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-            ],
-          );
-        } else {
-          return Text(
-            'Нет данных',
-            style: Theme.of(context).textTheme.bodyLarge,
-          );
-        }
-      },
     );
   }
 }

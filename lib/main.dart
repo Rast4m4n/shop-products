@@ -4,7 +4,7 @@ import 'package:shop_products/app.dart';
 import 'package:shop_products/data/api/services/goods_api.dart';
 import 'package:shop_products/data/api/services/mock_goods_api.dart';
 import 'package:shop_products/data/repository/goods_repository.dart';
-import 'package:shop_products/data/repository/shared_pref_repository.dart';
+import 'package:shop_products/data/repository/storage/shared_pref_repository.dart';
 import 'package:shop_products/domain/state/theme_switcher.dart';
 import 'package:shop_products/ui/navigator/app_navigation.dart';
 
