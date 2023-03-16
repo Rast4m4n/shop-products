@@ -1,9 +1,11 @@
 // import 'package:dio/dio.dart';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:shop_products/data/api/utils/api_client_exception.dart';
 import 'package:shop_products/data/api/interface_api.dart';
-import 'package:shop_products/data/api/static/url_api.dart';
+import 'package:shop_products/data/api/config/url_api.dart';
 import 'package:shop_products/domain/models/goods_model.dart';
 
 class GoodsApi extends IApi {
@@ -17,29 +19,31 @@ class GoodsApi extends IApi {
       if (response.statusCode == 200) {
         final data = jsonDecode(utf8.decode(response.bodyBytes)) as List;
         listGoods = data
-            .map((e) => GoodsModel.fromJson(e as Map<String, dynamic>))
+            .map(
+              (e) => GoodsModel.fromJson(e as Map<String, dynamic>),
+            )
             .toList();
       }
-    } catch (e) {
-      print(e);
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.network);
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.other);
     }
     return listGoods;
   }
 
   @override
   Future<void> removeFavoriteGoods(GoodsModel goods) {
-    // TODO: implement removeFavoriteGoods
     throw UnimplementedError();
   }
 
   @override
   Future<void> addToFavoriteGoods(GoodsModel goods) {
-    // TODO: implement addToFavoriteGoods
     throw UnimplementedError();
   }
 
   @override
   void saveGoods(List<GoodsModel> listOfGoods) {
-    // TODO: implement saveGoods
+    throw UnimplementedError();
   }
 }

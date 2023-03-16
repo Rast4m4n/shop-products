@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_products/ui/pages/home/profilePage/auth/viewModel/auth_view_model.dart';
 import 'package:shop_products/ui/theme/app_paddings.dart';
@@ -18,7 +19,7 @@ class AuthPage extends StatelessWidget {
             'images/background_login.jpg',
             fit: BoxFit.cover,
           ),
-          Provider<AuthViewModel>(
+          ChangeNotifierProvider<AuthViewModel>(
             create: (context) => AuthViewModel(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +59,7 @@ class _AuthButton extends StatelessWidget {
           (states) => const Size(300, 45),
         ),
       ),
-      onPressed: () {},
+      onPressed: () => context.read<AuthViewModel>().auth(),
       child: Text(
         'Зарегистрироваться',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -76,6 +77,7 @@ class _AuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: context.read<AuthViewModel>().phoneController,
       keyboardType: TextInputType.number,
       style: Theme.of(context).textTheme.bodyMedium,
       decoration: InputDecoration(
@@ -83,6 +85,7 @@ class _AuthTextField extends StatelessWidget {
           'Номер телефона',
           style: Theme.of(context).textTheme.bodyMedium,
         ),
+        errorText: context.watch<AuthViewModel>().errorMessage,
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
